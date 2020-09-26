@@ -19,6 +19,6 @@ jobs:
         run: dotnet build src/Stravaig.Extensions.Logging.Diagnostics.sln --configuration Release
         
       - name: Run Tests
-        run: dotnet test src/Stravaig.Extensions.Logging.Diagnostics/Stravaig.Extensions.Logging.Diagnostics.Tests --configuration Release
+        run: dotnet test src/Stravaig.Extensions.Logging.Diagnostics.Tests.csproj --configuration Release
         
         

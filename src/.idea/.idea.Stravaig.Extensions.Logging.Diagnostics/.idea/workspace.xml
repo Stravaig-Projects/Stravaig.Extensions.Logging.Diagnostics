@@ -20,9 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="612cd430-8a88-416b-8b60-d90daa862388" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Stravaig.Extensions.Logging.Diagnostics/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Stravaig.Extensions.Logging.Diagnostics/.idea/contentModel.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Stravaig.Extensions.Logging.Diagnostics/riderModule.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Stravaig.Extensions.Logging.Diagnostics/riderModule.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Stravaig.Extensions.Logging.Diagnostics.sln" beforeDir="false" afterPath="$PROJECT_DIR$/Stravaig.Extensions.Logging.Diagnostics.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.github/workflows/build.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../.github/workflows/build.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +78,7 @@
       <option name="presentableId" value="Default" />
       <updated>1601152875654</updated>
       <workItem from="1601152892261" duration="874000" />
-      <workItem from="1601154268821" duration="5102000" />
+      <workItem from="1601154268821" duration="5415000" />
     </task>
     <servers />
   </component>
