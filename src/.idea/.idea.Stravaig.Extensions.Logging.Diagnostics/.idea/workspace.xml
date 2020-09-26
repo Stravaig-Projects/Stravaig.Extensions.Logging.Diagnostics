@@ -20,23 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="612cd430-8a88-416b-8b60-d90daa862388" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.Stravaig.Extensions.Logging.Diagnostics/.idea/.name" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.Stravaig.Extensions.Logging.Diagnostics/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.Stravaig.Extensions.Logging.Diagnostics/.idea/contentModel.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.Stravaig.Extensions.Logging.Diagnostics/.idea/indexLayout.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.Stravaig.Extensions.Logging.Diagnostics/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.Stravaig.Extensions.Logging.Diagnostics/.idea/projectSettingsUpdater.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.Stravaig.Extensions.Logging.Diagnostics/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.Stravaig.Extensions.Logging.Diagnostics/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.Stravaig.Extensions.Logging.Diagnostics/riderModule.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Stravaig.Extensions.Logging.Diagnostics.Tests/Stravaig.Extensions.Logging.Diagnostics.Tests.csproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Stravaig.Extensions.Logging.Diagnostics.Tests/TestsUsingALoggerFactory.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Stravaig.Extensions.Logging.Diagnostics.sln" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Stravaig.Extensions.Logging.Diagnostics/ICapturedLogs.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Stravaig.Extensions.Logging.Diagnostics/LogEntry.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Stravaig.Extensions.Logging.Diagnostics/Stravaig.Extensions.Logging.Diagnostics.csproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Stravaig.Extensions.Logging.Diagnostics/TestCaptureLogger.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Stravaig.Extensions.Logging.Diagnostics/TestCaptureLoggerProvider.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Stravaig.Extensions.Logging.Diagnostics/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Stravaig.Extensions.Logging.Diagnostics/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Stravaig.Extensions.Logging.Diagnostics/riderModule.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Stravaig.Extensions.Logging.Diagnostics/riderModule.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Stravaig.Extensions.Logging.Diagnostics.sln" beforeDir="false" afterPath="$PROJECT_DIR$/Stravaig.Extensions.Logging.Diagnostics.sln" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,6 +43,7 @@
         <option value="$PROJECT_DIR$/Stravaig.Extensions.Logging.Diagnostics.Tests/UnitTest1.cs" />
         <option value="$PROJECT_DIR$/Stravaig.Extensions.Logging.Diagnostics.Tests/TestsUsingALoggerFactory.cs" />
         <option value="$PROJECT_DIR$/Stravaig.Extensions.Logging.Diagnostics/TestCaptureLoggerExtensions.cs" />
+        <option value="$PROJECT_DIR$/../.github/workflows/build.yml" />
       </list>
     </option>
   </component>
@@ -93,7 +80,7 @@
       <option name="presentableId" value="Default" />
       <updated>1601152875654</updated>
       <workItem from="1601152892261" duration="874000" />
-      <workItem from="1601154268821" duration="4638000" />
+      <workItem from="1601154268821" duration="5102000" />
     </task>
     <servers />
   </component>
@@ -101,10 +88,10 @@
     <option name="version" value="3" />
   </component>
   <component name="UnitTestsCoverage.Settings">
-    <option name="coveragePercentColumnWidth" value="150" />
+    <option name="coveragePercentColumnWidth" value="36" />
     <option name="sortOrder" value="DESCENDING" />
     <option name="sortedColumn" value="1" />
-    <option name="symbolColumnWidth" value="234" />
+    <option name="symbolColumnWidth" value="167" />
     <coverage-tree-state>
       <expand>
         <path>

@@ -1,0 +1,24 @@
+name: Build Stravaig.Extensions.Logging.Diagnostics
+on: push
+
+jobs:
+  build:
+    name: Stravaig Test Capture Logger
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - uses: actions/setup-dotnet@v1
+        name: Setup .NET Core
+        with:
+          dotnet-version: 3.1.402
+
+      - name: Build Solution
+        run: dotnet build src/Stravaig.Extensions.Logging.Diagnostics.sln --configuration Release
+        
+      - name: Run Tests
+        run: dotnet test src/Stravaig.Extensions.Logging.Diagnostics/Stravaig.Extensions.Logging.Diagnostics.Tests --configuration Release
+        
+        
