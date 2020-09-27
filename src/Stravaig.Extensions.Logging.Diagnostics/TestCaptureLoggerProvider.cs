@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
+using static Stravaig.Extensions.Logging.Diagnostics.ExternalHelpers.TypeNameHelper;
 
 namespace Stravaig.Extensions.Logging.Diagnostics
 {
@@ -24,7 +25,8 @@ namespace Stravaig.Extensions.Logging.Diagnostics
 
         public IReadOnlyList<LogEntry> GetLogEntriesFor<T>()
         {
-            return GetLogEntriesFor(typeof(T).FullName);
+            var categoryName = GetTypeDisplayName(typeof(T), includeGenericParameters: false, nestedTypeDelimiter: '.');
+            return GetLogEntriesFor(categoryName);
         }
 
         public ILogger CreateLogger(string categoryName)

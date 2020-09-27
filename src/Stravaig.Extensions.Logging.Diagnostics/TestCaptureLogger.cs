@@ -33,4 +33,8 @@ namespace Stravaig.Extensions.Logging.Diagnostics
             { }
         }
     }
+
+    public class TestCaptureLogger<TCategoryName> : TestCaptureLogger, ILogger<TCategoryName>
+    {
+    }
 }
