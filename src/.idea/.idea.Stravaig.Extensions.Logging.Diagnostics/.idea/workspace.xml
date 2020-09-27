@@ -20,9 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="612cd430-8a88-416b-8b60-d90daa862388" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../.github/workflows/build.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../.github/workflows/build.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Stravaig.Extensions.Logging.Diagnostics.Tests/TestsUsingTheLoggerDirectly.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Stravaig.Extensions.Logging.Diagnostics/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Stravaig.Extensions.Logging.Diagnostics/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Stravaig.Extensions.Logging.Diagnostics/Stravaig.Extensions.Logging.Diagnostics.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Stravaig.Extensions.Logging.Diagnostics/Stravaig.Extensions.Logging.Diagnostics.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Stravaig.Extensions.Logging.Diagnostics/TestCaptureLoggerProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Stravaig.Extensions.Logging.Diagnostics/TestCaptureLoggerProvider.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +45,8 @@
         <option value="$PROJECT_DIR$/Stravaig.Extensions.Logging.Diagnostics/TestCaptureLoggerExtensions.cs" />
         <option value="$PROJECT_DIR$/Stravaig.Extensions.Logging.Diagnostics/Stravaig.Extensions.Logging.Diagnostics.csproj" />
         <option value="$PROJECT_DIR$/../.github/workflows/build.yml" />
+        <option value="$PROJECT_DIR$/Stravaig.Extensions.Logging.Diagnostics.Tests/TestsUsingTheLoggerDirectly.cs" />
+        <option value="$PROJECT_DIR$/Stravaig.Extensions.Logging.Diagnostics/TestCaptureLoggerProvider.cs" />
       </list>
     </option>
   </component>
@@ -81,7 +83,7 @@
       <option name="presentableId" value="Default" />
       <updated>1601152875654</updated>
       <workItem from="1601152892261" duration="874000" />
-      <workItem from="1601154268821" duration="9172000" />
+      <workItem from="1601154268821" duration="12583000" />
     </task>
     <servers />
   </component>
@@ -89,58 +91,58 @@
     <option name="version" value="3" />
   </component>
   <component name="UnitTestsCoverage.Settings">
-    <option name="coveragePercentColumnWidth" value="36" />
+    <option name="coveragePercentColumnWidth" value="35" />
     <option name="sortOrder" value="DESCENDING" />
     <option name="sortedColumn" value="1" />
-    <option name="symbolColumnWidth" value="167" />
+    <option name="symbolColumnWidth" value="159" />
     <coverage-tree-state>
       <expand>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 91% 10/116" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 70% 46/152" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 91% 10/116" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="Stravaig.Extensions.Logging.Diagnostics.Tests 100% 0/66" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-        </path>
-        <path>
-          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 91% 10/116" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="Stravaig.Extensions.Logging.Diagnostics.Tests 100% 0/66" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="Stravaig.Extensions.Logging.Diagnostics.Tests 100% 0/66" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-        </path>
-        <path>
-          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 91% 10/116" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="Stravaig.Extensions.Logging.Diagnostics.Tests 100% 0/66" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="Stravaig.Extensions.Logging.Diagnostics.Tests 100% 0/66" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="TestsUsingALoggerFactory 100% 0/66" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-        </path>
-        <path>
-          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 91% 10/116" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 70% 46/152" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
           <item name="Stravaig.Extensions.Logging.Diagnostics 80% 10/50" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 91% 10/116" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 70% 46/152" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
           <item name="Stravaig.Extensions.Logging.Diagnostics 80% 10/50" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
           <item name="Stravaig.Extensions.Logging.Diagnostics 80% 10/50" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 91% 10/116" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 70% 46/152" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
           <item name="Stravaig.Extensions.Logging.Diagnostics 80% 10/50" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
           <item name="Stravaig.Extensions.Logging.Diagnostics 80% 10/50" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
           <item name="LogEntry 92% 1/13" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 91% 10/116" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 70% 46/152" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
           <item name="Stravaig.Extensions.Logging.Diagnostics 80% 10/50" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
           <item name="Stravaig.Extensions.Logging.Diagnostics 80% 10/50" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
           <item name="TestCaptureLoggerProvider 83% 4/23" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+        </path>
+        <path>
+          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
+          <item name="Total 70% 46/152" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Stravaig.Extensions.Logging.Diagnostics.Tests 65% 36/102" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+        </path>
+        <path>
+          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
+          <item name="Total 70% 46/152" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Stravaig.Extensions.Logging.Diagnostics.Tests 65% 36/102" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Stravaig.Extensions.Logging.Diagnostics.Tests 65% 36/102" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+        </path>
+        <path>
+          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
+          <item name="Total 70% 46/152" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Stravaig.Extensions.Logging.Diagnostics.Tests 65% 36/102" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Stravaig.Extensions.Logging.Diagnostics.Tests 65% 36/102" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="TestsUsingALoggerFactory 100% 0/66" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
       </expand>
       <select />

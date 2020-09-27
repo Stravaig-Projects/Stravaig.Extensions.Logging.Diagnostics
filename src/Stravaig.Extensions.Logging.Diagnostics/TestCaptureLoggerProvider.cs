@@ -40,6 +40,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics
         }
 
         public void Dispose()
-        { }
+        {
+        }
     }
 }

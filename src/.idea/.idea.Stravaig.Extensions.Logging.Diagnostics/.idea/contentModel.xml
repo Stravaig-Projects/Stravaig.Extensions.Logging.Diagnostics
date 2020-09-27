@@ -32,6 +32,7 @@
         </e>
         <e p="Stravaig.Extensions.Logging.Diagnostics.Tests.csproj" t="IncludeRecursive" />
         <e p="TestsUsingALoggerFactory.cs" t="Include" />
+        <e p="TestsUsingTheLoggerDirectly.cs" t="Include" />
       </e>
     </e>
     <e p="C:\Users\colin\.nuget\packages\microsoft.net.test.sdk\16.4.0\build\netcoreapp2.1" t="Include">
