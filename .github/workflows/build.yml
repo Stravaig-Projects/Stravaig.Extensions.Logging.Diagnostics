@@ -2,7 +2,7 @@ name: Build Stravaig.Extensions.Logging.Diagnostics
 on: 
   push:
     branches: 
-      - master
+      - main
 
 jobs:
   build:
