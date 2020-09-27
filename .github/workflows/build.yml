@@ -1,5 +1,8 @@
 name: Build Stravaig.Extensions.Logging.Diagnostics
-on: push
+on: 
+  push:
+    branches: 
+      - master
 
 jobs:
   build:
@@ -14,6 +17,9 @@ jobs:
         name: Setup .NET Core
         with:
           dotnet-version: 3.1.402
+          source-url: https://nuget.pkg.github.com/<organization>/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Build Solution
         run: dotnet build src/Stravaig.Extensions.Logging.Diagnostics.sln --configuration Release
@@ -21,4 +27,9 @@ jobs:
       - name: Run Tests
         run: dotnet test src/Stravaig.Extensions.Logging.Diagnostics.Tests/Stravaig.Extensions.Logging.Diagnostics.Tests.csproj --configuration Release
         
+      - name: Package Project
+        run: dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics/Stravaig.Extensions.Logging.Diagnostics.csproj --configuration Release --output ./out --include-symbols --include-source /p:VersionPrefix="0.0.1" --version-suffix "preview-$GITHUB_RUN_ID"
+        
+      - name: Push package to GitHub
+        run: dotnet push ./out/*.nupkg
         

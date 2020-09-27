@@ -21,6 +21,8 @@
   <component name="ChangeListManager">
     <list default="true" id="612cd430-8a88-416b-8b60-d90daa862388" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../.github/workflows/build.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../.github/workflows/build.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Stravaig.Extensions.Logging.Diagnostics/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Stravaig.Extensions.Logging.Diagnostics/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Stravaig.Extensions.Logging.Diagnostics/Stravaig.Extensions.Logging.Diagnostics.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Stravaig.Extensions.Logging.Diagnostics/Stravaig.Extensions.Logging.Diagnostics.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +43,7 @@
         <option value="$PROJECT_DIR$/Stravaig.Extensions.Logging.Diagnostics.Tests/UnitTest1.cs" />
         <option value="$PROJECT_DIR$/Stravaig.Extensions.Logging.Diagnostics.Tests/TestsUsingALoggerFactory.cs" />
         <option value="$PROJECT_DIR$/Stravaig.Extensions.Logging.Diagnostics/TestCaptureLoggerExtensions.cs" />
+        <option value="$PROJECT_DIR$/Stravaig.Extensions.Logging.Diagnostics/Stravaig.Extensions.Logging.Diagnostics.csproj" />
         <option value="$PROJECT_DIR$/../.github/workflows/build.yml" />
       </list>
     </option>
@@ -78,7 +81,7 @@
       <option name="presentableId" value="Default" />
       <updated>1601152875654</updated>
       <workItem from="1601152892261" duration="874000" />
-      <workItem from="1601154268821" duration="5415000" />
+      <workItem from="1601154268821" duration="9172000" />
     </task>
     <servers />
   </component>
