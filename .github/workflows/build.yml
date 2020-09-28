@@ -1,4 +1,4 @@
-name: Build Stravaig.Extensions.Logging.Diagnostics
+name: Build and Test Stravaig.Extensions.Logging.Diagnostics
 on: 
   push:
     branches: 
@@ -28,7 +28,7 @@ jobs:
         run: dotnet test src/Stravaig.Extensions.Logging.Diagnostics.Tests/Stravaig.Extensions.Logging.Diagnostics.Tests.csproj --configuration Release
         
       - name: Package Project
-        run: dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics/Stravaig.Extensions.Logging.Diagnostics.csproj --configuration Release --output ./out --include-symbols --include-source /p:VersionPrefix="0.0.2" --version-suffix "preview-$GITHUB_RUN_NUMBER"
+        run: dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics/Stravaig.Extensions.Logging.Diagnostics.csproj --configuration Release --output ./out --include-symbols --include-source /p:VersionPrefix="0.0.2" --version-suffix "preview-$GITHUB_RUN_NUMBER" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
         
       - name: Push package to GitHub
         run: dotnet nuget push ./out/*.nupkg
