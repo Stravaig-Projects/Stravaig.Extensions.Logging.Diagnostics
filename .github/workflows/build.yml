@@ -33,3 +33,5 @@ jobs:
       - name: Push package to GitHub
         run: dotnet nuget push ./out/*.nupkg
         
+      - name: Push package Symbols to GitHub
+        run: dotnet nuget push ./out/*.snupkg
