@@ -24,7 +24,7 @@ jobs:
     steps:
       - name: Display Stuff
         run: |
-          echo "Event type: ${{ github.event.type }}"
+          echo "Event name: ${{ github.event.name }}"
           echo "ENV/Event type: $EVENT_TYPE"
           echo "isPublic: ${{ github.event.inputs.isPublic }}"
           echo "isPreview: ${{ github.event.inputs.isPreview }}"
