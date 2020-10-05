@@ -28,6 +28,7 @@ jobs:
           echo "ENV/Event type: $EVENT_TYPE"
           echo "isPublic: ${{ github.event.inputs.isPublic }}"
           echo "isPreview: ${{ github.event.inputs.isPreview }}"
+          env
           
 #      - name: Check out code
 #        uses: actions/checkout@v2
