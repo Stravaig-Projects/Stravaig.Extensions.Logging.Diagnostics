@@ -16,13 +16,16 @@ on:
 
 jobs:
   build:
+    env:
+      EVENT_TYPE: Something
     name: Stravaig Test Capture Logger
     runs-on: ubuntu-latest
     
     steps:
       - name: Display Stuff
         run: |
-          echo "Event: ${{ github.event }}"
+          echo "Event type: ${{ github.event.type }}"
+          echo "ENV/Event type: $EVENT_TYPE"
           echo "isPublic: ${{ github.event.inputs.isPublic }}"
           echo "isPreview: ${{ github.event.inputs.isPreview }}"
           
