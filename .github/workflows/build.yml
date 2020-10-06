@@ -22,10 +22,14 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - name: Set version number
+        shell: pwsh
+        run: ./set-version.ps1
+
       - name: Display Stuff
         run: |
-          echo "Event name: ${{ github.event.name }}"
-          echo "ENV/Event type: $EVENT_TYPE"
+          echo "Package version: $STRAVAIG_PACKAGE_VERSION"
+          echo "Version Suffix: $STRAVAIG_PACKAGE_VERSION_SUFFIX"
           echo "isPublic: ${{ github.event.inputs.isPublic }}"
           echo "isPreview: ${{ github.event.inputs.isPreview }}"
           env
