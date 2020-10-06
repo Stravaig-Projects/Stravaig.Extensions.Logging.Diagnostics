@@ -33,7 +33,7 @@ jobs:
 
       - name: Set version number
         shell: pwsh
-        run: Set-Version
+        run: ./Set-Version.ps1
 
       - name: Display Stuff
         run: |
