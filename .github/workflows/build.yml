@@ -24,7 +24,7 @@ jobs:
     steps:
       - name: Set version number
         shell: pwsh
-        run: ./set-version.ps1
+        run: ./Set-Version.ps1
 
       - name: Display Stuff
         run: |
