@@ -16,15 +16,21 @@ on:
 
 jobs:
   build:
-    env:
-      EVENT_TYPE: Something
     name: Stravaig Test Capture Logger
     runs-on: ubuntu-latest
     
     steps:
+      - name: PWD
+        run: |
+          pwd
+
+      - name: LS
+        run: |
+          ls -l -F -a
+          
       - name: Set version number
         shell: pwsh
-        run: ./Set-Version.ps1
+        run: Set-Version
 
       - name: Display Stuff
         run: |
