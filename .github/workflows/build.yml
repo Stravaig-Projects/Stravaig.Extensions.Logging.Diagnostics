@@ -20,6 +20,9 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
       - name: PWD
         run: |
           pwd
@@ -27,7 +30,7 @@ jobs:
       - name: LS
         run: |
           ls -l -F -a
-          
+
       - name: Set version number
         shell: pwsh
         run: Set-Version
@@ -40,8 +43,7 @@ jobs:
           echo "isPreview: ${{ github.event.inputs.isPreview }}"
           env
           
-#      - name: Check out code
-#        uses: actions/checkout@v2
+
 #
 #      - uses: actions/setup-dotnet@v1
 #        name: Setup .NET Core
