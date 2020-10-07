@@ -1,4 +1,4 @@
-name: Build and Test Stravaig.Extensions.Logging.Diagnostics
+name: Build, Test, and Release
 on: 
   push:
     branches: 
@@ -23,14 +23,6 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
 
-      # - name: PWD
-      #   run: |
-      #     pwd
-
-      # - name: LS
-      #   run: |
-      #     ls -l -F -a
-
       - name: Set version number
         shell: pwsh
         run: ./Set-Version.ps1 -IsPublic "${{ github.event.inputs.isPublic }}" -IsPreview "${{ github.event.inputs.isPreview }}"
@@ -40,31 +32,33 @@ jobs:
           echo "Package version: $STRAVAIG_PACKAGE_VERSION"
           echo "Version Suffix: $STRAVAIG_PACKAGE_VERSION_SUFFIX"
           echo "Publish To NuGet: $STRAVAIG_PUBLISH_TO_NUGET"
-          echo "isPublic: ${{ github.event.inputs.isPublic }}"
-          echo "isPreview: ${{ github.event.inputs.isPreview }}"
-          env
           
+      - uses: actions/setup-dotnet@v1
+        name: Setup .NET Core
+        with:
+          dotnet-version: 3.1.402
 
-#
-#      - uses: actions/setup-dotnet@v1
-#        name: Setup .NET Core
-#        with:
-#          dotnet-version: 3.1.402
-#          source-url: https://nuget.pkg.github.com/Stravaig-Projects/index.json
-#        env:
-#          NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}#
-#
-#      - name: Build Solution
-#        run: dotnet build src/Stravaig.Extensions.Logging.Diagnostics.sln --configuration Release
-#        
-#      - name: Run Tests
-#        run: dotnet test src/Stravaig.Extensions.Logging.Diagnostics.Tests/Stravaig.Extensions.Logging.Diagnostics.Tests.csproj --configuration Release
-#        
-#      - name: Package Project
-#        run: dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics/Stravaig.Extensions.Logging.Diagnostics.csproj --configuration Release --output ./out --include-symbols --include-source /p:VersionPrefix="0.0.2" --version-suffix "preview-$GITHUB_RUN_NUMBER" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
-#        
-#      - name: Push package to GitHub
-#        run: dotnet nuget push ./out/*.nupkg
-#        
-#      - name: Push package Symbols to GitHub
-#        run: dotnet nuget push ./out/*.snupkg
+      - name: Build Solution
+        run: dotnet build src/Stravaig.Extensions.Logging.Diagnostics.sln --configuration Release
+       
+      - name: Run Tests
+        run: dotnet test src/Stravaig.Extensions.Logging.Diagnostics.Tests/Stravaig.Extensions.Logging.Diagnostics.Tests.csproj --configuration Release
+       
+      - name: Package Preview Release
+        if: ${{ env.STRAVAIG_VERSION_SUFFIX != "~" }}
+        run: dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics/Stravaig.Extensions.Logging.Diagnostics.csproj --configuration Release --output ./out --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_VERSION" --version-suffix "$STRAVAIG_VERSION_SUFFIX" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
+       
+      - name: Package Stable Release
+        if: ${{ env.STRAVAIG_VERSION_SUFFIX == "~" }}
+        run: dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics/Stravaig.Extensions.Logging.Diagnostics.csproj --configuration Release --output ./out --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_VERSION" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
+
+      - name: Push package to NuGet
+        if: ${{ env.STRAVAIG_PUBLISH_TO_NUGET == "true" }}
+        #run: dotnet nuget push ./out/*.nupkg --api-key ${{ secrets.STRAVAIG_NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+        run: echo "Would have pushed to Nuget"
+
+      - name: Push package Symbols to NuGet
+        if: ${{ env.STRAVAIG_PUBLISH_TO_NUGET == "true" }}
+        #run: dotnet nuget push ./out/*.snupkg --api-key ${{ secrets.STRAVAIG_NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+        run: echo "Would have pushed to Nuget"
+       

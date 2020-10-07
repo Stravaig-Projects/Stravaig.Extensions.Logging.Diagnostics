@@ -1,13 +1,24 @@
 [CmdletBinding()]
 param (
     [Parameter(Mandatory=$false)]
-    [bool]
+    [string]
     $IsPreview = $true,
 
     [Parameter(Mandatory=$false)]
-    [bool]
-    $IsPublicRelease = $false
+    [string]
+    $IsPublicRelease = "false"
 )
+
+function ConvertTo-Boolean([string]$Value, [bool]$EmptyDefault)
+{
+    if ([string]::IsNullOrWhiteSpace($value)) { return $EmptyDefault; }
+    if ($Value -like "true") { return $true; }
+    if ($Value -like "false") { return $false; }
+    throw "Don't know how to convert `"$Value`" into a Boolean."
+}
+
+[bool]$IsPreview = ConvertTo-Boolean -Value $IsPreview -EmptyDefault $true;
+[bool]$IsPublicRelease = ConvertTo-Boolean -Value $IsPublicRelease -EmptyDefault $false;
 
 $VersionFile = "$PSScriptRoot/version.txt";
 
