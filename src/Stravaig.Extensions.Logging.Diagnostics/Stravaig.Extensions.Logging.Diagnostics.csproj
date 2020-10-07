@@ -4,7 +4,7 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         <Title>Stravaig Logging Capture for Tests</Title>
         <Authors>Colin Angus Mackay</Authors>
-        <Description>A logging provider that captures the logs that it receives so they can be examined later by tests</Description>
+        <Description>A logging provider that captures the logs that it receives so they can be examined later by tests.</Description>
         <Copyright>©2020 Colin Angus Mackay. See licence for more information.</Copyright>
         <PackageProjectUrl>https://github.com/Stravaig-Projects/Stravaig.Extensions.Logging.Diagnostics/blob/main/README.md</PackageProjectUrl>
         <PackageLicenseUrl>https://github.com/Stravaig-Projects/Stravaig.Extensions.Logging.Diagnostics/blob/main/LICENSE</PackageLicenseUrl>
