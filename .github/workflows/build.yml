@@ -1,4 +1,4 @@
-name: Build, Test, and Release
+name: Stravaig Test Capture Logger
 on: 
   push:
     branches: 
@@ -8,15 +8,15 @@ on:
       isPublic:
         description: 'Is Public Release'     
         required: false
-        default: false
+        default: "false"
       isPreview:
         description: 'Is Preview Release'
         required: false
-        default: true
+        default: "true"
 
 jobs:
   build:
-    name: Stravaig Test Capture Logger
+    name: Build, Test, and Release
     runs-on: ubuntu-latest
     
     steps:
@@ -54,11 +54,9 @@ jobs:
 
       - name: Push package to NuGet
         if: ${{ env.STRAVAIG_PUBLISH_TO_NUGET == 'true' }}
-        #run: dotnet nuget push ./out/*.nupkg --api-key ${{ secrets.STRAVAIG_NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
-        run: echo "Would have pushed to Nuget"
-
+        run: dotnet nuget push ./out/*.nupkg --api-key ${{ secrets.STRAVAIG_NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+        
       - name: Push package Symbols to NuGet
         if: ${{ env.STRAVAIG_PUBLISH_TO_NUGET == 'true' }}
-        #run: dotnet nuget push ./out/*.snupkg --api-key ${{ secrets.STRAVAIG_NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
-        run: echo "Would have pushed to Nuget"
-       
+        run: dotnet nuget push ./out/*.snupkg --api-key ${{ secrets.STRAVAIG_NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+        
