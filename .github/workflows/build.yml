@@ -33,7 +33,7 @@ jobs:
 
       - name: Set version number
         shell: pwsh
-        run: ./Set-Version.ps1 -IsPublic "${{ github.event.inputs.isPublic }}" -IsPreview "${{ github.event.inputs.isPreview }}""
+        run: ./Set-Version.ps1 -IsPublic "${{ github.event.inputs.isPublic }}" -IsPreview "${{ github.event.inputs.isPreview }}"
 
       - name: Display workflow state
         run: |
