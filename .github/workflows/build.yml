@@ -56,7 +56,3 @@ jobs:
         if: ${{ env.STRAVAIG_PUBLISH_TO_NUGET == 'true' }}
         run: dotnet nuget push ./out/*.nupkg --api-key ${{ secrets.STRAVAIG_NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
         
-      - name: Push package Symbols to NuGet
-        if: ${{ env.STRAVAIG_PUBLISH_TO_NUGET == 'true' }}
-        run: dotnet nuget push ./out/*.snupkg --api-key ${{ secrets.STRAVAIG_NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
-        
