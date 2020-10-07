@@ -23,22 +23,23 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
 
-      - name: PWD
-        run: |
-          pwd
+      # - name: PWD
+      #   run: |
+      #     pwd
 
-      - name: LS
-        run: |
-          ls -l -F -a
+      # - name: LS
+      #   run: |
+      #     ls -l -F -a
 
       - name: Set version number
         shell: pwsh
-        run: ./Set-Version.ps1
+        run: ./Set-Version.ps1 -IsPublic "${{ github.event.inputs.isPublic }}" -IsPreview "${{ github.event.inputs.isPreview }}""
 
-      - name: Display Stuff
+      - name: Display workflow state
         run: |
           echo "Package version: $STRAVAIG_PACKAGE_VERSION"
           echo "Version Suffix: $STRAVAIG_PACKAGE_VERSION_SUFFIX"
+          echo "Publish To NuGet: $STRAVAIG_PUBLISH_TO_NUGET"
           echo "isPublic: ${{ github.event.inputs.isPublic }}"
           echo "isPreview: ${{ github.event.inputs.isPreview }}"
           env
