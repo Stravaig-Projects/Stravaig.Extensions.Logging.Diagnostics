@@ -2,7 +2,9 @@
 
 A logger for use in tests so that the messages logged can be examined in tests.
 
-![Build Stravaig.Extensions.Logging.Diagnostics](https://github.com/Stravaig-Projects/Stravaig.Extensions.Logging.Diagnostics/workflows/Build%20Stravaig.Extensions.Logging.Diagnostics/badge.svg)
+* ![Build Stravaig.Extensions.Logging.Diagnostics](https://github.com/Stravaig-Projects/Stravaig.Extensions.Logging.Diagnostics/workflows/Build%20Stravaig.Extensions.Logging.Diagnostics/badge.svg)
+* ![Nuget](https://img.shields.io/nuget/v/Stravaig.Extensions.Logging.Diagnostics?color=004880&label=nuget%20stable&logo=nuget)
+* ![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/Stravaig.Extensions.Logging.Diagnostics?color=ffffff&label=nuget%20latest&logo=nuget)
 
 ## Usage
 
