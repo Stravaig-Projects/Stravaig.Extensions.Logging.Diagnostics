@@ -3,6 +3,12 @@ on:
   push:
     branches: 
       - main
+    paths-ignore:
+      - 'README.md'
+      - 'Example/**'
+      - '.vscode/**'
+      - '.gitignore'
+      
   workflow_dispatch:
     inputs:
       isPublic:
@@ -55,4 +61,3 @@ jobs:
       - name: Push package to NuGet
         if: ${{ env.STRAVAIG_PUBLISH_TO_NUGET == 'true' }}
         run: dotnet nuget push ./out/*.nupkg --api-key ${{ secrets.STRAVAIG_NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
-        
