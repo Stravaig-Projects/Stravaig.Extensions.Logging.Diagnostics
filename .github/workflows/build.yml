@@ -51,11 +51,11 @@ jobs:
         run: dotnet test src/Stravaig.Extensions.Logging.Diagnostics.Tests/Stravaig.Extensions.Logging.Diagnostics.Tests.csproj --configuration Release
        
       - name: Package Preview Release
-        if: ${{ env.STRAVAIG_VERSION_SUFFIX != '~' }}
+        if: ${{ env.STRAVAIG_PACKAGE_VERSION_SUFFIX != '~' }}
         run: dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics/Stravaig.Extensions.Logging.Diagnostics.csproj --configuration Release --output ./out --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" --version-suffix "$STRAVAIG_PACKAGE_VERSION_SUFFIX" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
        
       - name: Package Stable Release
-        if: ${{ env.STRAVAIG_VERSION_SUFFIX == '~' }}
+        if: ${{ env.STRAVAIG_PACKAGE_VERSION_SUFFIX == '~' }}
         run: dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics/Stravaig.Extensions.Logging.Diagnostics.csproj --configuration Release --output ./out --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
 
       - name: Push package to NuGet
