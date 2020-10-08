@@ -99,3 +99,8 @@ public void TestServiceLoggerCalled()
 }
 ```
 
+### Example project
+
+In this repository there is an example project showing how this may be used in NUnit tests.
+
+* [Example Solution](https://github.com/Stravaig-Projects/Stravaig.Extensions.Logging.Diagnostics/tree/main/Example)
