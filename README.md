@@ -14,7 +14,7 @@ If you just need to inject a logger into the class you are testing then you can 
 
 For example, say you need to test a service class that takes a logger. The class might look something like this:
 
-```
+```csharp
 public class MyService
 {
   private readonly ILogger<MyService> _logger;
@@ -34,7 +34,7 @@ public class MyService
 
 To test that the logger was called with the relevant message you can create a test like this:
 
-```
+```csharp
 [Test]
 public void TestServiceLoggerCalled()
 {
@@ -57,7 +57,7 @@ Note: The above example uses [NUnit](https://www.nuget.org/packages/NUnit/) as t
 
 You can also inject a logger factory that has been suitably configured. You must remember to keep a hold of the TestCaptureProvider in your test so that you can access the logs afterwards. Something like this would work:
 
-```
+```csharp
 public class MyService
 {
   private readonly ILogger<MyService> _logger;
@@ -77,7 +77,7 @@ public class MyService
 
 And the corresponding test might look like this:
 
-```
+```csharp
 [Test]
 public void TestServiceLoggerCalled()
 {
@@ -97,6 +97,31 @@ public void TestServiceLoggerCalled()
   logs.Count.ShouldBe(1);
   logs[0].FormattedMessage.ShouldContain("The work is done.");
 }
+```
+
+### With a `WebApplicationFactory`
+
+The `WithWebHostBuilder` method on the factory allows you to configure the logging. Before setting up the web host, create a `TestCaptureLoggerProvider` in a place accessible from your test, then use in in the `ConfigureLogging` method, and run your test. After the test is run you can use the `TestCaptureLoggerProvider` to `GetLogEntriesFor<T>()` method to access the log entries that were made in the code under test.
+
+e.g.
+
+```csharp
+// Arrange or SetUp portion of test
+var logProvider = new TestCaptureLoggerProvider();
+using var factory = new WebApplicationFactory<Startup>()
+  .WithWebHostBuilder(builder =>
+  {
+    builder.ConfigureLogging(loggingBuilder =>
+    {
+       loggingBuilder.AddProvider(logProvider);
+    });
+  });
+
+// Act : Do what ever you need to run your test
+
+// Assert
+var entries = logProvider.GetLogEntriesFor<T>();
+// Assert the entries from the logger.
 ```
 
 ### Example project
