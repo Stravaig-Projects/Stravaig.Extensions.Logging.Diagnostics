@@ -8,7 +8,15 @@ on:
       - 'Example/**'
       - '.vscode/**'
       - '.gitignore'
-      
+
+  pull_request:
+    types: [assigned, opened, synchronize, reopened]
+    paths-ignore:
+      - 'README.md'
+      - 'Example/**'
+      - '.vscode/**'
+      - '.gitignore'
+
   workflow_dispatch:
     inputs:
       isPublic:
