@@ -23,10 +23,15 @@ namespace Stravaig.Extensions.Logging.Diagnostics
             return Array.Empty<LogEntry>();
         }
 
+        public IReadOnlyList<LogEntry> GetLogEntriesFor(Type type)
+        {
+            var categoryName = GetTypeDisplayName(type, includeGenericParameters: false, nestedTypeDelimiter: '.');
+            return GetLogEntriesFor(categoryName);
+        }
+        
         public IReadOnlyList<LogEntry> GetLogEntriesFor<T>()
         {
-            var categoryName = GetTypeDisplayName(typeof(T), includeGenericParameters: false, nestedTypeDelimiter: '.');
-            return GetLogEntriesFor(categoryName);
+            return GetLogEntriesFor(typeof(T));
         }
 
         public ILogger CreateLogger(string categoryName)

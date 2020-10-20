@@ -14,7 +14,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="stravaig-icon.png" Pack="true" PackagePath=""/>
+        <None Include="stravaig-icon.png" Pack="true" PackagePath="" />
     </ItemGroup>
     
     <ItemGroup>
