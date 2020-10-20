@@ -22,8 +22,6 @@ function ConvertTo-Boolean([string]$Value, [bool]$EmptyDefault)
 
 $VersionFile = "$PSScriptRoot/version.txt";
 
-Get-ChildItem Env:
-
 # Work out the version number
 $nextVersion = Get-Content $VersionFile -ErrorAction Stop
 if ($null -eq $nextVersion)
