@@ -99,6 +99,10 @@ public void TestServiceLoggerCalled()
 }
 ```
 
+#### Alternative
+
+Because the `ILoggerFactory` provides a method `CreateLogger(Type)` override, the `TestCaptureLoggerProvider` also provides a corresponding `GetLogEntriesFor(Type)` override. While generally it would be expected that the generic version for `CreateLogger<T>()` and `GetLogEntriesFor<T>()` would be used, the override that takes a `Type` is useful for when the type is a `static` class as you can't use static classes in generics, or in scenarios where the exact type is unknown at compile time. e.g. Code in a base class may use `GetType()` in the call to `CreateLogger()` and `GetLogEntriesFor()` to get the logger/entries for the concrete class.
+
 ### With a `WebApplicationFactory`
 
 The `WithWebHostBuilder` method on the factory allows you to configure the logging. Before setting up the web host, create a `TestCaptureLoggerProvider` in a place accessible from your test, then use in in the `ConfigureLogging` method, and run your test. After the test is run you can use the `TestCaptureLoggerProvider` to `GetLogEntriesFor<T>()` method to access the log entries that were made in the code under test.
