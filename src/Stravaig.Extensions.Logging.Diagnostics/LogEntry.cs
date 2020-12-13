@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Extensions.Logging;
 
 namespace Stravaig.Extensions.Logging.Diagnostics
@@ -8,6 +10,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics
     /// </summary>
     public class LogEntry
     {
+        private const string OriginalMessagePropertyName = "{OriginalFormat}";
         /// <summary>
         /// The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/> that the item was logged at.
         /// </summary>
@@ -32,6 +35,20 @@ namespace Stravaig.Extensions.Logging.Diagnostics
         /// The formatted message.
         /// </summary>
         public string FormattedMessage { get; }
+
+        /// <summary>
+        /// The properties, if any, for the log entry.
+        /// </summary>
+        public IReadOnlyList<KeyValuePair<string, object>> Properties =>
+            State as IReadOnlyList<KeyValuePair<string, object>> ?? Array.Empty<KeyValuePair<string, object>>();
+
+        /// <summary>
+        /// The original message template, if available, for the log entry.
+        /// </summary>
+        public string OriginalMessage =>
+            (string) Properties
+                .FirstOrDefault(p => p.Key == OriginalMessagePropertyName)
+                .Value;
 
         /// <summary>
         /// Initialises a <see cref="T:Stravaig.Extensions.Logging.Diagnostics.LogEntry"/>.
