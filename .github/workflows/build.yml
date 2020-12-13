@@ -3,7 +3,6 @@ on:
   push:
     branches: 
       - main
-      - "#13-build-and-release"
 
     paths-ignore:
       - 'README.md'
@@ -139,7 +138,7 @@ jobs:
         with:
           add: ./contributors.md ./release-notes/** ./version.txt
           author_name: StravaigBot
-          author_email: stravaig@colinmackay.scot
+          author_email: github-bot@stravaig.scot
           message: "[bot] Bump Version & Post v${{ env.STRAVAIG_PACKAGE_FULL_VERSION }} Release updates."
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
