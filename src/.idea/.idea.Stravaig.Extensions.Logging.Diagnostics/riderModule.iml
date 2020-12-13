@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="RIDER_MODULE" version="4">
   <component name="NewModuleRootManager">
-    <content url="file://$USER_HOME$/.nuget/packages/microsoft.net.test.sdk/16.8.0/build/netcoreapp2.1" />
-    <content url="file://$USER_HOME$/.nuget/packages/microsoft.testplatform.testhost/16.8.0/build/netcoreapp2.1/x64/testhost.dll" />
-    <content url="file://$USER_HOME$/.nuget/packages/microsoft.testplatform.testhost/16.8.0/build/netcoreapp2.1/x64/testhost.exe" />
+    <content url="file://$USER_HOME$/.nuget/packages/microsoft.net.test.sdk/16.8.3/build/netcoreapp2.1" />
+    <content url="file://$USER_HOME$/.nuget/packages/microsoft.testplatform.testhost/16.8.3/build/netcoreapp2.1/x64/Microsoft.TestPlatform.PlatformAbstractions.dll" />
+    <content url="file://$USER_HOME$/.nuget/packages/microsoft.testplatform.testhost/16.8.3/build/netcoreapp2.1/x64/testhost.dll" />
+    <content url="file://$USER_HOME$/.nuget/packages/microsoft.testplatform.testhost/16.8.3/build/netcoreapp2.1/x64/testhost.exe" />
     <content url="file://$USER_HOME$/.nuget/packages/nunit3testadapter/3.17.0/build/netcoreapp2.1/NUnit3.TestAdapter.dll" />
     <content url="file://$USER_HOME$/.nuget/packages/nunit3testadapter/3.17.0/build/netcoreapp2.1/NUnit3.TestAdapter.pdb" />
     <content url="file://$USER_HOME$/.nuget/packages/nunit3testadapter/3.17.0/build/netcoreapp2.1/nunit.engine.api.dll" />
@@ -11,9 +12,15 @@
     <content url="file://$USER_HOME$/.nuget/packages/nunit3testadapter/3.17.0/build/netcoreapp2.1/nunit.engine.dll" />
     <content url="file://$MODULE_DIR$/../../../.github/workflows/build.yml" />
     <content url="file://$MODULE_DIR$/../../../.gitignore" />
+    <content url="file://$MODULE_DIR$/../../../Bump-Version.ps1" />
     <content url="file://$MODULE_DIR$/../../../LICENSE" />
     <content url="file://$MODULE_DIR$/../../../README.md" />
+    <content url="file://$MODULE_DIR$/../../../Reset-WipReleaseNotes.ps1" />
     <content url="file://$MODULE_DIR$/../../../Set-Version.ps1" />
+    <content url="file://$MODULE_DIR$/../../../build-release-notes.ps1" />
+    <content url="file://$MODULE_DIR$/../../../list-contributors.ps1" />
+    <content url="file://$MODULE_DIR$/../../../release-notes/full-release-notes.md" />
+    <content url="file://$MODULE_DIR$/../../../release-notes/wip-release-notes.md" />
     <content url="file://$MODULE_DIR$/../.." />
     <content url="file://$MODULE_DIR$/../../../version.txt" />
     <orderEntry type="sourceFolder" forTests="false" />
