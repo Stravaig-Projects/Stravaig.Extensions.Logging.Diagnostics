@@ -1,4 +1,4 @@
-# Full Release Notes
+# Release Notes
 
 ## Version 0.3.0
 
@@ -13,4 +13,3 @@ Date: Monday, 14 December, 2020 at 19:28:01 +00:00
 ### Miscellaneous
 
 * Issue #13 : Update Build and Release process.
-
