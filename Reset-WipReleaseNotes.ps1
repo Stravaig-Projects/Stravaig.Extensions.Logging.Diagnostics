@@ -10,6 +10,10 @@ $content = @(
 "### Features",
 "",
 "### Miscellaneous",
+"",
+"### Dependabot",
+"",
+"",
 ""
 )
 

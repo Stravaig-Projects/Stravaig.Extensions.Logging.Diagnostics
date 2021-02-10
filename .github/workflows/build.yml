@@ -142,6 +142,6 @@ jobs:
           add: ./contributors.md ./release-notes/** ./version.txt
           author_name: StravaigBot
           author_email: github-bot@stravaig.scot
-          message: "[bot] Bump Version & Post v${{ env.STRAVAIG_PACKAGE_FULL_VERSION }} Release updates."
+          message: "[bot] Post v${{ env.STRAVAIG_PACKAGE_FULL_VERSION }} release updates & bump version."
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
