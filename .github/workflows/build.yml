@@ -107,17 +107,20 @@ jobs:
             release-notes/full-release-notes.md
             release-notes/release-notes-${{ env.STRAVAIG_PACKAGE_FULL_VERSION }}.md
 
-      - name: Mark Release
+      - name: Create Release
         if: ${{ env.STRAVAIG_PUBLISH_TO_NUGET == 'true' }}
-        uses: ncipollo/release-action@v1
-        with:
-          artifacts: "./out/*.nupkg,./out/*.snupkg,LICENSE,contributors.md,readme.md,./release-notes/release-notes-${{ env.STRAVAIG_PACKAGE_FULL_VERSION }}.md"
-          token: ${{ secrets.GITHUB_TOKEN }}
-          bodyFile: "release-body.md"
-          prerelease: ${{ env.STRAVAIG_IS_PREVIEW }}
-          commit: ${{ env.GITHUB_SHA }}
-          tag: v${{ env.STRAVAIG_PACKAGE_FULL_VERSION }}
-          draft: false
+        shell: pwsh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $assets = @(); 
+          $assets += "./out/*.nupkg" 
+          $assets += "./out/*.snupkg" 
+          $assets += "LICENSE" 
+          $assets += "contributors.md" 
+          $assets += "README.md" 
+          $assets += "./release-notes/release-notes-${{ env.STRAVAIG_PACKAGE_FULL_VERSION }}.md" 
+          ./Create-Release.ps1 -NotesFile "./release-body.md" -Assets $assets 
 
       - name: Bump version
         #IF Publishing & Stable release
