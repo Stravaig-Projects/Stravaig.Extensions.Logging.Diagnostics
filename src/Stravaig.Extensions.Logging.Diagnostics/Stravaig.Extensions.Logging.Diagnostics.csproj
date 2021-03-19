@@ -2,7 +2,7 @@
     
     <PropertyGroup>
         <YEAR>$([System.DateTime]::Now.Year)</YEAR>
-        <TargetFramework>netstandard2.0</TargetFramework>
+        <TargetFrameworks>netstandard2.0;net5.0</TargetFrameworks>
         <Title>Stravaig Logging Capture for Tests</Title>
         <Authors>Colin Angus Mackay</Authors>
         <Description>A logging provider that captures the logs that it receives so they can be examined later by tests.</Description>
@@ -19,8 +19,12 @@
         <None Include="stravaig-icon.png" Pack="true" PackagePath="" />
     </ItemGroup>
     
-    <ItemGroup>
+    <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
       <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.13" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
     </ItemGroup>
 
 </Project>
