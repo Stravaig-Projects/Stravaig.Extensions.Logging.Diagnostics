@@ -1,11 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
+    
     <PropertyGroup>
+        <YEAR>$([System.DateTime]::Now.Year)</YEAR>
         <TargetFramework>netstandard2.0</TargetFramework>
         <Title>Stravaig Logging Capture for Tests</Title>
         <Authors>Colin Angus Mackay</Authors>
         <Description>A logging provider that captures the logs that it receives so they can be examined later by tests.</Description>
-        <Copyright>©2020 Colin Angus Mackay. See licence for more information.</Copyright>
+        <Copyright>©2020-$(YEAR) Colin Angus Mackay. See licence for more information.</Copyright>
         <PackageProjectUrl>https://github.com/Stravaig-Projects/Stravaig.Extensions.Logging.Diagnostics/blob/main/README.md</PackageProjectUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <RepositoryUrl>https://github.com/Stravaig-Projects/Stravaig.Extensions.Logging.Diagnostics</RepositoryUrl>

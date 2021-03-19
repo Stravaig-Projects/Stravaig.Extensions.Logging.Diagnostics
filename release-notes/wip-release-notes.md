@@ -10,6 +10,8 @@ Date: ???
 
 ### Miscellaneous
 
+- #29 Dynamically define the end year in the copyright notice
+
 ### Dependabot
 
 - Bump Microsoft.Extensions.Logging from 3.1.12 to 3.1.13
