@@ -4,10 +4,6 @@
 
 Date: Thursday, 11 February, 2021 at 20:54:19 +00:00
 
-### Bugs
-
-### Features
-
 ### Miscellaneous
 
 - #24 : Update build process to mark releases using GitHub CLI, update the contributors script, and add a dependabot section to the wip-release notes when it is reset.
@@ -21,8 +17,6 @@ Date: Thursday, 11 February, 2021 at 20:54:19 +00:00
 ## Version 0.3.0
 
 Date: Monday, 14 December, 2020 at 19:28:01 +00:00
-
-### Bugs
 
 ### Features
 
