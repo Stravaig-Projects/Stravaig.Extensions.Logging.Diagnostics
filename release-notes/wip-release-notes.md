@@ -10,7 +10,7 @@ Date: ???
 
 ### Miscellaneous
 
-- #27 Dynamically define the end year in the copyright notice
+- #29 Dynamically define the end year in the copyright notice
 
 ### Dependabot
 
