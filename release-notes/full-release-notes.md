@@ -24,10 +24,6 @@ Date: Monday, 12 April, 2021 at 14:11:25 +00:00
 
 Date: Saturday, 20 March, 2021 at 22:32:43 +00:00
 
-### Bugs
-
-### Features
-
 ### Miscellaneous
 
 - #29 Dynamically define the end year in the copyright notice
@@ -43,7 +39,6 @@ Date: Saturday, 20 March, 2021 at 22:32:43 +00:00
     - Bump Microsoft.Extensions.Logging.Abstractions from 3.1.12 to 5.0
 - General
   - Bump Microsoft.NET.Test.Sdk from 16.8.3 to 16.9.1
-
 
 ## Version 0.3.2
 
