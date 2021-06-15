@@ -6,6 +6,8 @@ Date: ???
 
 ### Bugs
 
+- Bug #45: Ensure that the logger and provider are thread safe.
+
 ### Features
 
 ### Miscellaneous

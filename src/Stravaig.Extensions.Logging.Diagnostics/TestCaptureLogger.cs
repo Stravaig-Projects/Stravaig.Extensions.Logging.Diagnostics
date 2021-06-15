@@ -11,6 +11,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics
     public class TestCaptureLogger : ILogger
     {
         private readonly List<LogEntry> _logs;
+        private readonly object _syncRoot;
 
         /// <summary>
         /// Initialises a new instance of the <see cref="T:Stravaig.Extensions.Logging.Diagnostics.TestCaptureLogger"/> class.
@@ -18,12 +19,24 @@ namespace Stravaig.Extensions.Logging.Diagnostics
         public TestCaptureLogger()
         {
             _logs = new List<LogEntry>();
+            _syncRoot = new object();
         }
 
         /// <summary>
-        /// Gets a read-only list of logs for this logger.
+        /// Gets a read-only list of logs that is a snapshot of this logger.
         /// </summary>
-        public IReadOnlyList<LogEntry> Logs => _logs;
+        /// <remarks>Any additional logs added to the logger after this is
+        /// called won't be available in the list and it will have to be called again.</remarks>
+        public IReadOnlyList<LogEntry> Logs
+        {
+            get
+            {
+                lock (_syncRoot)
+                {
+                    return _logs.ToArray();
+                }
+            }
+        }
 
         /// <summary>
         /// Writes a log entry
@@ -37,7 +50,11 @@ namespace Stravaig.Extensions.Logging.Diagnostics
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
             var formattedMessage = formatter(state, exception);
-            _logs.Add(new LogEntry(logLevel, eventId, state, exception, formattedMessage));
+            var logEntry = new LogEntry(logLevel, eventId, state, exception, formattedMessage);
+            lock (_syncRoot)
+            {
+                _logs.Add(logEntry);
+            }
         }
 
         /// <summary>

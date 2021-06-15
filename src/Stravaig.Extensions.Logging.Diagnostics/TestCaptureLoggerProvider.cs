@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using static Stravaig.Extensions.Logging.Diagnostics.ExternalHelpers.TypeNameHelper;
@@ -10,14 +11,14 @@ namespace Stravaig.Extensions.Logging.Diagnostics
     /// </summary>
     public class TestCaptureLoggerProvider : ILoggerProvider, ICapturedLogs
     {
-        private readonly Dictionary<string, TestCaptureLogger> _captures;
+        private readonly ConcurrentDictionary<string, TestCaptureLogger> _captures;
         
         /// <summary>
         /// Creates an instance of <see cref="T:Stravaig.Extensions.Logging.Diagnostics.TestCaptureLoggerProvider"/>
         /// </summary>
         public TestCaptureLoggerProvider()
         {
-            _captures = new Dictionary<string, TestCaptureLogger>();
+            _captures = new ConcurrentDictionary<string, TestCaptureLogger>();
         }
 
         /// <summary>
@@ -27,12 +28,9 @@ namespace Stravaig.Extensions.Logging.Diagnostics
         /// <returns>The list of log entries captured, empty if none.</returns>
         public IReadOnlyList<LogEntry> GetLogEntriesFor(string categoryName)
         {
-            if (_captures.TryGetValue(categoryName, out TestCaptureLogger logger))
-            {
-                return logger.Logs;
-            }
-
-            return Array.Empty<LogEntry>();
+            return _captures.TryGetValue(categoryName, out TestCaptureLogger logger)
+                ? logger.Logs
+                : Array.Empty<LogEntry>();
         }
 
         /// <summary>
@@ -63,14 +61,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics
         /// <returns>The instance of ILogger that was created.</returns>
         public ILogger CreateLogger(string categoryName)
         {
-            if (_captures.TryGetValue(categoryName, out TestCaptureLogger logger))
-            {
-                return logger;
-            }
-
-            logger = new TestCaptureLogger();
-            _captures.Add(categoryName, logger);
-            return logger;
+            return _captures.GetOrAdd(categoryName, _ => new TestCaptureLogger());
         }
 
         /// <summary>

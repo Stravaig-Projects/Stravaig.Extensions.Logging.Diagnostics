@@ -1,4 +1,7 @@
+using System;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 using Shouldly;
@@ -68,6 +71,38 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
             // Assert
             var logEntries = logger.Logs;
             logEntries.Count.ShouldBe(0);
+        }
+
+        [Test]
+        public void ManyThreadsAccessingLogger()
+        {
+            const int timeoutMs = 30000;
+            const int iterationsPerThread = 1000;
+            int numThreads = Environment.ProcessorCount;
+            int expectedLogCount = iterationsPerThread * numThreads;
+            Console.WriteLine($"Performing {iterationsPerThread} iterations on each of {numThreads} threads for an expected total of {expectedLogCount} log messages.");
+            Task[] tasks = new Task[numThreads];
+            var logger = new TestCaptureLogger();
+
+            for (int taskNumber = 0; taskNumber < numThreads; taskNumber++)
+            {
+                tasks[taskNumber] = Task.Factory.StartNew(() =>
+                {
+                    for (int i = 0; i < iterationsPerThread; i++)
+                    {
+                        logger.LogInformation(
+                            "Log iteration {iteration} on thread {threadId}",
+                            i,
+                            Thread.CurrentThread.ManagedThreadId);
+                    }
+                });
+            }
+
+            using CancellationTokenSource source = new CancellationTokenSource(timeoutMs);
+            Task.WaitAll(tasks, source.Token);
+            
+            tasks.ShouldAllBe(t => t.IsCompleted);
+            logger.Logs.Count.ShouldBe(expectedLogCount);
         }
     }
 }
