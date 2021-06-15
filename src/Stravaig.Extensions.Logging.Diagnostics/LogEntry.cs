@@ -10,6 +10,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics
     /// </summary>
     public class LogEntry
     {
+        
         private const string OriginalMessagePropertyName = "{OriginalFormat}";
         /// <summary>
         /// The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/> that the item was logged at.
