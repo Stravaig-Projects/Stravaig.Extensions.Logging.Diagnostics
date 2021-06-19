@@ -13,12 +13,10 @@
         <PackageIcon>stravaig-icon.png</PackageIcon>
         <PackageTags>logging testing</PackageTags>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <PackageReadmeFile>package-readme.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup>
         <None Include="stravaig-icon.png" Pack="true" PackagePath="/" />
-        <None Include="package-readme.md" Pack="true" PackagePath="/"/>
     </ItemGroup>
     
     <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
