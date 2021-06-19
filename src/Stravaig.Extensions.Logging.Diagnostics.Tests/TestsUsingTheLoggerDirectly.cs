@@ -74,10 +74,36 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
         }
 
         [Test]
+        public void SequenceNumberIncreasedOnEachLogMessage()
+        {
+            // Arrange
+            var logger = new TestCaptureLogger();
+
+            logger.LogInformation("Message 1");
+            logger.LogInformation("Message 2");
+
+            var logEntries = logger.Logs;
+            logEntries[0].Sequence.ShouldBeLessThan(logEntries[1].Sequence);
+        }
+
+        [Test]
+        public void SequenceNumberIncreasedOnEachLogMessageAcrossMultipleLoggers()
+        {
+            // Arrange
+            var logger1 = new TestCaptureLogger();
+            var logger2 = new TestCaptureLogger();
+
+            logger1.LogInformation("Message 1");
+            logger2.LogInformation("Message 2");
+
+            logger1.Logs[0].Sequence.ShouldBeLessThan(logger2.Logs[0].Sequence);
+        }
+
+        [Test]
         public void ManyThreadsAccessingLogger()
         {
             const int timeoutMs = 30000;
-            const int iterationsPerThread = 1000;
+            const int iterationsPerThread = 25000;
             int numThreads = Environment.ProcessorCount;
             int expectedLogCount = iterationsPerThread * numThreads;
             Console.WriteLine($"Performing {iterationsPerThread} iterations on each of {numThreads} threads for an expected total of {expectedLogCount} log messages.");
@@ -102,7 +128,27 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
             Task.WaitAll(tasks, source.Token);
             
             tasks.ShouldAllBe(t => t.IsCompleted);
-            logger.Logs.Count.ShouldBe(expectedLogCount);
+            var logs = logger.Logs;
+            logs.Count.ShouldBe(expectedLogCount);
+            
+            // Check no duplicate sequence numbers
+            logs.Select(l => l.Sequence).Distinct().Count().ShouldBe(expectedLogCount);
+            
+            // Checks that log entries are in sequence order
+            logs.ShouldBeInOrder(SortDirection.Ascending);
+            
+            // Check that timestamps progressed forward-only
+            Enumerable.Range(0, logs.Count - 2)
+                .Select( i => new
+                {
+                    Index = i,
+                    Current = logs[i],
+                    Next = logs[i+1]
+                }).ShouldAllBe(e => e.Current.TimestampUtc <= e.Next.TimestampUtc);
+
+            DateTime first = logs.First().TimestampUtc;
+            DateTime last = logs.Last().TimestampUtc;
+            Console.WriteLine($"Logging started at {first:HH:mm:ss.fff} and ended at {last:HH:mm:ss.fff} taking a total of {(last-first):G}");
         }
     }
 }

@@ -10,6 +10,8 @@ Date: ???
 
 ### Features
 
+- #45: Add sequence number and datestamp to each log entry.
+
 ### Miscellaneous
 
 ### Dependencies

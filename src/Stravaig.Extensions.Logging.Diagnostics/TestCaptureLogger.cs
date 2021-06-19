@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Extensions.Logging;
 
 namespace Stravaig.Extensions.Logging.Diagnostics
@@ -33,6 +34,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics
             {
                 lock (_syncRoot)
                 {
+                    _logs.Sort();
                     return _logs.ToArray();
                 }
             }
