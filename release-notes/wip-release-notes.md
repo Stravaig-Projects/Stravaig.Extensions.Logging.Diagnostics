@@ -14,6 +14,8 @@ Date: ???
 
 ### Miscellaneous
 
+- #36: Add a package readme file.
+
 ### Dependencies
 
 - All targets:
