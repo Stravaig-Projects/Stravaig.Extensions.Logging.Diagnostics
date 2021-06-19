@@ -1,4 +1,4 @@
-name: Stravaig Test Capture Logger
+name: Stravaig Test Capture Logger V1
 on: 
   push:
     branches: 
