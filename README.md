@@ -128,8 +128,26 @@ var entries = logProvider.GetLogEntriesFor<T>();
 // Assert the entries from the logger.
 ```
 
+### What you get from the log entries
+
+The `TestCaptureLogger.Logs` allows you to retriece the logs within your test method. The property will be in sequence, timestamps will be incremental(*). Each `LogEntry` retrieved contains the following properties:
+* `LogLevel` which is a `Microsoft.Extensions.Logging.LogLevel` enum.
+* `Exception` contains any exception that was passed into the logger.
+* `FormattedMessage` is the formatted message with the placeholders filled in.
+* `OriginalMessage` is the original message template without the placeholder values filled in.
+* `Sequence` is the sequence number of the log entry. Note: In a multi-threaded test the sequence number may not necessarily be the order in which the log method was called, but the order in which the `LogEntry` was created.
+* `TimestampUtc` is the timestamp of the log entry in UTC.
+* `TimestampLocal` is the timestamp of the log entry in the local time of the machine.
+
+(*) Timestamps will be incremental, but two logs created sufficiently close to one another in time may contain the same timestamp due to the resolution of the clock.
+
 ### Example project
 
 In this repository there is an example project showing how this may be used in NUnit tests.
 
 * [Example Solution](https://github.com/Stravaig-Projects/Stravaig.Extensions.Logging.Diagnostics/tree/main/Example)
+
+## Feedback, Issues, and Questions
+
+You can create a [GitHub issue](https://github.com/Stravaig-Projects/Stravaig.Extensions.Logging.Diagnostics/issues) to leave bug reports, ask questions, or feature requests.
+

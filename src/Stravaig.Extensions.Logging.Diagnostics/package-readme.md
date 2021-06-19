@@ -139,7 +139,5 @@ The `TestCaptureLogger.Logs` allows you to retriece the logs within your test me
 
 ## Feedback, Issues, and Questions
 
-You can create a GitHub issue to leave bug reports, ask questions or feature requests.
-
-https://github.com/Stravaig-Projects/Stravaig.Extensions.Logging.Diagnostics/issues
+You can create a [GitHub issue](https://github.com/Stravaig-Projects/Stravaig.Extensions.Logging.Diagnostics/issues) to leave bug reports, ask questions, or feature requests.
 
