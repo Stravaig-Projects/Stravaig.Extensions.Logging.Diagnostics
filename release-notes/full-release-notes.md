@@ -14,8 +14,6 @@ Date: Wednesday, 9 June, 2021 at 21:10:53 +00:00
   - Bump Microsoft.Extensions.Logging.Abstractions from 3.1.15 to 3.1.16
 - .NET 5.0 targets:
 
-
-
 ## Version 0.4.2
 
 Date: Saturday, 15 May, 2021 at 12:04:44 +00:00
@@ -32,12 +30,6 @@ Date: Saturday, 15 May, 2021 at 12:04:44 +00:00
 
 Date: Monday, 12 April, 2021 at 14:11:25 +00:00
 
-### Bugs
-
-### Features
-
-### Miscellaneous
-
 ### Dependencies
 
 - All targets:
@@ -45,8 +37,6 @@ Date: Monday, 12 April, 2021 at 14:11:25 +00:00
 - .NET Standard 2.0 target:
   - Bump Microsoft.Extensions.Logging from 3.1.13 to 3.1.14
   - Bump Microsoft.Extensions.Logging.Abstractions from 3.1.13 to 3.1.14
-
-
 
 ## Version 0.4.0
 
@@ -63,8 +53,8 @@ Date: Saturday, 20 March, 2021 at 22:32:43 +00:00
   - Bump Microsoft.Extensions.Logging from 3.1.12 to 3.1.13
   - Bump Microsoft.Extensions.Logging.Abstractions from 3.1.12 to 3.1.13
 - .net 5.0
-    - Bump Microsoft.Extensions.Logging from 3.1.12 to 5.0
-    - Bump Microsoft.Extensions.Logging.Abstractions from 3.1.12 to 5.0
+  - Bump Microsoft.Extensions.Logging from 3.1.12 to 5.0
+  - Bump Microsoft.Extensions.Logging.Abstractions from 3.1.12 to 5.0
 - General
   - Bump Microsoft.NET.Test.Sdk from 16.8.3 to 16.9.1
 

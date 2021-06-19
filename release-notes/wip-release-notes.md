@@ -10,17 +10,5 @@ Date: ???
 
 ### Features
 
-- #45: Add sequence number and datestamp to each log entry.
-
-### Miscellaneous
-
-- #36: Add a package readme file.
-
-### Dependencies
-
-- All targets:
-- .NET Standard 2.0 targets:
-- .NET 5.0 targets:
-
-
+- #44: Add sequence number and datestamp to each log entry.
 
