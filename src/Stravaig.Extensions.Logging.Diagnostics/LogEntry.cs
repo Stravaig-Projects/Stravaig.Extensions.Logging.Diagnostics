@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Microsoft.Extensions.Logging;
 
@@ -8,9 +9,12 @@ namespace Stravaig.Extensions.Logging.Diagnostics
     /// <summary>
     /// A representation of an item that was logged.
     /// </summary>
-    public class LogEntry
+    [DebuggerDisplay("{" + nameof(DebuggerDisplayString) + "}")]
+    public class LogEntry : IComparable<LogEntry>
     {
-        
+        private static int _sequence = 0;
+        private static readonly object SequenceSyncLock = new object();
+
         private const string OriginalMessagePropertyName = "{OriginalFormat}";
         /// <summary>
         /// The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/> that the item was logged at.
@@ -36,6 +40,30 @@ namespace Stravaig.Extensions.Logging.Diagnostics
         /// The formatted message.
         /// </summary>
         public string FormattedMessage { get; }
+        
+        /// <summary>
+        /// The sequence number of the log message.
+        /// </summary>
+        /// <remarks>In a multi-threaded environment there may be gaps between adjacent log messages.</remarks>
+        public int Sequence { get; }
+        
+        /// <summary>
+        /// The time the log entry was created in UTC. 
+        /// </summary>
+        public DateTime TimestampUtc { get; }
+
+        /// <summary>
+        /// Ths time the log entry was created in the system's local time
+        /// </summary>
+        public DateTimeOffset TimestampLocal
+        {
+            get
+            {
+                TimeSpan offset = TimeZoneInfo.Local.GetUtcOffset(TimestampUtc);
+                long localTicks = TimestampUtc.Ticks + offset.Ticks;
+                return new DateTimeOffset(localTicks, offset);
+            }
+        }
 
         /// <summary>
         /// The properties, if any, for the log entry.
@@ -66,6 +94,21 @@ namespace Stravaig.Extensions.Logging.Diagnostics
             State = state;
             Exception = exception;
             FormattedMessage = formattedMessage;
+            lock (SequenceSyncLock)
+            {
+                Sequence = _sequence++;
+                TimestampUtc = DateTime.UtcNow;
+            }
         }
+
+        /// <inheritdoc />
+        public int CompareTo(LogEntry other)
+        {
+            if (ReferenceEquals(this, other)) return 0;
+            if (ReferenceEquals(null, other)) return 1;
+            return Sequence.CompareTo(other.Sequence);
+        }
+
+        private string DebuggerDisplayString => $"[#{Sequence} @ {TimestampLocal:HH:mm:ss.fff zzz} {LogLevel}] {FormattedMessage}";
     }
 }
