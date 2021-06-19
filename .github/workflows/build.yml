@@ -58,12 +58,12 @@ jobs:
       - uses: actions/setup-dotnet@v1
         name: Setup .NET Core 3.1
         with:
-          dotnet-version: 3.1.407
+          dotnet-version: 3.1.410
 
       - uses: actions/setup-dotnet@v1
         name: Setup .NET 5.0
         with:
-          dotnet-version: 5.0.201
+          dotnet-version: 5.0.301
 
       - name: Build Solution
         run: dotnet build src/Stravaig.Extensions.Logging.Diagnostics.sln --configuration Release
