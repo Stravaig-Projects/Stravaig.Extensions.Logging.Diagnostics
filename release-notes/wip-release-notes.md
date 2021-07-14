@@ -4,17 +4,9 @@
 
 Date: ???
 
-### Bugs
-
-### Features
-
-### Miscellaneous
-
 ### Dependencies
 
-- All targets:
 - .NET Standard 2.0 targets:
-- .NET 5.0 targets:
-
-
+  - Bump Microsoft.Extensions.Logging
+  - Bump Microsoft.Extensions.Logging.Abstractions
 
