@@ -8,6 +8,8 @@ Date: ???
 
 ### Features
 
+- #52: TestCaptureLoggerProvider.GetAllLogEntries()
+
 ### Miscellaneous
 
 ### Dependencies
