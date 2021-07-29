@@ -19,8 +19,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
                 messageTemplate,
                 whatAmIValue,
                 whatItHasValue);
-
-            Debugger.Break();
+            
             logger.Logs.Count.ShouldBe(1);
             logger.Logs[0].Properties.ShouldNotBeNull();
             logger.Logs[0].Properties.Count.ShouldBe(3);
