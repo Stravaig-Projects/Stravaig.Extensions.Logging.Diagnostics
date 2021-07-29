@@ -141,6 +141,23 @@ The `TestCaptureLogger.Logs` allows you to retriece the logs within your test me
 
 (*) Timestamps will be incremental, but two logs created sufficiently close to one another in time may contain the same timestamp due to the resolution of the clock.
 
+### TestCaptureLoggerProvider methods
+
+#### GetAllLogEntries()
+
+Gets all the LogEntry objects generated via this provider in sequential order.
+
+```csharp
+// Arrange
+var logProvider = new TestCaptureLoggerProvider();
+
+// Act... Do something using the logProvider
+
+// Assert
+var allLogs = logProvider.GetAllLogEntries();
+// allLogs is a read only list of LogEntry objects in sequential order.
+```
+
 ### Example project
 
 In this repository there is an example project showing how this may be used in NUnit tests.
