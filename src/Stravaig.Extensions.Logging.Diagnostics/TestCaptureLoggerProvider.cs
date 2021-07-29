@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Extensions.Logging;
 using static Stravaig.Extensions.Logging.Diagnostics.ExternalHelpers.TypeNameHelper;
 
@@ -62,6 +63,18 @@ namespace Stravaig.Extensions.Logging.Diagnostics
         public ILogger CreateLogger(string categoryName)
         {
             return _captures.GetOrAdd(categoryName, _ => new TestCaptureLogger());
+        }
+
+        /// <summary>
+        /// Gets all log entries regardless of the Category they were logged as.
+        /// </summary>
+        /// <returns>A read only list of <see cref="LogEntry"/></returns>
+        public IReadOnlyList<LogEntry> GetAllLogEntries()
+        {
+            var loggers = _captures.Values;
+            var allLogs = loggers.SelectMany(l => l.Logs).ToList();
+            allLogs.Sort();
+            return allLogs;
         }
 
         /// <summary>
