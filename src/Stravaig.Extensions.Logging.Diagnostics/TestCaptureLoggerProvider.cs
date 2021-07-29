@@ -82,7 +82,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics
         /// Category they were logged as.
         /// </summary>
         /// <returns>A read only list of <see cref="LogEntry"/></returns>
-        public IReadOnlyList<LogEntry> GetAllLogsEntriesWithExceptions()
+        public IReadOnlyList<LogEntry> GetAllLogEntriesWithExceptions()
         {
             var loggers = _captures.Values;
             var allLogs = loggers.SelectMany(l => l.GetLogEntriesWithExceptions()).ToList();

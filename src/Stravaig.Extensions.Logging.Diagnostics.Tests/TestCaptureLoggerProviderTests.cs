@@ -44,7 +44,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
             logger1.LogInformation(new Exception(), "Four");
             logger2.LogInformation(new Exception(), "Five");
 
-            var allLogsWithExceptions = provider.GetAllLogsEntriesWithExceptions();
+            var allLogsWithExceptions = provider.GetAllLogEntriesWithExceptions();
             allLogsWithExceptions[0].OriginalMessage.ShouldBe("One");
             allLogsWithExceptions[1].OriginalMessage.ShouldBe("Four");
             allLogsWithExceptions[2].OriginalMessage.ShouldBe("Five");
