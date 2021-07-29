@@ -43,7 +43,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics
         /// <summary>
         /// Gets a read-only list of logs that have an exception attached in sequential order.
         /// </summary>
-        public IReadOnlyList<LogEntry> GetLogsWithExceptions()
+        public IReadOnlyList<LogEntry> GetLogEntriesWithExceptions()
         {
             List<LogEntry> result;
             lock (_syncRoot)

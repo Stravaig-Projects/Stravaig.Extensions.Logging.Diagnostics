@@ -19,7 +19,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
             logger.LogError("Four");
             logger.LogCritical(new InvalidOperationException("I'm an invalid operation exception"), "Five");
 
-            var logsWithExceptions = logger.GetLogsWithExceptions();
+            var logsWithExceptions = logger.GetLogEntriesWithExceptions();
             logsWithExceptions.Count.ShouldBe(3);
             logsWithExceptions[0].OriginalMessage.ShouldBe("Two");
             logsWithExceptions[1].OriginalMessage.ShouldBe("Three");

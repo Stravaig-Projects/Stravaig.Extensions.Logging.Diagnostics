@@ -85,7 +85,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics
         public IReadOnlyList<LogEntry> GetAllLogsEntriesWithExceptions()
         {
             var loggers = _captures.Values;
-            var allLogs = loggers.SelectMany(l => l.GetLogsWithExceptions()).ToList();
+            var allLogs = loggers.SelectMany(l => l.GetLogEntriesWithExceptions()).ToList();
             allLogs.Sort();
             return allLogs;
         }
