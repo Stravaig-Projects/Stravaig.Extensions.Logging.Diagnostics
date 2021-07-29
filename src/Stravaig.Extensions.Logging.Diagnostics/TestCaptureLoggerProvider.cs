@@ -78,6 +78,19 @@ namespace Stravaig.Extensions.Logging.Diagnostics
         }
 
         /// <summary>
+        /// Gets all log entries with exceptions attached regardless of the
+        /// Category they were logged as.
+        /// </summary>
+        /// <returns>A read only list of <see cref="LogEntry"/></returns>
+        public IReadOnlyList<LogEntry> GetAllLogsEntriesWithExceptions()
+        {
+            var loggers = _captures.Values;
+            var allLogs = loggers.SelectMany(l => l.GetLogsWithExceptions()).ToList();
+            allLogs.Sort();
+            return allLogs;
+        }
+
+        /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
         public void Dispose()

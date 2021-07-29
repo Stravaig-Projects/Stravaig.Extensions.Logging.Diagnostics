@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 using Shouldly;
@@ -8,7 +9,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
     public class TestCaptureLoggerProviderTests
     {
         [Test]
-        public void GetAllLogsReturnsLogsInCorrectSequence()
+        public void GetAllLogEntriesReturnsLogsInCorrectSequence()
         {
             var provider = new TestCaptureLoggerProvider();
 
@@ -27,6 +28,26 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
             allLogs[2].OriginalMessage.ShouldBe("Three");
             allLogs[3].OriginalMessage.ShouldBe("Four");
             allLogs[4].OriginalMessage.ShouldBe("Five");
+        }
+        
+        [Test]
+        public void GetAllLogEntriesWithExceptionsReturnsLogsInCorrectSequence()
+        {
+            var provider = new TestCaptureLoggerProvider();
+
+            var logger1 = provider.CreateLogger("logger1");
+            var logger2 = provider.CreateLogger("logger2");
+            
+            logger1.LogInformation(new Exception(), "One");
+            logger2.LogInformation("Two");
+            logger1.LogInformation("Three");
+            logger1.LogInformation(new Exception(), "Four");
+            logger2.LogInformation(new Exception(), "Five");
+
+            var allLogsWithExceptions = provider.GetAllLogsEntriesWithExceptions();
+            allLogsWithExceptions[0].OriginalMessage.ShouldBe("One");
+            allLogsWithExceptions[1].OriginalMessage.ShouldBe("Four");
+            allLogsWithExceptions[2].OriginalMessage.ShouldBe("Five");
         }
     }
 }
