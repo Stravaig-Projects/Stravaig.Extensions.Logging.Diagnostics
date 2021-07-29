@@ -141,6 +141,26 @@ The `TestCaptureLogger.Logs` allows you to retriece the logs within your test me
 
 (*) Timestamps will be incremental, but two logs created sufficiently close to one another in time may contain the same timestamp due to the resolution of the clock.
 
+### TestCaptureLogger methods
+
+#### GetLogEntriesWithExceptions
+
+Gets all the log entries generated via this logger in sequential order that have exception objects attached to them.
+
+```csharp
+// Arrange
+var logger = new TestCaptureLogger();
+
+// Act... Do something using the logger
+
+// Assert
+var logs = logger.GetAllLogEntriesWithExceptions();
+// logs is a read only list of LogEntry objects in sequential order.
+```
+
+
+
+
 ### TestCaptureLoggerProvider methods
 
 #### GetAllLogEntries()
@@ -157,6 +177,22 @@ var logProvider = new TestCaptureLoggerProvider();
 var allLogs = logProvider.GetAllLogEntries();
 // allLogs is a read only list of LogEntry objects in sequential order.
 ```
+
+#### GetAllLogEntriesWithExceptions()
+
+Gets all the log entries generated via this provider in sequential order that have exception objects attached to them.
+
+```csharp
+// Arrange
+var logProvider = new TestCaptureLoggerProvider();
+
+// Act... Do something using the logProvider
+
+// Assert
+var logs = logProvider.GetAllLogEntriesWithExceptions();
+// logs is a read only list of LogEntry objects in sequential order.
+```
+
 
 ### Example project
 

@@ -9,6 +9,7 @@ Date: ???
 ### Features
 
 - #52: TestCaptureLoggerProvider.GetAllLogEntries()
+- #53: TestCaptureLogger(Provider).Get(All)LogsWithExceptions()
 
 ### Miscellaneous
 
