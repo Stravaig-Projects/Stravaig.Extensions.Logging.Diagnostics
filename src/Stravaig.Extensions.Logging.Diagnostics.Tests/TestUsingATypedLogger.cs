@@ -28,10 +28,11 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
             var service = new MyServiceClass(logger);
             
             service.DoWork();
-            
-            logger.Logs.Count.ShouldBe(1);
-            logger.Logs[0].LogLevel.ShouldBe(LogLevel.Information);
-            logger.Logs[0].FormattedMessage.ShouldContain("Called DoWork()");
+
+            var logs = logger.GetLogs();
+            logs.Count.ShouldBe(1);
+            logs[0].LogLevel.ShouldBe(LogLevel.Information);
+            logs[0].FormattedMessage.ShouldContain("Called DoWork()");
         }
 
         [Test]
