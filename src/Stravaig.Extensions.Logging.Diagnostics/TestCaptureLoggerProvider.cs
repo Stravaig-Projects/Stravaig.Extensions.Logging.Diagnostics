@@ -30,7 +30,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics
         public IReadOnlyList<LogEntry> GetLogEntriesFor(string categoryName)
         {
             return _captures.TryGetValue(categoryName, out TestCaptureLogger logger)
-                ? logger.Logs
+                ? logger.GetLogs()
                 : Array.Empty<LogEntry>();
         }
 
@@ -81,7 +81,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics
         public IReadOnlyList<LogEntry> GetAllLogEntries()
         {
             var loggers = _captures.Values;
-            var allLogs = loggers.SelectMany(l => l.Logs).ToList();
+            var allLogs = loggers.SelectMany(l => l.GetLogs()).ToList();
             allLogs.Sort();
             return allLogs;
         }
