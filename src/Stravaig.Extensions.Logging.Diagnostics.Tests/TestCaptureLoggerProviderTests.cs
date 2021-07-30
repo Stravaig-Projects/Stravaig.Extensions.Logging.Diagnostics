@@ -49,5 +49,23 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
             allLogsWithExceptions[1].OriginalMessage.ShouldBe("Four");
             allLogsWithExceptions[2].OriginalMessage.ShouldBe("Five");
         }
+        
+        [Test]
+        public void GetCategoriesReturnsListOfCategoryNames()
+        {
+            var provider = new TestCaptureLoggerProvider();
+            var factory = new LoggerFactory();
+            factory.AddProvider(provider);
+
+            provider.CreateLogger("logger1");
+            provider.CreateLogger("logger2");
+            factory.CreateLogger<TestCaptureLoggerTests>();
+            
+            var categories = provider.GetCategories();
+            categories.Count.ShouldBe(3);
+            categories.ShouldContain("logger1");
+            categories.ShouldContain("logger2");
+            categories.ShouldContain(typeof(TestCaptureLoggerTests).FullName);
+        }
     }
 }

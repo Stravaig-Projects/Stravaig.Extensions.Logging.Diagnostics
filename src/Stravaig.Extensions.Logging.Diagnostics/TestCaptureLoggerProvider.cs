@@ -66,6 +66,15 @@ namespace Stravaig.Extensions.Logging.Diagnostics
         }
 
         /// <summary>
+        /// Gets a list of log categories that were set up by this provider. 
+        /// </summary>
+        /// <returns>A read-only list of category names.</returns>
+        public IReadOnlyList<string> GetCategories()
+        {
+            return _captures.Keys.ToArray();
+        }
+        
+        /// <summary>
         /// Gets all log entries regardless of the Category they were logged as.
         /// </summary>
         /// <returns>A read only list of <see cref="LogEntry"/></returns>
