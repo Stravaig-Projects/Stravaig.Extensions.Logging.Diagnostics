@@ -163,6 +163,21 @@ var logs = logger.GetAllLogEntriesWithExceptions();
 
 ### TestCaptureLoggerProvider methods
 
+#### GetCategories()
+
+Gets all the logger categories created by this provider. NOTE: The category may not contain any logs. 
+
+```csharp
+// Arrange
+var logProvider = new TestCaptureLoggerProvider();
+
+// Act... Do something using the logProvider
+
+// Assert
+var categories = logProvider.GetCategories();
+// categories is a read only list of strings.
+```
+
 #### GetAllLogEntries()
 
 Gets all the LogEntry objects generated via this provider in sequential order.
