@@ -26,7 +26,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
             logger.LogInformation(message);
 
             // Assert
-            var logEntries = logger.Logs;
+            var logEntries = logger.GetLogs();
             logEntries.Count.ShouldBe(1);
             var entry = logEntries.First();
             entry.Exception.ShouldBeNull();
@@ -50,7 +50,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
             logger.LogCritical("This is a critical message.");
     
             // Assert
-            var logEntries = logger.Logs;
+            var logEntries = logger.GetLogs();
             logEntries.Count.ShouldBe(6);
             logEntries[0].LogLevel.ShouldBe(LogLevel.Trace);
             logEntries[1].LogLevel.ShouldBe(LogLevel.Debug);
@@ -69,7 +69,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
             // Act - none, no logs are being created.
             
             // Assert
-            var logEntries = logger.Logs;
+            var logEntries = logger.GetLogs();
             logEntries.Count.ShouldBe(0);
         }
 
@@ -82,7 +82,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
             logger.LogInformation("Message 1");
             logger.LogInformation("Message 2");
 
-            var logEntries = logger.Logs;
+            var logEntries = logger.GetLogs();
             logEntries[0].Sequence.ShouldBeLessThan(logEntries[1].Sequence);
         }
 
@@ -96,7 +96,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
             logger1.LogInformation("Message 1");
             logger2.LogInformation("Message 2");
 
-            logger1.Logs[0].Sequence.ShouldBeLessThan(logger2.Logs[0].Sequence);
+            logger1.GetLogs()[0].Sequence.ShouldBeLessThan(logger2.GetLogs()[0].Sequence);
         }
 
         [Test]
@@ -128,7 +128,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
             Task.WaitAll(tasks, source.Token);
             
             tasks.ShouldAllBe(t => t.IsCompleted);
-            var logs = logger.Logs;
+            var logs = logger.GetLogs();
             logs.Count.ShouldBe(expectedLogCount);
             
             // Check no duplicate sequence numbers

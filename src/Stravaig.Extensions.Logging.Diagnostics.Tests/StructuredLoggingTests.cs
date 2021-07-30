@@ -19,13 +19,14 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
                 messageTemplate,
                 whatAmIValue,
                 whatItHasValue);
-            
-            logger.Logs.Count.ShouldBe(1);
-            logger.Logs[0].Properties.ShouldNotBeNull();
-            logger.Logs[0].Properties.Count.ShouldBe(3);
-            logger.Logs[0].OriginalMessage.ShouldBe(messageTemplate);
-            logger.Logs[0].Properties[0].Key.ShouldBe("whatAmI");
-            logger.Logs[0].Properties[1].Key.ShouldBe("whatItHas");
+
+            var logs = logger.GetLogs();
+            logs.Count.ShouldBe(1);
+            logs[0].Properties.ShouldNotBeNull();
+            logs[0].Properties.Count.ShouldBe(3);
+            logs[0].OriginalMessage.ShouldBe(messageTemplate);
+            logs[0].Properties[0].Key.ShouldBe("whatAmI");
+            logs[0].Properties[1].Key.ShouldBe("whatItHas");
         }
     }
 }
