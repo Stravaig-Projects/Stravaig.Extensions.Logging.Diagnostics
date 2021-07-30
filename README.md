@@ -46,8 +46,9 @@ public void TestServiceLoggerCalled()
   service.DoStuff();
 
   // Assert
-  logger.Logs.Count.ShouldBe(1);
-  logger.Logs[0].FormattedMessage.ShouldContain("The work is done.");
+  var logs = logger.GetLogs();
+  logs.Count.ShouldBe(1);
+  logs[0].FormattedMessage.ShouldContain("The work is done.");
 }
 ```
 
@@ -128,9 +129,11 @@ var entries = logProvider.GetLogEntriesFor<T>();
 // Assert the entries from the logger.
 ```
 
-### What you get from the log entries
+### TestCaptureLogger methods
 
-The `TestCaptureLogger.Logs` allows you to retriece the logs within your test method. The property will be in sequence, timestamps will be incremental(*). Each `LogEntry` retrieved contains the following properties:
+### GetLogs()
+
+The `TestCaptureLogger.GetLogs()` allows you to retrieve the logs within your test method. The property will be in sequence, timestamps will be incremental(*). Each `LogEntry` retrieved contains the following properties:
 * `LogLevel` which is a `Microsoft.Extensions.Logging.LogLevel` enum.
 * `Exception` contains any exception that was passed into the logger.
 * `FormattedMessage` is the formatted message with the placeholders filled in.
@@ -141,9 +144,8 @@ The `TestCaptureLogger.Logs` allows you to retriece the logs within your test me
 
 (*) Timestamps will be incremental, but two logs created sufficiently close to one another in time may contain the same timestamp due to the resolution of the clock.
 
-### TestCaptureLogger methods
 
-#### GetLogEntriesWithExceptions
+#### GetLogEntriesWithExceptions()
 
 Gets all the log entries generated via this logger in sequential order that have exception objects attached to them.
 
@@ -157,9 +159,6 @@ var logger = new TestCaptureLogger();
 var logs = logger.GetAllLogEntriesWithExceptions();
 // logs is a read only list of LogEntry objects in sequential order.
 ```
-
-
-
 
 ### TestCaptureLoggerProvider methods
 
