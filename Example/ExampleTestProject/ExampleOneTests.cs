@@ -39,8 +39,9 @@ namespace ExampleTestProject
             service.DoStuff();
 
             // Assert
-            logger.Logs.Count.ShouldBe(1);
-            logger.Logs[0].FormattedMessage.ShouldContain("The work is done.");
+            var logs = logger.GetLogs();
+            logs.Count.ShouldBe(1);
+            logs[0].FormattedMessage.ShouldContain("The work is done.");
         }
     }
 }
