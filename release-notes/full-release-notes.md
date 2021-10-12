@@ -12,8 +12,6 @@ Date: Tuesday, 14 September, 2021 at 22:01:51 +00:00
   - Bump Microsoft.Extensions.Logging from 3.1.18 to 3.1.19 
   - Bump Microsoft.Extensions.Logging.Abstractions from 3.1.18 to 3.1.19
 
-
-
 ## Version 1.1.1
 
 Date: Wednesday, 11 August, 2021 at 21:48:39 +00:00
@@ -26,8 +24,6 @@ Date: Wednesday, 11 August, 2021 at 21:48:39 +00:00
   - Bump Microsoft.Extensions.Logging.Abstractions to 3.1.18
 - .NET 5.0 targets:
 
-
-
 ## Version 1.1.0
 
 Date: Friday, 30 July, 2021 at 12:51:49 +00:00
@@ -38,7 +34,6 @@ Date: Friday, 30 July, 2021 at 12:51:49 +00:00
 - #53: TestCaptureLogger(Provider).Get(All)LogsWithExceptions()
 - #54: TestCaptureLoggerProvider.GetCategories()
 - #56: TestCaptureLogger.GetLogs() (Logs property now marked as obsolete.)
-
 
 ## Version 1.0.1
 
