@@ -10,6 +10,8 @@ Date: ???
 
 ### Miscellaneous
 
+- #73: Add githooks to ensure that the issue number is attached to the commit message.
+
 ### Dependencies
 
 - All targets:
