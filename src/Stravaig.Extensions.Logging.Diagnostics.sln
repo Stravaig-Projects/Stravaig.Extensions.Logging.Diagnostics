@@ -27,7 +27,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "__Repository_Configuration", "__Repository_Configuration", "{403E4EE3-1668-43E3-888D-1ACF5E8D684B}"
 ProjectSection(SolutionItems) = preProject
 	..\.gitignore = ..\.gitignore
+	..\Uninstall-GitHooks.ps1 = ..\Uninstall-GitHooks.ps1
+	..\Install-GitHooks.ps1 = ..\Install-GitHooks.ps1
 EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "githooks", "githooks", "{4F93041F-3DE3-4262-9F56-9F8D5DA253DC}"
+	ProjectSection(SolutionItems) = preProject
+		..\.stravaig\gitHooks\commit-msg = ..\.stravaig\gitHooks\commit-msg
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,5 +50,8 @@ Global
 		{B340AAA5-0FF9-4838-8788-803DE8D72999}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B340AAA5-0FF9-4838-8788-803DE8D72999}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B340AAA5-0FF9-4838-8788-803DE8D72999}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4F93041F-3DE3-4262-9F56-9F8D5DA253DC} = {403E4EE3-1668-43E3-888D-1ACF5E8D684B}
 	EndGlobalSection
 EndGlobal

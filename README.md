@@ -218,3 +218,9 @@ In this repository there is an example project showing how this may be used in N
 
 You can create a [GitHub issue](https://github.com/Stravaig-Projects/Stravaig.Extensions.Logging.Diagnostics/issues) to leave bug reports, ask questions, or feature requests.
 
+## Contributing / Getting Started
+
+* Ensure you have PowerShell 7.1.x or higher installed
+* At a PowerShell prompt
+    * Navigate to the root of this repository
+    * Run `./Install-GitHooks.ps1`
