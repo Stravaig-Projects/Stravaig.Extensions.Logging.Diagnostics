@@ -3,7 +3,8 @@ on:
   push:
     branches: 
       - main
-
+      - '#74/upgrade-net-60'
+        
     paths-ignore:
       - 'README.md'
       - 'Example/**'
