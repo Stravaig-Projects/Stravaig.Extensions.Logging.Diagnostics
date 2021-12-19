@@ -1,6 +1,4 @@
 using System;
-using System.Linq;
-using System.Text;
 
 namespace Stravaig.Extensions.Logging.Diagnostics.Render
 {
@@ -13,10 +11,5 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Render
         /// A console sink for the log renderer.
         /// </summary>
         public static Action<string> Console => System.Console.WriteLine;
-
-        /// <summary>
-        /// A debugger output sink for the log renderer.
-        /// </summary>
-        public static Action<string> Debug => s => System.Diagnostics.Debug.WriteLine(s);
     }
 }
