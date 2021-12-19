@@ -12,6 +12,9 @@ Date: ???
 
 - #74: Introduce support .NET 6.0
 
+### Admin
+- #83: Add pull request template for the repo
+
 ### Dependencies
 
 - All targets:
