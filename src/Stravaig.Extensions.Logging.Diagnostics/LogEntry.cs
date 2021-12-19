@@ -101,6 +101,17 @@ namespace Stravaig.Extensions.Logging.Diagnostics
             }
         }
 
+        internal LogEntry(LogLevel logLevel, EventId eventId, object state, Exception exception, string formattedMessage, int sequence, DateTime timestampUtc)
+        {
+            LogLevel = logLevel;
+            EventId = eventId;
+            State = state;
+            Exception = exception;
+            FormattedMessage = formattedMessage;
+            Sequence = sequence;
+            TimestampUtc = timestampUtc;
+        }
+
         /// <inheritdoc />
         public int CompareTo(LogEntry other)
         {
