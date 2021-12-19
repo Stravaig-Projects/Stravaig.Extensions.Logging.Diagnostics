@@ -29,6 +29,7 @@ ProjectSection(SolutionItems) = preProject
 	..\.gitignore = ..\.gitignore
 	..\Uninstall-GitHooks.ps1 = ..\Uninstall-GitHooks.ps1
 	..\Install-GitHooks.ps1 = ..\Install-GitHooks.ps1
+	..\.github\PULL_REQUEST_TEMPLATE = ..\.github\PULL_REQUEST_TEMPLATE
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "githooks", "githooks", "{4F93041F-3DE3-4262-9F56-9F8D5DA253DC}"
