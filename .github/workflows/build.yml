@@ -37,6 +37,10 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - name: Set Time Zone to Europe/London
+        shell: pwsh
+        run: sudo timedatectl set-timezone "Europe/London"
+
       - name: Check out code
         uses: actions/checkout@v2
         with:
