@@ -12,7 +12,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics
     [DebuggerDisplay("{" + nameof(DebuggerDisplayString) + "}")]
     public class LogEntry : IComparable<LogEntry>
     {
-        private static int _sequence = 0;
+        private static int _sequence;
         private static readonly object SequenceSyncLock = new object();
 
         private const string OriginalMessagePropertyName = "{OriginalFormat}";

@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 using Shouldly;
@@ -12,7 +11,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
         public void EnsureOriginalMessageAndPropertiesAreRetrievable()
         {
             var logger = new TestCaptureLogger();
-            var messageTemplate = "This is a {whatAmI} with {whatItHas}.";
+            const string messageTemplate = "This is a {whatAmI} with {whatItHas}.";
             var whatAmIValue = "message";
             var whatItHasValue = "structured parameters";
             logger.LogInformation(
