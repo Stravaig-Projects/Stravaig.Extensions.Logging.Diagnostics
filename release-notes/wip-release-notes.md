@@ -8,6 +8,8 @@ Date: ???
 
 ### Features
 
+- #60: Add a log rendered.
+
 ### Miscellaneous
 
 - #74: Introduce support .NET 6.0

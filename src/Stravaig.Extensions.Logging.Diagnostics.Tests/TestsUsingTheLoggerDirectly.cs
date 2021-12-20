@@ -20,7 +20,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
         {
             // Arrange
             var logger = new TestCaptureLogger();
-            string message = "This is a test log message.";
+            const string message = "This is a test log message.";
             
             // Act
             logger.LogInformation(message);
@@ -117,7 +117,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
                     for (int i = 0; i < iterationsPerThread; i++)
                     {
                         logger.LogInformation(
-                            "Log iteration {iteration} on thread {threadId}",
+                            "Log iteration {Iteration} on thread {ThreadId}",
                             i,
                             Thread.CurrentThread.ManagedThreadId);
                     }

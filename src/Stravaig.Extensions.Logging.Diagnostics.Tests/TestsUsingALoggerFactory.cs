@@ -25,7 +25,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
                 builder.AddProvider(logProvider);
             });
             var logger = factory.CreateLogger<TestsUsingALoggerFactory>();
-            string message = "This is a test log message.";
+            const string message = "This is a test log message.";
             
             // Act
             logger.LogInformation(message);
@@ -100,7 +100,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
         {
             // Arrange
             var logProvider = new TestCaptureLoggerProvider();
-            var factory = LoggerFactory.Create(builder =>
+            LoggerFactory.Create(builder =>
             {
                 builder.AddProvider(logProvider);
             });
@@ -134,7 +134,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
                     {
                         var logger = provider.CreateLogger(categoryName);
                         logger.LogInformation(
-                            "Log iteration {iteration} on thread {threadId}",
+                            "Log iteration {Iteration} on thread {ThreadId}",
                             i,
                             Thread.CurrentThread.ManagedThreadId);
                     }

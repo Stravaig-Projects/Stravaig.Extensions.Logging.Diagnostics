@@ -12,7 +12,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics
     [DebuggerDisplay("{" + nameof(DebuggerDisplayString) + "}")]
     public class LogEntry : IComparable<LogEntry>
     {
-        private static int _sequence = 0;
+        private static int _sequence;
         private static readonly object SequenceSyncLock = new object();
 
         private const string OriginalMessagePropertyName = "{OriginalFormat}";
@@ -99,6 +99,17 @@ namespace Stravaig.Extensions.Logging.Diagnostics
                 Sequence = _sequence++;
                 TimestampUtc = DateTime.UtcNow;
             }
+        }
+
+        internal LogEntry(LogLevel logLevel, EventId eventId, object state, Exception exception, string formattedMessage, int sequence, DateTime timestampUtc)
+        {
+            LogLevel = logLevel;
+            EventId = eventId;
+            State = state;
+            Exception = exception;
+            FormattedMessage = formattedMessage;
+            Sequence = sequence;
+            TimestampUtc = timestampUtc;
         }
 
         /// <inheritdoc />

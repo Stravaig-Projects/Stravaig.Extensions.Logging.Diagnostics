@@ -42,7 +42,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics.ExternalHelpers
     {
         private const char DefaultNestedTypeDelimiter = '+';
 
-        private static readonly Dictionary<Type, string> _builtInTypeNames = new Dictionary<Type, string>
+        private static readonly Dictionary<Type, string> BuiltInTypeNames = new Dictionary<Type, string>
         {
             { typeof(void), "void" },
             { typeof(bool), "bool" },
@@ -94,7 +94,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics.ExternalHelpers
             {
                 ProcessArrayType(builder, type, options);
             }
-            else if (_builtInTypeNames.TryGetValue(type, out string builtInName))
+            else if (BuiltInTypeNames.TryGetValue(type, out string builtInName))
             {
                 builder.Append(builtInName);
             }

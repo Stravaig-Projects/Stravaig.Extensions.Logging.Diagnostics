@@ -37,6 +37,10 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - name: Set Time Zone to Europe/London
+        shell: pwsh
+        run: sudo timedatectl set-timezone "Europe/London"
+
       - name: Check out code
         uses: actions/checkout@v2
         with:
@@ -75,7 +79,7 @@ jobs:
        
       - name: Run Tests
         run: dotnet test src/Stravaig.Extensions.Logging.Diagnostics.Tests/Stravaig.Extensions.Logging.Diagnostics.Tests.csproj --configuration Release
-       
+
       - name: Package Preview Release
         if: ${{ env.STRAVAIG_IS_PREVIEW == 'true' }}
         run: dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics/Stravaig.Extensions.Logging.Diagnostics.csproj --configuration Release --output ./out --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" --version-suffix "$STRAVAIG_PACKAGE_VERSION_SUFFIX" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
