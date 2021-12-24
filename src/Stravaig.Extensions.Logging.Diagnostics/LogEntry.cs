@@ -78,7 +78,12 @@ namespace Stravaig.Extensions.Logging.Diagnostics
             (string) Properties
                 .FirstOrDefault(p => p.Key == OriginalMessagePropertyName)
                 .Value;
-
+        
+        /// <summary>
+        /// The category name of the log entry, if available.
+        /// </summary>
+        public string CategoryName { get; }
+        
         /// <summary>
         /// Initialises a <see cref="T:Stravaig.Extensions.Logging.Diagnostics.LogEntry"/>.
         /// </summary>
@@ -87,6 +92,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics
         /// <param name="state">The entry that was written. Can be also an object.</param>
         /// <param name="exception">The <see cref="T:System.Exception"/> that was attached to the log.</param>
         /// <param name="formattedMessage">The formatted message.</param>
+        [Obsolete("This will be removed in v2.0; use the constructor with the categoryName parameter.")]
         public LogEntry(LogLevel logLevel, EventId eventId, object state, Exception exception, string formattedMessage)
         {
             LogLevel = logLevel;
@@ -101,7 +107,31 @@ namespace Stravaig.Extensions.Logging.Diagnostics
             }
         }
 
-        internal LogEntry(LogLevel logLevel, EventId eventId, object state, Exception exception, string formattedMessage, int sequence, DateTime timestampUtc)
+        /// <summary>
+        /// Initialises a <see cref="T:Stravaig.Extensions.Logging.Diagnostics.LogEntry"/>.
+        /// </summary>
+        /// <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLeve"/> that was logged.</param>
+        /// <param name="eventId">An <see cref="T:Microsoft.Extensions.Logging.EventId"/> that identifies the logging event.</param>
+        /// <param name="state">The entry that was written. Can be also an object.</param>
+        /// <param name="exception">The <see cref="T:System.Exception"/> that was attached to the log.</param>
+        /// <param name="formattedMessage">The formatted message.</param>
+        /// <param name="categoryName">The source or category name.</param>
+        public LogEntry(LogLevel logLevel, EventId eventId, object state, Exception exception, string formattedMessage, string categoryName)
+        {
+            LogLevel = logLevel;
+            EventId = eventId;
+            State = state;
+            Exception = exception;
+            FormattedMessage = formattedMessage;
+            lock (SequenceSyncLock)
+            {
+                Sequence = _sequence++;
+                TimestampUtc = DateTime.UtcNow;
+            }
+            CategoryName = categoryName;
+        }
+
+        internal LogEntry(LogLevel logLevel, EventId eventId, object state, Exception exception, string formattedMessage, string categoryName, int sequence, DateTime timestampUtc)
         {
             LogLevel = logLevel;
             EventId = eventId;
@@ -110,6 +140,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics
             FormattedMessage = formattedMessage;
             Sequence = sequence;
             TimestampUtc = timestampUtc;
+            CategoryName = categoryName;
         }
 
         /// <inheritdoc />
@@ -120,6 +151,6 @@ namespace Stravaig.Extensions.Logging.Diagnostics
             return Sequence.CompareTo(other.Sequence);
         }
 
-        private string DebuggerDisplayString => $"[#{Sequence} @ {TimestampLocal:HH:mm:ss.fff zzz} {LogLevel}] {FormattedMessage}";
+        private string DebuggerDisplayString => $"[#{Sequence} @ {TimestampLocal:HH:mm:ss.fff zzz} {LogLevel} {CategoryName}] {FormattedMessage}";
     }
 }
