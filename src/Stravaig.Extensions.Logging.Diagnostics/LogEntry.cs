@@ -16,6 +16,9 @@ namespace Stravaig.Extensions.Logging.Diagnostics
         private static readonly object SequenceSyncLock = new object();
 
         private const string OriginalMessagePropertyName = "{OriginalFormat}";
+        
+        private Lazy<IReadOnlyDictionary<string, object>> _lazyPropertyDictionary;
+        
         /// <summary>
         /// The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/> that the item was logged at.
         /// </summary>
@@ -70,6 +73,11 @@ namespace Stravaig.Extensions.Logging.Diagnostics
         /// </summary>
         public IReadOnlyList<KeyValuePair<string, object>> Properties =>
             State as IReadOnlyList<KeyValuePair<string, object>> ?? Array.Empty<KeyValuePair<string, object>>();
+        
+        /// <summary>
+        /// The properties, if any, for the log entry.
+        /// </summary>
+        public IReadOnlyDictionary<string, object> PropertyDictionary => _lazyPropertyDictionary.Value;
 
         /// <summary>
         /// The original message template, if available, for the log entry.
@@ -83,6 +91,14 @@ namespace Stravaig.Extensions.Logging.Diagnostics
         /// The category name of the log entry, if available.
         /// </summary>
         public string CategoryName { get; }
+
+        private LogEntry()
+        {
+            _lazyPropertyDictionary =
+                new Lazy<IReadOnlyDictionary<string, object>>(() => Properties.ToDictionary(
+                    kvp => kvp.Key,
+                    kvp => kvp.Value));
+        }
         
         /// <summary>
         /// Initialises a <see cref="T:Stravaig.Extensions.Logging.Diagnostics.LogEntry"/>.
@@ -94,6 +110,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics
         /// <param name="formattedMessage">The formatted message.</param>
         [Obsolete("This will be removed in v2.0; use the constructor with the categoryName parameter.")]
         public LogEntry(LogLevel logLevel, EventId eventId, object state, Exception exception, string formattedMessage)
+            : this()
         {
             LogLevel = logLevel;
             EventId = eventId;
@@ -117,6 +134,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics
         /// <param name="formattedMessage">The formatted message.</param>
         /// <param name="categoryName">The source or category name.</param>
         public LogEntry(LogLevel logLevel, EventId eventId, object state, Exception exception, string formattedMessage, string categoryName)
+            : this()
         {
             LogLevel = logLevel;
             EventId = eventId;
@@ -132,6 +150,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics
         }
 
         internal LogEntry(LogLevel logLevel, EventId eventId, object state, Exception exception, string formattedMessage, string categoryName, int sequence, DateTime timestampUtc)
+            : this()
         {
             LogLevel = logLevel;
             EventId = eventId;
