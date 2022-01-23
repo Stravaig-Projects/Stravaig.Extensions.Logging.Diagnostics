@@ -62,7 +62,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics
         /// <returns>The instance of ILogger that was created.</returns>
         public ILogger CreateLogger(string categoryName)
         {
-            return _captures.GetOrAdd(categoryName, _ => new TestCaptureLogger());
+            return _captures.GetOrAdd(categoryName, _ => new TestCaptureLogger(categoryName));
         }
 
         /// <summary>

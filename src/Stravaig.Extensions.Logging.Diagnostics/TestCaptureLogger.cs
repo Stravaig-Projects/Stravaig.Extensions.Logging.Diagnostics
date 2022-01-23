@@ -21,8 +21,21 @@ namespace Stravaig.Extensions.Logging.Diagnostics
         {
             _logs = new List<LogEntry>();
             _syncRoot = new object();
+            CategoryName = string.Empty;
         }
 
+        /// <summary>
+        /// Initialises a new instance of the TestCaptureLogger class.
+        /// </summary>
+        /// <param name="categoryName">The name of the category</param>
+        public TestCaptureLogger(string categoryName)
+            : this()
+        {
+            CategoryName = categoryName;
+        }
+
+        public string CategoryName { get; }
+        
         /// <summary>
         /// Gets a read-only list of logs that is a snapshot of this logger.
         /// </summary>
@@ -71,11 +84,26 @@ namespace Stravaig.Extensions.Logging.Diagnostics
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
             var formattedMessage = formatter(state, exception);
-            var logEntry = new LogEntry(logLevel, eventId, state, exception, formattedMessage);
+            var logEntry = CreateLogEntry(logLevel, eventId, state, exception, formattedMessage);
             lock (_syncRoot)
             {
                 _logs.Add(logEntry);
             }
+        }
+
+        /// <summary>
+        /// Creates the LogEntry object.
+        /// </summary>
+        /// <param name="logLevel">The level the entry is logged at</param>
+        /// <param name="eventId">The event id</param>
+        /// <param name="state">The state (properties) of the log entry</param>
+        /// <param name="exception">Any exception</param>
+        /// <param name="formattedMessage">The formatted message</param>
+        /// <typeparam name="TState">The object type that holds the state</typeparam>
+        /// <returns>A log entry</returns>
+        protected LogEntry CreateLogEntry<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, string formattedMessage)
+        {
+            return new LogEntry(logLevel, eventId, state, exception, formattedMessage, CategoryName);
         }
 
         /// <summary>

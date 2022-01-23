@@ -9,6 +9,7 @@ Date: ???
 ### Features
 
 - #60: Add a log rendered.
+- #82: Category Name is recorded in the log entry.
 
 ### Miscellaneous
 

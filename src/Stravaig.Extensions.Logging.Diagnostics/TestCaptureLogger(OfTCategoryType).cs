@@ -1,4 +1,6 @@
+using System;
 using Microsoft.Extensions.Logging;
+using Stravaig.Extensions.Logging.Diagnostics.ExternalHelpers;
 
 namespace Stravaig.Extensions.Logging.Diagnostics
 {
@@ -10,5 +12,12 @@ namespace Stravaig.Extensions.Logging.Diagnostics
     public class TestCaptureLogger<TCategoryType>
         : TestCaptureLogger, ILogger<TCategoryType>
     {
+        /// <summary>
+        /// Initialises a new instance of the <see cref="T:Stravaig.Extensions.Logging.Diagnostics.TestCaptureLogger&lt;TCategoryType>"/> class.
+        /// </summary>
+        public TestCaptureLogger()
+            : base(TypeNameHelper.GetTypeDisplayName(typeof(TCategoryType)))
+        {
+        }
     }
 }
