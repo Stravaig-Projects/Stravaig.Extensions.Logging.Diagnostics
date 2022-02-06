@@ -34,6 +34,9 @@ namespace Stravaig.Extensions.Logging.Diagnostics
             CategoryName = categoryName;
         }
 
+        /// <summary>
+        /// The name of the category the log entry belongs to.
+        /// </summary>
         public string CategoryName { get; }
         
         /// <summary>

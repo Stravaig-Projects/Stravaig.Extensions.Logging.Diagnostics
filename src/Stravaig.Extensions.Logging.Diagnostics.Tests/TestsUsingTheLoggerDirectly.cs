@@ -148,6 +148,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
 
             DateTime first = logs.First().TimestampUtc;
             DateTime last = logs.Last().TimestampUtc;
+            first.ShouldBeLessThanOrEqualTo(last);
             Console.WriteLine($"Logging started at {first:HH:mm:ss.fff} and ended at {last:HH:mm:ss.fff} taking a total of {(last-first):G}");
         }
     }
