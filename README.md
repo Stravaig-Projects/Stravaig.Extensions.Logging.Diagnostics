@@ -52,7 +52,7 @@ public void TestServiceLoggerCalled()
 }
 ```
 
-Note: The above example uses [NUnit](https://www.nuget.org/packages/NUnit/) as the test framework, and [Shouldly](https://www.nuget.org/packages/Shouldly/3.0.2) as the assetion framework.
+Note: The above example uses [NUnit](https://www.nuget.org/packages/NUnit/) as the test framework, and [Shouldly](https://www.nuget.org/packages/Shouldly/3.0.2) as the assertion framework.
 
 ### With a logger factory
 
@@ -205,6 +205,20 @@ var logProvider = new TestCaptureLoggerProvider();
 // Assert
 var logs = logProvider.GetAllLogEntriesWithExceptions();
 // logs is a read only list of LogEntry objects in sequential order.
+```
+
+#### Reset()
+
+Resets the provider and discards all the logs captured to that point.
+
+```csharp
+var logProvider = new TestCaptureLoggerProvider();
+
+// Create log entries here...
+
+logProvider.Reset();
+var logs = logProvider.GetAllLogEntries();
+// logs is an empty array.
 ```
 
 ### IEnumerable<LogEntry>.RenderLogs()
