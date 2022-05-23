@@ -52,7 +52,7 @@ public void TestServiceLoggerCalled()
 }
 ```
 
-Note: The above example uses [NUnit](https://www.nuget.org/packages/NUnit/) as the test framework, and [Shouldly](https://www.nuget.org/packages/Shouldly/3.0.2) as the assetion framework.
+Note: The above example uses [NUnit](https://www.nuget.org/packages/NUnit/) as the test framework, and [Shouldly](https://www.nuget.org/packages/Shouldly/3.0.2) as the assertion framework.
 
 ### With a logger factory
 
