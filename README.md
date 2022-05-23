@@ -207,6 +207,20 @@ var logs = logProvider.GetAllLogEntriesWithExceptions();
 // logs is a read only list of LogEntry objects in sequential order.
 ```
 
+#### Reset()
+
+Resets the provider and discards all the logs captured to that point.
+
+```csharp
+var logProvider = new TestCaptureLoggerProvider();
+
+// Create log entries here...
+
+logProvider.Reset();
+var logs = logProvider.GetAllLogEntries();
+// logs is an empty array.
+```
+
 ### IEnumerable<LogEntry>.RenderLogs()
 
 This is an extension method in the `Stravaig.Extensions.Logging.Diagnostics.Renderer` namespace.
