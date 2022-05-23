@@ -100,10 +100,19 @@ namespace Stravaig.Extensions.Logging.Diagnostics
         }
 
         /// <summary>
+        /// Resets the captures to an empty state.
+        /// </summary>
+        public void Reset()
+        {
+            _captures.Clear();
+        }
+
+        /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
         public void Dispose()
         {
+            Reset();
         }
     }
 }

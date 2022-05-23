@@ -67,5 +67,24 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
             categories.ShouldContain("logger2");
             categories.ShouldContain(typeof(TestCaptureLoggerTests).FullName);
         }
+        
+        [Test]
+        public void ResetAfterLoggingReturnsZeroLogs()
+        {
+            var provider = new TestCaptureLoggerProvider();
+
+            var logger1 = provider.CreateLogger("logger1");
+            var logger2 = provider.CreateLogger("logger2");
+            
+            logger1.LogInformation("One");
+            logger2.LogInformation("Two");
+            logger1.LogInformation("Three");
+            logger1.LogInformation("Four");
+            logger2.LogInformation("Five");
+
+            provider.Reset();
+            
+            provider.GetAllLogEntries().ShouldBeEmpty();
+        }
     }
 }
