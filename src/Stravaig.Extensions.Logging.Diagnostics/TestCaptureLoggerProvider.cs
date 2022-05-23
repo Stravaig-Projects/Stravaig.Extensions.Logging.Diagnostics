@@ -62,7 +62,12 @@ namespace Stravaig.Extensions.Logging.Diagnostics
         /// <returns>The instance of ILogger that was created.</returns>
         public ILogger CreateLogger(string categoryName)
         {
-            return _captures.GetOrAdd(categoryName, _ => new TestCaptureLogger(categoryName));
+            Func<string, TestCaptureLogger> ValueFactory()
+            {
+                return _ => new TestCaptureLogger(categoryName);
+            }
+
+            return _captures.GetOrAdd(categoryName, ValueFactory());
         }
 
         /// <summary>
@@ -104,7 +109,10 @@ namespace Stravaig.Extensions.Logging.Diagnostics
         /// </summary>
         public void Reset()
         {
-            _captures.Clear();
+            foreach (var logger in _captures.Values)
+            {
+                logger.Reset();
+            }
         }
 
         /// <summary>

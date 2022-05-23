@@ -131,5 +131,16 @@ namespace Stravaig.Extensions.Logging.Diagnostics
             public void Dispose()
             { }
         }
+
+        /// <summary>
+        /// Resets the logger by discarding the captured logs.
+        /// </summary>
+        public void Reset()
+        {
+            lock (_syncRoot)
+            {
+                _logs.Clear();
+            }
+        }
     }
 }
