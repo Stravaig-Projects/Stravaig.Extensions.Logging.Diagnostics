@@ -4,11 +4,18 @@
 
 Date: ???
 
-### Miscellaneous
+### Bugs
 
-- Add [Source Link](https://github.com/dotnet/sourcelink) to allow easier debugging of the package in consuming applications. This will allow developers to step into the source code of this package when debugging their own code that uses this package.
+### Features
+
+### Miscellaneous
 
 ### Dependencies
 
-- .NET Core 3.1
-  - Bump Microsoft.Extensions.Logging.Abstractions to 3.1.27
+- All targets:
+- .NET Standard 2.0 targets:
+- .NET 5.0 targets:
+- .NET 6.0 targets:
+
+
+
