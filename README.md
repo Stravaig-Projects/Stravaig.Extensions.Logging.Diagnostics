@@ -6,6 +6,10 @@ A logger for use in tests so that the messages logged can be examined in tests.
 * ![Nuget](https://img.shields.io/nuget/v/Stravaig.Extensions.Logging.Diagnostics?color=004880&label=nuget%20stable&logo=nuget) [View on NuGet](https://www.nuget.org/packages/Stravaig.Extensions.Logging.Diagnostics)
 * ![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/Stravaig.Extensions.Logging.Diagnostics?color=ffffff&label=nuget%20latest&logo=nuget) [View on NuGet](https://www.nuget.org/packages/Stravaig.Extensions.Logging.Diagnostics)
 
+Current version supports: .NET Core 3.1, .NET 5.0, 6.0, 7.0
+
+NOTE: :warning: .NET 5.0 is now out of support and this package will remove support at the next major version.
+
 ## Usage
 
 ### Simply injecting a logger
