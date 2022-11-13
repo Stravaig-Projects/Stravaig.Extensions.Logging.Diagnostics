@@ -1,6 +1,6 @@
 // Copied from https://github.com/dotnet/runtime/blob/master/src/libraries/Common/src/Extensions/TypeNameHelper/TypeNameHelper.cs
 //
-// Original Licence:
+// Original License:
 // ----------------------------------------------------------------------------
 // The MIT License (MIT)
 //
@@ -35,6 +35,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+
+// Assuming Microsoft know what they are doing so suppressing this warning.
+// ReSharper disable PossibleNullReferenceException
 
 namespace Stravaig.Extensions.Logging.Diagnostics.ExternalHelpers
 {
