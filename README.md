@@ -10,7 +10,13 @@ Current version supports: .NET Core 3.1, .NET 5.0, 6.0, 7.0
 
 NOTE: :warning: .NET 5.0 is now out of support and this package will remove support at the next major version.
 
+## Why test logs?
+
+This was originally developed to test that background services were emitting logs in certain scenarios. Since the logs are the one of the primary views of how a background service is working it is essentially a first class output of the service. The user interface of the service, if you prefer, where the user is the developer or support technicial attempting a diagnose an issue.
+
 ## Usage
+
+This package is designed to hook into the .NET logging framework so that the logger can be easily injected into units of code, or set up in the dependecy injection for larger integrated tests.
 
 ### Simply injecting a logger
 
