@@ -5,7 +5,6 @@
         <TargetFrameworks>netstandard2.0;net5.0;net6.0;net7.0</TargetFrameworks>
         <Title>Stravaig Logging Capture for Tests</Title>
         <Authors>Colin Angus Mackay</Authors>
-        <Description>A logging provider that captures the logs that it receives so they can be examined later by tests.</Description>
         <Copyright>©2020-$(YEAR) Colin Angus Mackay. See licence for more information.</Copyright>
         <PackageProjectUrl>https://github.com/Stravaig-Projects/Stravaig.Extensions.Logging.Diagnostics/blob/main/README.md</PackageProjectUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -13,6 +12,10 @@
         <PackageIcon>stravaig-icon.png</PackageIcon>
         <PackageTags>logging testing</PackageTags>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
+	    <Description>
+			A logging provider that hooks into the .NET Logging extensions and captures
+			the logs that it receives so they can be examined later by tests.
+	    </Description>
     </PropertyGroup>
     <ItemGroup>
         <None Include="stravaig-icon.png" Pack="true" PackagePath="/" />
