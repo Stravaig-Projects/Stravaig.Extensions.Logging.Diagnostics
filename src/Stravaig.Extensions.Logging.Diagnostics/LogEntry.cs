@@ -108,30 +108,6 @@ namespace Stravaig.Extensions.Logging.Diagnostics
         /// <param name="state">The entry that was written. Can be also an object.</param>
         /// <param name="exception">The <see cref="T:System.Exception"/> that was attached to the log.</param>
         /// <param name="formattedMessage">The formatted message.</param>
-        [Obsolete("This will be removed in v2.0; use the constructor with the categoryName parameter.")]
-        public LogEntry(LogLevel logLevel, EventId eventId, object state, Exception exception, string formattedMessage)
-            : this()
-        {
-            LogLevel = logLevel;
-            EventId = eventId;
-            State = state;
-            Exception = exception;
-            FormattedMessage = formattedMessage;
-            lock (SequenceSyncLock)
-            {
-                Sequence = _sequence++;
-                TimestampUtc = DateTime.UtcNow;
-            }
-        }
-
-        /// <summary>
-        /// Initialises a <see cref="T:Stravaig.Extensions.Logging.Diagnostics.LogEntry"/>.
-        /// </summary>
-        /// <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLeve"/> that was logged.</param>
-        /// <param name="eventId">An <see cref="T:Microsoft.Extensions.Logging.EventId"/> that identifies the logging event.</param>
-        /// <param name="state">The entry that was written. Can be also an object.</param>
-        /// <param name="exception">The <see cref="T:System.Exception"/> that was attached to the log.</param>
-        /// <param name="formattedMessage">The formatted message.</param>
         /// <param name="categoryName">The source or category name.</param>
         public LogEntry(LogLevel logLevel, EventId eventId, object state, Exception exception, string formattedMessage, string categoryName)
             : this()
