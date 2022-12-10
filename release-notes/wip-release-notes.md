@@ -10,12 +10,13 @@ Date: ???
 
 ### Miscellaneous
 
+- #115: Drop support for .NET Core 3.1 (LTS) and .NET 5.0 (STS)
+
 ### Dependencies
 
 - All targets:
-- .NET Standard 2.0 targets:
-- .NET 5.0 targets:
 - .NET 6.0 targets:
+- .NET 7.0 targets:
 
 
 
