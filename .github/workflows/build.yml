@@ -1,4 +1,4 @@
-name: Stravaig Test Capture Logger V1
+name: Stravaig Test Capture Logger V2
 on: 
   push:
     branches: 
@@ -59,16 +59,6 @@ jobs:
           echo "Is Preview: $STRAVAIG_IS_PREVIEW"
           echo "Is Stable: $STRAVAIG_IS_STABLE"
           
-      - uses: actions/setup-dotnet@v1
-        name: Setup .NET Core 3.1
-        with:
-          dotnet-version: 3.1.x
-
-      - uses: actions/setup-dotnet@v1
-        name: Setup .NET 5.0
-        with:
-          dotnet-version: 5.0.x
-
       - uses: actions/setup-dotnet@v1
         name: Setup .NET 6.0
         with:
