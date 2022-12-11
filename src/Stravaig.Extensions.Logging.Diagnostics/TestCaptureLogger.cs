@@ -44,14 +44,6 @@ namespace Stravaig.Extensions.Logging.Diagnostics
         /// </summary>
         /// <remarks>Any additional logs added to the logger after this is
         /// called won't be available in the list and it will have to be called again.</remarks>
-        [Obsolete("This will be removed in v2.0. Use GetLogs() instead.")]
-        public IReadOnlyList<LogEntry> Logs => GetLogs();
-
-        /// <summary>
-        /// Gets a read-only list of logs that is a snapshot of this logger.
-        /// </summary>
-        /// <remarks>Any additional logs added to the logger after this is
-        /// called won't be available in the list and it will have to be called again.</remarks>
         public IReadOnlyList<LogEntry> GetLogs()
         {
             lock (_syncRoot)

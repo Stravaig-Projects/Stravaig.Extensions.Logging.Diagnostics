@@ -2,7 +2,7 @@
     
     <PropertyGroup>
         <YEAR>$([System.DateTime]::Now.Year)</YEAR>
-        <TargetFrameworks>netstandard2.0;net5.0;net6.0;net7.0</TargetFrameworks>
+        <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
         <Title>Stravaig Logging Capture for Tests</Title>
         <Authors>Colin Angus Mackay</Authors>
         <Copyright>©2020-$(YEAR) Colin Angus Mackay. See licence for more information.</Copyright>
@@ -13,8 +13,10 @@
         <PackageTags>logging testing</PackageTags>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
 	    <Description>
-			A logging provider that hooks into the .NET Logging extensions and captures
-			the logs that it receives so they can be examined later by tests.
+            A logging provider that hooks into the .NET Logging extensions and captures
+            the logs that it receives so they can be examined later by tests.
+            
+            Use version 1.x for .NET prior to 6.0. Use version 2.0 for .NET 6.0 onwards.
 	    </Description>
     </PropertyGroup>
     <ItemGroup>
@@ -34,14 +36,6 @@
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
     </ItemGroup>
     
-    <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.31" />
-    </ItemGroup>
-
-    <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
-    </ItemGroup>
-
     <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.3" />
     </ItemGroup>

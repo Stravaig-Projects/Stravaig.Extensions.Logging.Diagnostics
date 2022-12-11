@@ -1,11 +1,11 @@
-﻿using System;
+﻿#if NET7_0_OR_GREATER
+
+using System;
 using System.Linq;
 using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 using Shouldly;
 using Stravaig.Extensions.Logging.Diagnostics.Tests.Net7.Helpers;
-
-#if NET7_0_OR_GREATER
 
 namespace Stravaig.Extensions.Logging.Diagnostics.Tests.Net7;
 
