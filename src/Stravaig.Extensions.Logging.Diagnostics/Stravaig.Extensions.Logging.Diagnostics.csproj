@@ -13,8 +13,8 @@
         <PackageTags>logging testing</PackageTags>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
 	    <Description>
-			A logging provider that hooks into the .NET Logging extensions and captures
-			the logs that it receives so they can be examined later by tests.
+            A logging provider that hooks into the .NET Logging extensions and captures
+            the logs that it receives so they can be examined later by tests.
             
             Use version 1.x for .NET prior to 6.0. Use version 2.0 for .NET 6.0 onwards.
 	    </Description>
