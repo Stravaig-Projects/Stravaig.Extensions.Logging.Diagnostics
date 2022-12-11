@@ -11,4 +11,7 @@ Date: ???
   - `TestCaptureLogger`.`Logs` property has been removed. Use `GetLogs()` method instead.
   - `LogEntry`.ctor override without the `categoryName` parameter has been removed. A category name must be supplied.
 
+### Miscellaneous
+
+- #118: Update TypeNameHelper.
 
