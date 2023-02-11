@@ -13,5 +13,6 @@ Date: ???
 
 ### Miscellaneous
 
+- #117: Enable nullable types in the project.
 - #118: Update TypeNameHelper.
 
