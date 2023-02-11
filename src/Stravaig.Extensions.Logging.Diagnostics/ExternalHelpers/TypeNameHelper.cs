@@ -30,7 +30,6 @@
 //
 // ----------------------------------------------------------------------------
 // Linting rules overrides
-#nullable enable
 // ReSharper disable InconsistentNaming
 // ReSharper disable ArrangeNamespaceBody
 // ReSharper disable UnusedMember.Global
