@@ -2,7 +2,6 @@
 
 A logger for use in tests so that the messages logged can be examined in tests.
 
-* ![Build Stravaig.Extensions.Logging.Diagnostics](https://github.com/Stravaig-Projects/Stravaig.Extensions.Logging.Diagnostics/workflows/Build%20Stravaig.Extensions.Logging.Diagnostics/badge.svg) [View Workflows](https://github.com/Stravaig-Projects/Stravaig.Extensions.Logging.Diagnostics/actions)
 * ![Nuget](https://img.shields.io/nuget/v/Stravaig.Extensions.Logging.Diagnostics?color=004880&label=nuget%20stable&logo=nuget) [View on NuGet](https://www.nuget.org/packages/Stravaig.Extensions.Logging.Diagnostics)
 * ![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/Stravaig.Extensions.Logging.Diagnostics?color=ffffff&label=nuget%20latest&logo=nuget) [View on NuGet](https://www.nuget.org/packages/Stravaig.Extensions.Logging.Diagnostics)
 
@@ -180,7 +179,7 @@ var logs = logger.GetAllLogEntriesWithExceptions();
 
 #### GetCategories()
 
-Gets all the logger categories created by this provider. NOTE: The category may not contain any logs. 
+Gets all the logger categories created by this provider. NOTE: The category may not contain any logs.
 
 ```csharp
 // Arrange
@@ -267,14 +266,27 @@ In this repository there is an example project showing how this may be used in N
 
 * [Example Solution](https://github.com/Stravaig-Projects/Stravaig.Extensions.Logging.Diagnostics/tree/main/Example)
 
+## Rendering Logs on XUnit
+
+To render logs while using XUnit test framework, there is an extension to the `ITestOutputHelper` to assist.
+
+You will need to install the `Stravaig.Extensions.Logging.Diagnostics.XUnit` package.
+
+In your test you can render logs to the test output helper from any `IReadOnlyList<LogEntry>`. e.g.
+
+```csharp
+var logEntries = logger.GetLogs();
+outputHelper.RenderLogs(logEntries);
+```
+
 ## Feedback, Issues, and Questions
 
 You can create a [GitHub issue](https://github.com/Stravaig-Projects/Stravaig.Extensions.Logging.Diagnostics/issues) to leave bug reports, ask questions, or feature requests.
 
 ## Contributing / Getting Started
 
-* Ensure you have PowerShell 7.1.x (or higher, except Windows) installed. 
+* Ensure you have PowerShell 7.1.x (or higher, except Windows) installed.
 * At a PowerShell prompt
-    * Navigate to the root of this repository
-    * Run `./Install-GitHooks.ps1`
+  * Navigate to the root of this repository
+  * Run `./Install-GitHooks.ps1`
 * Name the branch after the issue number. e.g. `#1234/fix-the-thing`. The Git Hooks will prefix each commit with the issue number.
