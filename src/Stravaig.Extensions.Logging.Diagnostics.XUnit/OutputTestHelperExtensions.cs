@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Stravaig.Extensions.Logging.Diagnostics.Render;
 using Xunit.Abstractions;
 
