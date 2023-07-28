@@ -1,8 +1,9 @@
 name: Stravaig Test Capture Logger V2
-on: 
+on:
   push:
-    branches: 
+    branches:
       - main
+      - "#138/xunit-2"
 
     paths-ignore:
       - 'README.md'
@@ -23,7 +24,7 @@ on:
   workflow_dispatch:
     inputs:
       isPublic:
-        description: 'Is Public Release'     
+        description: 'Is Public Release'
         required: false
         default: "false"
       isPreview:
@@ -42,7 +43,7 @@ jobs:
         run: sudo timedatectl set-timezone "Europe/London"
 
       - name: Check out code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
@@ -58,37 +59,60 @@ jobs:
           echo "Publish To NuGet: $STRAVAIG_PUBLISH_TO_NUGET"
           echo "Is Preview: $STRAVAIG_IS_PREVIEW"
           echo "Is Stable: $STRAVAIG_IS_STABLE"
-          
-      - uses: actions/setup-dotnet@v1
-        name: Setup .NET 6.0
-        with:
-          dotnet-version: 6.0.x
 
-      - uses: actions/setup-dotnet@v1
-        name: Setup .NET 7.0
+      - uses: actions/setup-dotnet@v3
+        name: Setup .NET 6.0 & 7.0
         with:
-          dotnet-version: 7.0.x
-          
+          dotnet-version: |
+            6.0.x
+            7.0.x
+
       - name: .NET State
         run: dotnet --info
 
       - name: Build Solution
         run: dotnet build src/Stravaig.Extensions.Logging.Diagnostics.sln --configuration Release
-       
+
       - name: Run Tests
         run: dotnet test src/Stravaig.Extensions.Logging.Diagnostics.Tests/Stravaig.Extensions.Logging.Diagnostics.Tests.csproj --configuration Release
 
-      - name: Package Preview Release
+      - name: Package Preview Release (main)
         if: ${{ env.STRAVAIG_IS_PREVIEW == 'true' }}
         run: dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics/Stravaig.Extensions.Logging.Diagnostics.csproj --configuration Release --output ./out --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" --version-suffix "$STRAVAIG_PACKAGE_VERSION_SUFFIX" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
-       
-      - name: Package Stable Release
+
+      - name: Package Preview Release (xunit)
+        if: ${{ env.STRAVAIG_IS_PREVIEW == 'true' }}
+        run: dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics.XUnit/Stravaig.Extensions.Logging.Diagnostics.XUnit.csproj --configuration Release --output ./out --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" --version-suffix "$STRAVAIG_PACKAGE_VERSION_SUFFIX" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
+
+      - name: Package Stable Release (main)
         if: ${{ env.STRAVAIG_IS_STABLE == 'true' }}
         run: dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics/Stravaig.Extensions.Logging.Diagnostics.csproj --configuration Release --output ./out --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
 
+      - name: Package Stable Release (xunit)
+        if: ${{ env.STRAVAIG_IS_STABLE == 'true' }}
+        run: dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics.XUnit/Stravaig.Extensions.Logging.Diagnostics.XUnit.csproj --configuration Release --output ./out --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
+
+      - name: List Packages
+        run: ls -l ./out
+
+      - name: Archive Packages
+        if: ${{ env.STRAVAIG_PUBLISH_TO_NUGET == 'false' }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: packages
+          path: |
+            ./out/**
+          retention-days: 7
+
       - name: Push package to NuGet
         if: ${{ env.STRAVAIG_PUBLISH_TO_NUGET == 'true' }}
-        run: dotnet nuget push ./out/*.nupkg --api-key ${{ secrets.STRAVAIG_NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+        shell: pwsh
+        run: |
+          Get-ChildItem ./out/*.nupkg | ForEach-Object { 
+            $name = $_.FullName; 
+            Write-Output "Pushing $name"; 
+            dotnet nuget push "$name" --api-key ${{ secrets.STRAVAIG_NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+          }
 
       - name: List Contributors
         shell: pwsh
@@ -100,7 +124,7 @@ jobs:
 
       - name: Archive Simulated Release Notes
         if: ${{ env.STRAVAIG_PUBLISH_TO_NUGET == 'false' }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: simulated-release-information
           path: |
@@ -111,7 +135,7 @@ jobs:
 
       - name: Archive Release Notes
         if: ${{ env.STRAVAIG_PUBLISH_TO_NUGET == 'true' }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: release-information
           path: |
