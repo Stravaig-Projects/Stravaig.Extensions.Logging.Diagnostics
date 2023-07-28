@@ -13,4 +13,8 @@
       </None>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Stravaig.Extensions.Logging.Diagnostics\Stravaig.Extensions.Logging.Diagnostics.csproj" />
+    </ItemGroup>
+
 </Project>
