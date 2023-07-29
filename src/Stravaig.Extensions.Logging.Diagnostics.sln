@@ -37,6 +37,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "githooks", "githooks", "{4F
 		..\.stravaig\gitHooks\commit-msg = ..\.stravaig\gitHooks\commit-msg
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stravaig.Extensions.Logging.Diagnostics.XUnit", "Stravaig.Extensions.Logging.Diagnostics.XUnit\Stravaig.Extensions.Logging.Diagnostics.XUnit.csproj", "{5CFE6D66-19C2-4666-8C26-775C622E2921}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{B340AAA5-0FF9-4838-8788-803DE8D72999}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B340AAA5-0FF9-4838-8788-803DE8D72999}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B340AAA5-0FF9-4838-8788-803DE8D72999}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CFE6D66-19C2-4666-8C26-775C622E2921}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CFE6D66-19C2-4666-8C26-775C622E2921}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CFE6D66-19C2-4666-8C26-775C622E2921}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CFE6D66-19C2-4666-8C26-775C622E2921}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4F93041F-3DE3-4262-9F56-9F8D5DA253DC} = {403E4EE3-1668-43E3-888D-1ACF5E8D684B}

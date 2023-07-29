@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <YEAR>$([System.DateTime]::Now.Year)</YEAR>
+        <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+        <Title>XUnit extensions for Stravaig Logging Capture for Tests</Title>
+        <Authors>Colin Angus Mackay</Authors>
+        <Copyright>©$(YEAR) Colin Angus Mackay. See licence for more information.</Copyright>
+        <PackageProjectUrl>https://github.com/Stravaig-Projects/Stravaig.Extensions.Logging.Diagnostics/blob/main/README.md</PackageProjectUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <RepositoryUrl>https://github.com/Stravaig-Projects/Stravaig.Extensions.Logging.Diagnostics</RepositoryUrl>
+        <PackageIcon>stravaig-icon.png</PackageIcon>
+        <PackageTags>logging testing xunit</PackageTags>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <Description>
+            XUnit extensions for Stravaig Logging Capture for Tests.
+        </Description>
+        <Nullable>enable</Nullable>
+        <LangVersion>11</LangVersion>
+        <RootNamespace>Stravaig.Extensions.Logging.Diagnostics.XUnit</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <None Include="stravaig-icon.png">
+        <Pack>true</Pack>
+        <PackagePath>/</PackagePath>
+      </None>
+    </ItemGroup>
+
+    <!-- Source link properties -->
+    <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Stravaig.Extensions.Logging.Diagnostics\Stravaig.Extensions.Logging.Diagnostics.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
+        <PrivateAssets>all</PrivateAssets>
+      </PackageReference>
+      <PackageReference Include="xunit.abstractions" Version="2.0.3" />
+    </ItemGroup>
+
+</Project>

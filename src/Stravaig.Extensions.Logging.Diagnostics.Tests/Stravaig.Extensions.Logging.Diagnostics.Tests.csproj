@@ -23,6 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Stravaig.Extensions.Logging.Diagnostics.XUnit\Stravaig.Extensions.Logging.Diagnostics.XUnit.csproj" />
       <ProjectReference Include="..\Stravaig.Extensions.Logging.Diagnostics\Stravaig.Extensions.Logging.Diagnostics.csproj" />
     </ItemGroup>
 </Project>
