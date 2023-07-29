@@ -45,6 +45,8 @@ public class OutputTestHelperExtensionTests
     {
         var logEntryType = typeof(LogEntry);
         var field = logEntryType.GetField("_sequence", BindingFlags.Static | BindingFlags.NonPublic);
+        if (field == null)
+            throw new InvalidOperationException("Expected LogEntry to have a private field called _sequence.");
         field.SetValue(null, 0);
     }
 }
