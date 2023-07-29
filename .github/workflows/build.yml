@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - main
-      - "#138/xunit-2"
 
     paths-ignore:
       - 'README.md'
