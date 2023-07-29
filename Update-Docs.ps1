@@ -41,6 +41,8 @@ $releaseNotesIndexFile = @(
 ""
 );
 
+$year = $null;
+
 Get-ChildItem "$releaseNotesOriginal" |
     Sort-Object -Descending -Property Name |
     ForEach-Object -Process {

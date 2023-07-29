@@ -6,9 +6,8 @@ plugins:
 exclude:
   - scripts
 
-# UPDATE ME IN A NEW REPOSITORY
-title: Stravaig Template
-description: The Stravaig Template
+title: Stravaig Logging Diagnostics
+description: Diagnostics for examining logs in automated tests.
 
 kramdown:
     highlighter: rouge
@@ -16,13 +15,12 @@ kramdown:
         block:
             line_numbers: true
 
-# UPDATE ME IN A NEW REPOSITORY
 github:
-  repository_url: https://github.com/Stravaig-Projects/stravaig-template
+  repository_url: https://github.com/Stravaig-Projects/Stravaig.Extensions.Logging.Diagnostics
 
 # UPDATE ME IN A NEW REPOSITORY
 nuget:
   urls:
-    - https://www.nuget.org/packages/Stravaig.Package1
-    - https://www.nuget.org/packages/Stravaig.Package2
-    - https://www.nuget.org/packages/Stravaig.Package3.etc
+    - https://www.nuget.org/packages/Stravaig.Extensions.Logging.Diagnostics
+#    - https://www.nuget.org/packages/Stravaig.Package2
+#    - https://www.nuget.org/packages/Stravaig.Package3.etc

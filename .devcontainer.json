@@ -36,6 +36,6 @@
 
 	"remoteEnv": {
 		"JEKYLL_PORT": "4003",
-		"REPO_NAME": "Stravaig-template"
+		"REPO_NAME": "Stravaig.Extensions.Logging.Diagnostics"
 	}
 }

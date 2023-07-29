@@ -1,3 +1,8 @@
+---
+layout: default
+title: Contributors
+---
+
 # Contributors
 
 This is a list of all the contributors to this repository in ascending order by the contributor name.
@@ -10,9 +15,9 @@ This is a list of all the contributors to this repository in ascending order by 
 
 ## Summary
 
-:octocat: 368 commits in total.
+*  368 commits in total.
 
-:date: From Saturday, 26 September, 2020 @ 20:26:19 +00:00.
+*  From Saturday, 26 September, 2020 @ 20:26:19 +00:00.
 
-:date: Until Saturday, 29 July, 2023 @ 16:07:44 +00:00.
+*  Until Saturday, 29 July, 2023 @ 16:07:44 +00:00.
 

@@ -6,6 +6,10 @@
 # Mac files
 .DS_Store
 
+docs/_site/
+docs/Gemfile.lock
+docs/release-notes/
+
 # User-specific files
 *.rsuser
 *.suo
