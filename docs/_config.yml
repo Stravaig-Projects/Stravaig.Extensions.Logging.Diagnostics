@@ -1,0 +1,26 @@
+remote_theme: Stravaig-Projects/stravaig-theme
+plugins:
+  - jekyll-remote-theme 
+  - jekyll-relative-links
+
+exclude:
+  - scripts
+
+title: Stravaig Logging Diagnostics
+description: Diagnostics for examining logs in automated tests.
+
+kramdown:
+    highlighter: rouge
+    syntax_highlighter_opts:
+        block:
+            line_numbers: true
+
+github:
+  repository_url: https://github.com/Stravaig-Projects/Stravaig.Extensions.Logging.Diagnostics
+
+# UPDATE ME IN A NEW REPOSITORY
+nuget:
+  urls:
+    - https://www.nuget.org/packages/Stravaig.Extensions.Logging.Diagnostics
+#    - https://www.nuget.org/packages/Stravaig.Package2
+#    - https://www.nuget.org/packages/Stravaig.Package3.etc

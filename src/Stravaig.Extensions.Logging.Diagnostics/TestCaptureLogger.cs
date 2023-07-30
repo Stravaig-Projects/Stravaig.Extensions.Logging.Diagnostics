@@ -61,7 +61,9 @@ public class TestCaptureLogger : ILogger
         List<LogEntry> result;
         lock (_syncRoot)
         {
-            result = _logs.Where(l => l.Exception != null).ToList();
+            result = _logs
+                .Where(l => l.Exception != null)
+                .ToList();
         }
         result.Sort();
         return result;
