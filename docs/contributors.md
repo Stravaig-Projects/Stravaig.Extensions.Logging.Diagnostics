@@ -7,7 +7,7 @@ title: Contributors
 
 This is a list of all the contributors to this repository in ascending order by the contributor name.
 
-**Colin Mackay** contributed 295 commits from Saturday, 26 September, 2020 @ 20:26:19 +00:00 to Saturday, 29 July, 2023 @ 21:51:48 +00:00.
+**Colin Mackay** contributed 296 commits from Saturday, 26 September, 2020 @ 20:26:19 +00:00 to Sunday, 30 July, 2023 @ 19:26:52 +00:00.
 
 **dependabot[bot]** contributed 50 commits from Wednesday, 14 October, 2020 @ 19:13:43 +00:00 to Tuesday, 27 June, 2023 @ 14:56:42 +00:00.
 
@@ -15,9 +15,9 @@ This is a list of all the contributors to this repository in ascending order by 
 
 ## Summary
 
-*  370 commits in total.
+*  371 commits in total.
 
 *  From Saturday, 26 September, 2020 @ 20:26:19 +00:00.
 
-*  Until Saturday, 29 July, 2023 @ 21:51:48 +00:00.
+*  Until Sunday, 30 July, 2023 @ 19:26:52 +00:00.
 

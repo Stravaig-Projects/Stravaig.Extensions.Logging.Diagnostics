@@ -1,3 +1,8 @@
+---
+layout: default
+title: Rendering Extensions
+---
+
 # Rendering Extensions
 
 Extensions to help render captured logs in to the test output.

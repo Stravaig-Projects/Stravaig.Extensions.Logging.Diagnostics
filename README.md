@@ -39,66 +39,7 @@ For details on usage see the [Stravaig Logging Diagnostics documentation](https:
 
 
 
-### TestCaptureLoggerProvider methods
 
-#### GetCategories()
-
-Gets all the logger categories created by this provider. NOTE: The category may not contain any logs.
-
-```csharp
-// Arrange
-var logProvider = new TestCaptureLoggerProvider();
-
-// Act... Do something using the logProvider
-
-// Assert
-var categories = logProvider.GetCategories();
-// categories is a read only list of strings.
-```
-
-#### GetAllLogEntries()
-
-Gets all the LogEntry objects generated via this provider in sequential order.
-
-```csharp
-// Arrange
-var logProvider = new TestCaptureLoggerProvider();
-
-// Act... Do something using the logProvider
-
-// Assert
-var allLogs = logProvider.GetAllLogEntries();
-// allLogs is a read only list of LogEntry objects in sequential order.
-```
-
-#### GetAllLogEntriesWithExceptions()
-
-Gets all the log entries generated via this provider in sequential order that have exception objects attached to them.
-
-```csharp
-// Arrange
-var logProvider = new TestCaptureLoggerProvider();
-
-// Act... Do something using the logProvider
-
-// Assert
-var logs = logProvider.GetAllLogEntriesWithExceptions();
-// logs is a read only list of LogEntry objects in sequential order.
-```
-
-#### Reset()
-
-Resets the provider and discards all the logs captured to that point.
-
-```csharp
-var logProvider = new TestCaptureLoggerProvider();
-
-// Create log entries here...
-
-logProvider.Reset();
-var logs = logProvider.GetAllLogEntries();
-// logs is an empty array.
-```
 
 ### IEnumerable<LogEntry>.RenderLogs()
 

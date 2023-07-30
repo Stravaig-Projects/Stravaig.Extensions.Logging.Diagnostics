@@ -33,9 +33,9 @@ Gets the log entries for the specified category.
 
 ### Variants
 
-* GetLogEntriesFor(string categoryName)
-* GetLogEntriesFor(type type)
-* GetLogEntriesFor<T>()
+* `GetLogEntriesFor(string categoryName)`
+* `GetLogEntriesFor(type type)`
+* `GetLogEntriesFor<T>()`
 
 #### Returns
 
@@ -106,5 +106,5 @@ var logProvider = new TestCaptureLoggerProvider();
 
 logProvider.Reset();
 var logs = logProvider.GetAllLogEntries();
-// logs is an empty array.
+logs.Count.ShouldBe(0); // logs is an empty list.
 ```
