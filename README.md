@@ -23,66 +23,12 @@ This library also supports rendering the logs it captures, filtered in any way y
 
 For details on usage see the [Stravaig Logging Diagnostics documentation](https://stravaig-projects.github.io/Stravaig.Extensions.Logging.Diagnostics/).
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### IEnumerable<LogEntry>.RenderLogs()
-
-This is an extension method in the `Stravaig.Extensions.Logging.Diagnostics.Renderer` namespace.
-
-The implied object is an `IEnumerable<LogEntry>` so it will operate over any iterable collection of `LogEntry` objects.
-
-The method takes two parameters, a formatting function and a sink action. The formatting function takes the LogEntry and formats it into a string. The sink action takes the formatted string and writes it to some output mechanism such as the console, or a debug trace listener.
-
-e.g.
-
-```csharp
-logger.GetLogs()
-      .RenderLogs(
-          le => $"{le.Sequence}: {le.FormattedMessage}",
-          msg => Debug.WriteLine(msg));
-```
-
-There are some built in Formatters and Sinks to get started with.
-
-```csharp
-logger.GetLogs()
-      .RenderLogs(Formatter.SimpleBySequence, Sink.Console);
-```
-
 ### Example project
 
 In this repository there is an example project showing how this may be used in NUnit tests.
 
 * [Example Solution](https://github.com/Stravaig-Projects/Stravaig.Extensions.Logging.Diagnostics/tree/main/Example)
 
-## Rendering Logs on XUnit
-
-To render logs while using XUnit test framework, there is an extension to the `ITestOutputHelper` to assist.
-
-You will need to install the `Stravaig.Extensions.Logging.Diagnostics.XUnit` package.
-
-In your test you can render logs to the test output helper from any `IReadOnlyList<LogEntry>`. e.g.
-
-```csharp
-var logEntries = logger.GetLogs();
-outputHelper.RenderLogs(logEntries);
-```
 
 ## Feedback, Issues, and Questions
 
