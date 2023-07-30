@@ -35,61 +35,9 @@ For details on usage see the [Stravaig Logging Diagnostics documentation](https:
 
 
 
-### With a `WebApplicationFactory`
-
-The `WithWebHostBuilder` method on the factory allows you to configure the logging. Before setting up the web host, create a `TestCaptureLoggerProvider` in a place accessible from your test, then use in in the `ConfigureLogging` method, and run your test. After the test is run you can use the `TestCaptureLoggerProvider` to `GetLogEntriesFor<T>()` method to access the log entries that were made in the code under test.
-
-e.g.
-
-```csharp
-// Arrange or SetUp portion of test
-var logProvider = new TestCaptureLoggerProvider();
-using var factory = new WebApplicationFactory<Startup>()
-  .WithWebHostBuilder(builder =>
-  {
-    builder.ConfigureLogging(loggingBuilder =>
-    {
-       loggingBuilder.AddProvider(logProvider);
-    });
-  });
-
-// Act : Do what ever you need to run your test
-
-// Assert
-var entries = logProvider.GetLogEntriesFor<T>();
-// Assert the entries from the logger.
-```
-
-### TestCaptureLogger methods
-
-### GetLogs()
-
-The `TestCaptureLogger.GetLogs()` allows you to retrieve the logs within your test method. The property will be in sequence, timestamps will be incremental(*). Each `LogEntry` retrieved contains the following properties:
-* `LogLevel` which is a `Microsoft.Extensions.Logging.LogLevel` enum.
-* `Exception` contains any exception that was passed into the logger.
-* `FormattedMessage` is the formatted message with the placeholders filled in.
-* `OriginalMessage` is the original message template without the placeholder values filled in.
-* `Sequence` is the sequence number of the log entry. Note: In a multi-threaded test the sequence number may not necessarily be the order in which the log method was called, but the order in which the `LogEntry` was created.
-* `TimestampUtc` is the timestamp of the log entry in UTC.
-* `TimestampLocal` is the timestamp of the log entry in the local time of the machine.
-
-(*) Timestamps will be incremental, but two logs created sufficiently close to one another in time may contain the same timestamp due to the resolution of the clock.
 
 
-#### GetLogEntriesWithExceptions()
 
-Gets all the log entries generated via this logger in sequential order that have exception objects attached to them.
-
-```csharp
-// Arrange
-var logger = new TestCaptureLogger();
-
-// Act... Do something using the logger
-
-// Assert
-var logs = logger.GetAllLogEntriesWithExceptions();
-// logs is a read only list of LogEntry objects in sequential order.
-```
 
 ### TestCaptureLoggerProvider methods
 

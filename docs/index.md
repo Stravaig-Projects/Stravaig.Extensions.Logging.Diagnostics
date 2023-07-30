@@ -21,9 +21,20 @@ This package is designed to hook into the .NET logging framework so that the log
 
 ## Scenarios
 
-* [Injecting a logger to the class under test](docs/inject-logger-to-class-under-test.md)
-* [Injecing a logger factory to the class under test](docs/inject-logger-factory-to-class-under-test.md)
+* [Injecting a logger to the class under test](docs/scenarios/inject-logger-to-class-under-test.md)
+* [Injecing a logger factory to the class under test](docs/scenarios/inject-logger-factory-to-class-under-test.md)
+* [Using a WebApplicationFactory](docs/scenarios/using-a-web-application-factory.md)
 
+## Library
+
+* [LogEntry](docs/library/log-entry.md)
+* [TestCaptureLogger](docs/library/test-capture-logger.md)
+* [TestCaptureLoggerProvider](docs/library/test-capture-logger-provider.md)
+
+#### Extensions
+
+* [Rendering](docs/library/log-entry-renderer-extensions.md)
+* [XUnit](docs/library/xunit-extensions.md)
 
 # Project details
 
