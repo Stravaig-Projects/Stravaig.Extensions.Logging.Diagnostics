@@ -2,8 +2,12 @@
 
 A logger for use in tests so that the messages logged can be examined in tests.
 
-* ![Nuget](https://img.shields.io/nuget/v/Stravaig.Extensions.Logging.Diagnostics?color=004880&label=nuget%20stable&logo=nuget) [View on NuGet](https://www.nuget.org/packages/Stravaig.Extensions.Logging.Diagnostics)
-* ![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/Stravaig.Extensions.Logging.Diagnostics?color=ffffff&label=nuget%20latest&logo=nuget) [View on NuGet](https://www.nuget.org/packages/Stravaig.Extensions.Logging.Diagnostics)
+* Stable releases:
+  * ![Nuget](https://img.shields.io/nuget/v/Stravaig.Extensions.Logging.Diagnostics?color=004880&label=nuget%20stable&logo=nuget)[View Stravaig.Extensions.Logging.Diagnostics on NuGet](https://www.nuget.org/packages/Stravaig.Extensions.Logging.Diagnostics)
+  * ![Nuget](https://img.shields.io/nuget/v/Stravaig.Extensions.Logging.Diagnostics.XUnit?color=004880&label=nuget%20stable&logo=nuget)[View Stravaig.Extensions.Logging.Diagnostics.XUnit on NuGet](https://www.nuget.org/packages/Stravaig.Extensions.Logging.Diagnostics.XUnit)
+* Latest releases:
+  * ![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/Stravaig.Extensions.Logging.Diagnostics?color=ffffff&label=nuget%20latest&logo=nuget)[View Stravaig.Extensions.Logging.Diagnostics on NuGet](https://www.nuget.org/packages/Stravaig.Extensions.Logging.Diagnostics)
+  * ![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/Stravaig.Extensions.Logging.Diagnostics.XUnit?color=ffffff&label=nuget%20latest&logo=nuget)[View Stravaig.Extensions.Logging.Diagnostics.XUnit on NuGet](https://www.nuget.org/packages/Stravaig.Extensions.Logging.Diagnostics.XUnit)
 
 Current version supports: 6.0, 7.0
 

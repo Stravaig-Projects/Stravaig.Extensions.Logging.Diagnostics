@@ -6,7 +6,7 @@
         <Title>Stravaig Logging Capture for Tests</Title>
         <Authors>Colin Angus Mackay</Authors>
         <Copyright>©2020-$(YEAR) Colin Angus Mackay. See licence for more information.</Copyright>
-        <PackageProjectUrl>https://github.com/Stravaig-Projects/Stravaig.Extensions.Logging.Diagnostics/blob/main/README.md</PackageProjectUrl>
+        <PackageProjectUrl>https://stravaig-projects.github.io/Stravaig.Extensions.Logging.Diagnostics/</PackageProjectUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <RepositoryUrl>https://github.com/Stravaig-Projects/Stravaig.Extensions.Logging.Diagnostics</RepositoryUrl>
         <PackageIcon>stravaig-icon.png</PackageIcon>
