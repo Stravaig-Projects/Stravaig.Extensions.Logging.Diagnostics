@@ -16,7 +16,7 @@ public static class OutputTestHelperExtensions
     /// <param name="output">The xunit test output helper.</param>
     /// <param name="logEntries">The log entries.</param>
     /// <param name="formatter"></param>
-    public static void WriteLogs(this ITestOutputHelper output, IReadOnlyList<LogEntry> logEntries, Func<LogEntry, string>? formatter = null)
+    public static void WriteLogs(this ITestOutputHelper output, IEnumerable<LogEntry> logEntries, Func<LogEntry, string>? formatter = null)
     {
         logEntries.RenderLogs(formatter ?? Formatter.SimpleBySequence, output.WriteLine);
     }

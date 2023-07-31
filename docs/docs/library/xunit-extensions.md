@@ -13,7 +13,7 @@ Writes the logs to XUnit's test output helper.
 
 #### Arguments
 
-* `IReadOnlyList<LogEntry> logEntries`: a list of log entries to render
+* `IEnumerable<LogEntry> logEntries`: a sequence of log entries to render
 * `Func<LogEntry, string>? formatter`: (optional) A function that formats the LogEntry to a string. If omitted then the `Formatter.SimpleBySequence` formatter is used.
 
 #### Example
