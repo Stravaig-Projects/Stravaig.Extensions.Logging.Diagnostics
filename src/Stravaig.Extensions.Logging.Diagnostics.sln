@@ -14,6 +14,7 @@ ProjectSection(SolutionItems) = preProject
 	..\list-contributors.ps1 = ..\list-contributors.ps1
 	..\Reset-WipReleaseNotes.ps1 = ..\Reset-WipReleaseNotes.ps1
 	..\Create-Release.ps1 = ..\Create-Release.ps1
+	..\.github\workflows\gh-pages.yml = ..\.github\workflows\gh-pages.yml
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "__Documentation", "__Documentation", "{25CEBD2E-CFB3-492A-8C4D-C0C983009F39}"
