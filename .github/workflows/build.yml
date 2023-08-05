@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - main
-      - "#150/verify-tests"
+      - "#140/verify-tests"
 
     paths-ignore:
       - 'README.md'
