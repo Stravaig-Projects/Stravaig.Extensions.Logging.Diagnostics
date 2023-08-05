@@ -1,8 +1,23 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <YEAR>$([System.DateTime]::Now.Year)</YEAR>
         <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+        <Title>Verify extensions for Stravaig Logging Capture for Tests</Title>
+        <Authors>Colin Angus Mackay</Authors>
+        <Copyright>©$(YEAR) Colin Angus Mackay. See licence for more information.</Copyright>
+        <PackageProjectUrl>https://stravaig-projects.github.io/Stravaig.Extensions.Logging.Diagnostics/</PackageProjectUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <RepositoryUrl>https://github.com/Stravaig-Projects/Stravaig.Extensions.Logging.Diagnostics</RepositoryUrl>
+        <PackageIcon>stravaig-icon.png</PackageIcon>
+        <PackageTags>logging testing verify test</PackageTags>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <Description>
+            Verify extensions for Stravaig Logging Capture for Tests.
+        </Description>
         <Nullable>enable</Nullable>
+        <LangVersion>11</LangVersion>
+        <RootNamespace>Stravaig.Extensions.Logging.Diagnostics.Verify</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
