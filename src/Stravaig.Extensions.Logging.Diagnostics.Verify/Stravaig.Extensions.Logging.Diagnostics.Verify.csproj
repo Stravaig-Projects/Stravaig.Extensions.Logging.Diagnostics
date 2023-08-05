@@ -11,5 +11,13 @@
             <PackagePath>/</PackagePath>
         </None>
     </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Verify" Version="20.6.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Stravaig.Extensions.Logging.Diagnostics\Stravaig.Extensions.Logging.Diagnostics.csproj" />
+    </ItemGroup>
     
 </Project>
