@@ -49,10 +49,5 @@ public enum Settings
 
 internal static class SettingsExtensions
 {
-    internal static bool Use(this Settings settings, Settings setting) => (settings & setting) != 0;
-
-    internal static bool WriteSequence(this Settings settings) => settings.Use(Settings.Sequence);
-    internal static bool WriteLogLevel(this Settings settings) => settings.Use(Settings.LogLevel);
-    internal static bool WriteCategoryName(this Settings settings) => settings.Use(Settings.CategoryName);
-    internal static bool WriteFormattedMessage(this Settings settings) => settings.Use(Settings.FormattedMessage);
+   
 }
