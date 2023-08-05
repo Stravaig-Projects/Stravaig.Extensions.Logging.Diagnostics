@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - "#150/verify-tests"
 
     paths-ignore:
       - 'README.md'
@@ -84,6 +85,10 @@ jobs:
         if: ${{ env.STRAVAIG_IS_PREVIEW == 'true' }}
         run: dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics.XUnit/Stravaig.Extensions.Logging.Diagnostics.XUnit.csproj --configuration Release --output ./out --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" --version-suffix "$STRAVAIG_PACKAGE_VERSION_SUFFIX" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
 
+      - name: Package Preview Release (Verify)
+        if: ${{ env.STRAVAIG_IS_PREVIEW == 'true' }}
+        run: dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics.Verify/Stravaig.Extensions.Logging.Diagnostics.Verify.csproj --configuration Release --output ./out --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" --version-suffix "$STRAVAIG_PACKAGE_VERSION_SUFFIX" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
+
       - name: Package Stable Release (main)
         if: ${{ env.STRAVAIG_IS_STABLE == 'true' }}
         run: dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics/Stravaig.Extensions.Logging.Diagnostics.csproj --configuration Release --output ./out --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
@@ -91,6 +96,10 @@ jobs:
       - name: Package Stable Release (xunit)
         if: ${{ env.STRAVAIG_IS_STABLE == 'true' }}
         run: dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics.XUnit/Stravaig.Extensions.Logging.Diagnostics.XUnit.csproj --configuration Release --output ./out --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
+
+      - name: Package Stable Release (xunit)
+        if: ${{ env.STRAVAIG_IS_STABLE == 'true' }}
+        run: dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics.Verify/Stravaig.Extensions.Logging.Diagnostics.Verify.csproj --configuration Release --output ./out --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
 
       - name: List Packages
         run: ls -l ./out
