@@ -34,6 +34,7 @@ internal class LogEntryConverter : WriteOnlyJsonConverter<IEnumerable<LogEntry>>
         internal bool IsWritingExceptionMessage => Using(Settings.ExceptionMessage);
         internal bool IsWritingExceptionType => Using(Settings.ExceptionType);
         internal bool IsWritingInnerException => Using(Settings.InnerException);
+        internal bool IsWritingStackTrace => Using(Settings.StackTrace);
 
         internal int CurrentSequence(LogEntry logEntry) =>
             Using(Settings.KeepSequenceCadence)
@@ -113,6 +114,12 @@ internal class LogEntryConverter : WriteOnlyJsonConverter<IEnumerable<LogEntry>>
         {
             ctx.Writer.WritePropertyName(nameof(ex.InnerException));
             WriteException(ctx, ex.InnerException);
+        }
+
+        if (ctx.IsWritingStackTrace)
+        {
+            ctx.Writer.WritePropertyName(nameof(ex.StackTrace));
+            ctx.Writer.WriteValue(ex.StackTrace);
         }
 
         ctx.Writer.WriteEndObject();

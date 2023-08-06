@@ -61,6 +61,8 @@ public enum Settings
     /// </summary>
     InnerException = 0x0000_0100,
     
+    StackTrace = 0x0000_0200,
+    
     /// <summary>
     /// Indicates the default settings are to be used.
     /// </summary>

@@ -16,7 +16,8 @@ public class VerifyDefaultSettingsTests
     [Test]
     public async Task TestExplicitDefaultAsync()
     {
-        var settings = new VerifySettings().AddStravaigTests();
+        var settings = new VerifySettings()
+            .AddStravaigTests();
         var logs = GetLogEntries();
         await Verifier.Verify(logs, settings);
     }
