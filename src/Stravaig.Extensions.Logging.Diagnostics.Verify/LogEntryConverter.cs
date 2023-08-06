@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using VerifyTests;
 
@@ -28,6 +29,10 @@ internal class LogEntryConverter : WriteOnlyJsonConverter<IEnumerable<LogEntry>>
         internal bool IsWritingLogLevel => Using(Settings.LogLevel);
         internal bool IsWritingCategoryName => Using(Settings.CategoryName);
         internal bool IsWritingFormattedMessage => Using(Settings.FormattedMessage);
+        internal bool IsWritingException => Using(Settings.Exception);
+        internal bool IsWritingExceptionMessage => Using(Settings.ExceptionMessage);
+        internal bool IsWritingExceptionType => Using(Settings.ExceptionType);
+        internal bool IsWritingInnerException => Using(Settings.InnerException);
 
         internal int CurrentSequence(LogEntry logEntry) =>
             Using(Settings.KeepSequenceCadence)
@@ -69,12 +74,47 @@ internal class LogEntryConverter : WriteOnlyJsonConverter<IEnumerable<LogEntry>>
             WriteLogLevel(ctx, logEntry);
             WriteCategoryName(ctx, logEntry);
             WriteFormattedMessage(ctx, logEntry);
+            WriteException(ctx, logEntry);
 
             writer.WriteEndObject();
             ctx.MoveToNextLogEntry();
         }
         
         writer.WriteEndArray();
+    }
+
+    private static void WriteException(Context ctx, LogEntry logEntry)
+    {
+        var ex = logEntry.Exception;
+        if (ex != null && ctx.IsWritingException)
+        {
+            ctx.Writer.WritePropertyName(nameof(logEntry.Exception));
+            WriteException(ctx, ex);
+        }
+    }
+
+    private static void WriteException(Context ctx, Exception ex)
+    {
+        ctx.Writer.WriteStartObject();
+        if (ctx.IsWritingExceptionMessage)
+        {
+            ctx.Writer.WritePropertyName(nameof(ex.Message));
+            ctx.Writer.WriteValue(ex.Message);
+        }
+
+        if (ctx.IsWritingExceptionType)
+        {
+            ctx.Writer.WritePropertyName(nameof(Type));
+            ctx.Writer.WriteValue(ex.GetType().FullName);
+        }
+
+        if (ex.InnerException != null && ctx.IsWritingInnerException)
+        {
+            ctx.Writer.WritePropertyName(nameof(ex.InnerException));
+            WriteException(ctx, ex.InnerException);
+        }
+
+        ctx.Writer.WriteEndObject();
     }
 
     private static void WriteFormattedMessage(Context ctx, LogEntry logEntry)
