@@ -21,6 +21,7 @@ public class VerifyDefaultSettingsTests
         await Verifier.Verify(logs, settings);
     }
 
+    [Test]
     public async Task TestImplicitDefaultAwait()
     {
         // The settings are added as part of the module initialiser
