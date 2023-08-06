@@ -1,0 +1,32 @@
+﻿[
+  {
+    Sequence: 0,
+    LogLevel: Information,
+    CategoryName: Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyLogExceptionTests,
+    FormattedMessage: An Exception was thrown.,
+    Exception: {
+      Message: Current depth is 5.,
+      Type: System.ApplicationException,
+      InnerException: {
+        Message: Current depth is 4.,
+        Type: System.ApplicationException,
+        InnerException: {
+          Message: Current depth is 3.,
+          Type: System.ApplicationException,
+          InnerException: {
+            Message: Current depth is 2.,
+            Type: System.ApplicationException,
+            InnerException: {
+              Message: Current depth is 1.,
+              Type: System.ApplicationException,
+              InnerException: {
+                Message: This method throws exceptions!,
+                Type: System.InvalidOperationException
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+]
