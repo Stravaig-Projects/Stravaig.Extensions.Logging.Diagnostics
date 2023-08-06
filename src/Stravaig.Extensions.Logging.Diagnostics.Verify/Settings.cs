@@ -42,12 +42,34 @@ public enum Settings
     FormattedMessage = 0x0000_0010,
     
     /// <summary>
+    /// Indicates that the exception is to be written out, if it exists.
+    /// </summary>
+    Exception = 0x0000_0020,
+    
+    /// <summary>
+    /// Indicates that the exception type is to be written out.
+    /// </summary>
+    ExceptionType = 0x0000_0040,
+    
+    /// <summary>
+    /// Indicates that the exception message is to be written out.
+    /// </summary>
+    ExceptionMessage = 0x0000_0080,
+    
+    /// <summary>
+    /// Indicates that inner exceptions are to be written out.
+    /// </summary>
+    InnerException = 0x0000_0100,
+    
+    /// <summary>
     /// Indicates the default settings are to be used.
     /// </summary>
-    Default = Sequence | LogLevel | CategoryName | FormattedMessage,
-}
-
-internal static class SettingsExtensions
-{
-   
+    Default = Sequence |
+              LogLevel |
+              CategoryName |
+              FormattedMessage |
+              Exception |
+              ExceptionType |
+              ExceptionMessage |
+              InnerException,
 }

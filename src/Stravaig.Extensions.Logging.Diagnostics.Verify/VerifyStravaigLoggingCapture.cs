@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Text.Json;
 using Argon;
 using VerifyTests;
-using JsonSerializer = Argon.JsonSerializer;
 
 namespace Stravaig.Extensions.Logging.Diagnostics.Verify;
 

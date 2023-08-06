@@ -11,6 +11,7 @@
         <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
         <PackageReference Include="Shouldly" Version="4.2.1" />
+        <PackageReference Include="Verify.NUnit" Version="20.6.0" />
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
@@ -28,6 +29,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Stravaig.Extensions.Logging.Diagnostics.Verify\Stravaig.Extensions.Logging.Diagnostics.Verify.csproj" />
       <ProjectReference Include="..\Stravaig.Extensions.Logging.Diagnostics.XUnit\Stravaig.Extensions.Logging.Diagnostics.XUnit.csproj" />
       <ProjectReference Include="..\Stravaig.Extensions.Logging.Diagnostics\Stravaig.Extensions.Logging.Diagnostics.csproj" />
     </ItemGroup>
