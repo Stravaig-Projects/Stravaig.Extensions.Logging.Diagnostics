@@ -8,7 +8,8 @@ internal class LogEntryConverter : WriteOnlyJsonConverter<IEnumerable<LogEntry>>
 {
     private readonly Settings _settings;
 
-    public LogEntryConverter() : this(Settings.Default)
+    public LogEntryConverter()
+        : this(Settings.Default)
     {
         
     }

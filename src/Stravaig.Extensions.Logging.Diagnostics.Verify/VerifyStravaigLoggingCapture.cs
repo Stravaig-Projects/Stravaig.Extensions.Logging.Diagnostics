@@ -21,7 +21,8 @@ public static class VerifyStravaigLoggingCapture
 
     private static void LogEntrySettings(JsonSerializerSettings settings)
     {
-        settings.Converters.Add(new LogEntryConverter());
+        var defaultLogEntryConverter = new LogEntryConverter();
+        settings.Converters.Add(defaultLogEntryConverter);
     }
     
     private static void ThrowIfInitialised()
