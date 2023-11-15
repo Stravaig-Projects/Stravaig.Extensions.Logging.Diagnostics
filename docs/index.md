@@ -17,7 +17,7 @@ This library also supports rendering the logs it captures, filtered in any way y
 
 # Usage
 
-This package is designed to hook into the .NET logging framework so that the logger can be easily injected into units of code, or set up in the dependecy injection for larger integrated tests.
+This package is designed to hook into the .NET logging framework so that the logger can be easily injected into units of code, or set up in the dependency injection for larger integrated tests.
 
 ## Scenarios
 
