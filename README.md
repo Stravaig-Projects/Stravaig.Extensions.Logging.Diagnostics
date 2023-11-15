@@ -9,7 +9,7 @@ A logger for use in tests so that the messages logged can be examined in tests.
   * ![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/Stravaig.Extensions.Logging.Diagnostics?color=ffffff&label=nuget%20latest&logo=nuget) [View Stravaig.Extensions.Logging.Diagnostics on NuGet](https://www.nuget.org/packages/Stravaig.Extensions.Logging.Diagnostics)
   * ![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/Stravaig.Extensions.Logging.Diagnostics.XUnit?color=ffffff&label=nuget%20latest&logo=nuget) [View Stravaig.Extensions.Logging.Diagnostics.XUnit on NuGet](https://www.nuget.org/packages/Stravaig.Extensions.Logging.Diagnostics.XUnit)
 
-Current version supports: 6.0, 7.0
+Current version supports: 6.0, 7.0 and 8.0
 
 .NET Core 3.1 and .NET 5.0 support was dropped as of v2.0. Use v1.x when targeting .NET Core 3.1 or .NET 5.0.
 
