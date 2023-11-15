@@ -1,5 +1,13 @@
 # Full Release Notes
 
+## Version 2.2.0
+
+Date: Wednesday, 15 November, 2023 at 14:09:34 +00:00
+
+### Miscellaneous
+
+- #151: Added support for .NET 8.0
+
 ## Version 2.1.0
 
 Date: Monday, 31 July, 2023 at 23:49:18 +01:00
