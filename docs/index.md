@@ -49,7 +49,7 @@ This package is designed to hook into the .NET logging framework so that the log
 
 ## Supported .NET Versions
 
-Current version supports: 6.0, 7.0
+Current version supports: 6.0, 7.0 and 8.0
 
 .NET Core 3.1 and .NET 5.0 support was dropped as of v2.0. Use v1.x when targeting .NET Core 3.1 or .NET 5.0.
 
