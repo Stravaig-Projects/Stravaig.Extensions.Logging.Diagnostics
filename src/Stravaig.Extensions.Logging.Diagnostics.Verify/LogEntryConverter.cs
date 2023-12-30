@@ -110,16 +110,16 @@ internal class LogEntryConverter : WriteOnlyJsonConverter<IEnumerable<LogEntry>>
             ctx.Writer.WriteValue(ex.GetType().FullName);
         }
 
-        if (ex.InnerException != null && ctx.IsWritingInnerException)
-        {
-            ctx.Writer.WritePropertyName(nameof(ex.InnerException));
-            WriteException(ctx, ex.InnerException);
-        }
-
         if (ctx.IsWritingStackTrace)
         {
             ctx.Writer.WritePropertyName(nameof(ex.StackTrace));
             ctx.Writer.WriteValue(ex.StackTrace);
+        }
+        
+        if (ex.InnerException != null && ctx.IsWritingInnerException)
+        {
+            ctx.Writer.WritePropertyName(nameof(ex.InnerException));
+            WriteException(ctx, ex.InnerException);
         }
 
         ctx.Writer.WriteEndObject();

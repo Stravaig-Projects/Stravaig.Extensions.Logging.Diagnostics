@@ -31,7 +31,7 @@ public class VerifyLogExceptionTests
         await Verifier.Verify(logs, verifySettings);
     }
 
-    private void ThrowAnExceptionWithInnerExceptions(int depth = 1)
+    private static void ThrowAnExceptionWithInnerExceptions(int depth = 1)
     {
         try
         {
