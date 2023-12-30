@@ -9,7 +9,6 @@ public static class ModuleInitialiser
     [ModuleInitializer]
     public static void InitVerifyStravaigLoggingCapture()
     {
-        DiffTools.UseOrder(DiffTool.VisualStudioCode, DiffTool.Rider);
         VerifyStravaigLoggingCapture.Initialise();
     }
 }
