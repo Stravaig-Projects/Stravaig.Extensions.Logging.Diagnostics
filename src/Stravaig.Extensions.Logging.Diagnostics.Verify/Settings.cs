@@ -63,6 +63,12 @@ public enum Settings
     
     StackTrace = 0x0000_0200,
     
+    MessageTemplate = 0x0000_0400,
+    
+    Properties = 0x0000_0800,
+    
+    HideNonDeterministicProperties = 0x0000_1000,
+    
     /// <summary>
     /// Indicates the default settings are to be used.
     /// </summary>
