@@ -1,0 +1,10 @@
+﻿[
+  {
+    FormattedMessage: A message with 2 properties.,
+    Properties: {
+      {OriginalFormat}: A {TypeOfThing} with {PropertyCount} properties.,
+      PropertyCount: 2,
+      TypeOfThing: message
+    }
+  }
+]
