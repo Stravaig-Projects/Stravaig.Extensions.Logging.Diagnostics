@@ -97,7 +97,7 @@ jobs:
 
       - name: Archive Packages
         if: ${{ env.STRAVAIG_PUBLISH_TO_NUGET == 'false' }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: packages
           path: |
