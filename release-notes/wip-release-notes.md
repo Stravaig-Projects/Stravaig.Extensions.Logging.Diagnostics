@@ -6,15 +6,7 @@ Date: ???
 
 ### Bugs
 
-### Features
-
-### Miscellaneous
-
-### Dependencies
-
-- All targets:
-- .NET 6.0 targets:
-- .NET 7.0 targets:
+- #160: Improve the readability of Shouldly messages by adding a `ToString` override to the LogEntry class.
 
 
 

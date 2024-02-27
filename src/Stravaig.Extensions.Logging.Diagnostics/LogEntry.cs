@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using Microsoft.Extensions.Logging;
 
 namespace Stravaig.Extensions.Logging.Diagnostics;
@@ -142,6 +143,38 @@ public class LogEntry : IComparable<LogEntry>
         if (ReferenceEquals(this, other)) return 0;
         if (ReferenceEquals(null, other)) return 1;
         return Sequence.CompareTo(other.Sequence);
+    }
+
+    /// <summary>
+    /// Renders the log entry in a friendly way.
+    /// </summary>
+    /// <returns>A string representation of the log entry.</returns>
+    public override string ToString()
+    {
+        StringBuilder sb = new();
+        sb.Append(nameof(LogEntry));
+        sb.Append(": [");
+        sb.Append(LogLevel);
+        sb.Append(' ');
+        sb.Append(CategoryName);
+        if (EventId.Id != 0)
+        {
+            sb.Append(" #");
+            sb.Append(EventId.Id);
+            if (!string.IsNullOrEmpty(EventId.Name))
+            {
+                sb.Append('/');
+                sb.Append(EventId.Name);
+            }
+        }
+        if (Exception != null)
+        {
+            sb.Append(" $");
+            sb.Append(Exception.GetType().Name);
+        }
+        sb.Append("] ");
+        sb.Append(FormattedMessage);
+        return sb.ToString();
     }
 
     private string DebuggerDisplayString => $"[#{Sequence} @ {TimestampLocal:HH:mm:ss.fff zzz} {LogLevel} {CategoryName}] {FormattedMessage}";
