@@ -4,11 +4,17 @@
 
 Date: ???
 
-### Bug Fixes
+### Bugs
 
-- #160: Improve the readability of Shouldly messages by adding a `ToString` override to the LogEntry class.
+### Features
 
-### Maintenance
+### Miscellaneous
 
-- #162: Upgrade from deprecated GitHub Actions to new versions.
+### Dependencies
+
+- All targets:
+- .NET 6.0 targets:
+- .NET 7.0 targets:
+
+
 
