@@ -80,25 +80,26 @@ public class LogEntryTests
     [Test]
     public void RegressionShouldlyShouldDisplayCoherentMessage()
     {
+        var logs = new[]
+        {
+            new LogEntry(
+                LogLevel.Information,
+                new EventId(),
+                null,
+                null,
+                "This is a test log entry",
+                nameof(LogEntryTests)),
+            new LogEntry(
+                LogLevel.Warning,
+                new EventId(1, "test-event"),
+                null,
+                new InvalidOperationException(),
+                "This is a second test message.",
+                nameof(LogEntryTests)),
+        };
+
         try
         {
-            var logs = new[]
-            {
-                new LogEntry(
-                    LogLevel.Information,
-                    new EventId(),
-                    null,
-                    null,
-                    "This is a test log entry",
-                    nameof(LogEntryTests)),
-                new LogEntry(
-                    LogLevel.Warning,
-                    new EventId(1, "test-event"),
-                    null,
-                    new InvalidOperationException(),
-                    "This is a second test message.",
-                    nameof(LogEntryTests)),
-            };
             logs.ShouldBeEmpty();
         }
         catch(Exception ex)
