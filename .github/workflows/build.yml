@@ -42,7 +42,7 @@ jobs:
         run: sudo timedatectl set-timezone "Europe/London"
 
       - name: Check out code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -59,7 +59,7 @@ jobs:
           echo "Is Preview: $STRAVAIG_IS_PREVIEW"
           echo "Is Stable: $STRAVAIG_IS_STABLE"
 
-      - uses: actions/setup-dotnet@v3
+      - uses: actions/setup-dotnet@v4
         name: Setup .NET 6.0, 7.0 & 8.0
         with:
           dotnet-version: |
@@ -124,7 +124,7 @@ jobs:
 
       - name: Archive Simulated Release Notes
         if: ${{ env.STRAVAIG_PUBLISH_TO_NUGET == 'false' }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: simulated-release-information
           path: |
@@ -135,7 +135,7 @@ jobs:
 
       - name: Archive Release Notes
         if: ${{ env.STRAVAIG_PUBLISH_TO_NUGET == 'true' }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: release-information
           path: |
