@@ -16,6 +16,7 @@ $content = @(
 "- All targets:"
 "- .NET 6.0 targets:"
 "- .NET 7.0 targets:"
+"- .NET 8.0 targets:"
 "",
 "",
 ""

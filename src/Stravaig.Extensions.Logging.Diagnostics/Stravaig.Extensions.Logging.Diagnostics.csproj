@@ -19,7 +19,7 @@
             Use version 1.x for .NET prior to 6.0. Use version 2.0 for .NET 6.0 onwards.
 	    </Description>
         <Nullable>enable</Nullable>
-        <LangVersion>11</LangVersion>
+        <LangVersion>12</LangVersion>
     </PropertyGroup>
     <ItemGroup>
         <None Include="stravaig-icon.png" Pack="true" PackagePath="/" />
@@ -47,6 +47,6 @@
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
     </ItemGroup>
 </Project>
