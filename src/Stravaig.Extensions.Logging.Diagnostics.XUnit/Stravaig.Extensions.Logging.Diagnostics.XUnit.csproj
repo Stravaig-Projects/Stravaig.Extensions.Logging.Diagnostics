@@ -5,7 +5,7 @@
         <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
         <Title>XUnit extensions for Stravaig Logging Capture for Tests</Title>
         <Authors>Colin Angus Mackay</Authors>
-        <Copyright>©$(YEAR) Colin Angus Mackay. See licence for more information.</Copyright>
+        <Copyright>©$2023-(YEAR) Colin Angus Mackay. See licence for more information.</Copyright>
         <PackageProjectUrl>https://stravaig-projects.github.io/Stravaig.Extensions.Logging.Diagnostics/</PackageProjectUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <RepositoryUrl>https://github.com/Stravaig-Projects/Stravaig.Extensions.Logging.Diagnostics</RepositoryUrl>
@@ -16,7 +16,7 @@
             XUnit extensions for Stravaig Logging Capture for Tests.
         </Description>
         <Nullable>enable</Nullable>
-        <LangVersion>11</LangVersion>
+        <LangVersion>12</LangVersion>
         <RootNamespace>Stravaig.Extensions.Logging.Diagnostics.XUnit</RootNamespace>
     </PropertyGroup>
 

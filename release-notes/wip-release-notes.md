@@ -10,13 +10,13 @@ Date: ???
 
 ### Miscellaneous
 
-#164: Update pipeline.
+- #164: Update pipeline.
 
 ### Dependencies
 
-- All targets:
-- .NET 6.0 targets:
-- .NET 7.0 targets:
+- #166 Update package references:
+  - .NET 8.0 targets:
+    - Bump Microsoft.Extensions.Logging.Abstractions to 8.0.1
 
 
 
