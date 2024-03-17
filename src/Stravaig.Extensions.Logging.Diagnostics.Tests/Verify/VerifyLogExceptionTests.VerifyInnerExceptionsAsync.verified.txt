@@ -5,41 +5,41 @@
     CategoryName: Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyLogExceptionTests,
     FormattedMessage: An Exception was thrown.,
     Exception: {
-      Message: Current depth is 5.,
       Type: System.ApplicationException,
+      Message: Current depth is 5.,
       StackTrace:
-   at Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyLogExceptionTests.ThrowAnExceptionWithInnerExceptions(Int32 depth) in {ProjectDirectory}Verify/VerifyLogExceptionTests.cs:line 43
+   at Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyLogExceptionTests.ThrowAnExceptionWithInnerExceptions(Int32 depth) in {ProjectDirectory}Verify/VerifyLogExceptionTests.cs:line 47
    at Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyLogExceptionTests.VerifyInnerExceptionsAsync() in {ProjectDirectory}Verify/VerifyLogExceptionTests.cs:line 20,
       InnerException: {
-        Message: Current depth is 4.,
         Type: System.ApplicationException,
+        Message: Current depth is 4.,
         StackTrace:
-   at Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyLogExceptionTests.ThrowAnExceptionWithInnerExceptions(Int32 depth) in {ProjectDirectory}Verify/VerifyLogExceptionTests.cs:line 43
-   at Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyLogExceptionTests.ThrowAnExceptionWithInnerExceptions(Int32 depth) in {ProjectDirectory}Verify/VerifyLogExceptionTests.cs:line 39,
+   at Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyLogExceptionTests.ThrowAnExceptionWithInnerExceptions(Int32 depth) in {ProjectDirectory}Verify/VerifyLogExceptionTests.cs:line 47
+   at Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyLogExceptionTests.ThrowAnExceptionWithInnerExceptions(Int32 depth) in {ProjectDirectory}Verify/VerifyLogExceptionTests.cs:line 43,
         InnerException: {
-          Message: Current depth is 3.,
           Type: System.ApplicationException,
+          Message: Current depth is 3.,
           StackTrace:
-   at Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyLogExceptionTests.ThrowAnExceptionWithInnerExceptions(Int32 depth) in {ProjectDirectory}Verify/VerifyLogExceptionTests.cs:line 43
-   at Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyLogExceptionTests.ThrowAnExceptionWithInnerExceptions(Int32 depth) in {ProjectDirectory}Verify/VerifyLogExceptionTests.cs:line 39,
+   at Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyLogExceptionTests.ThrowAnExceptionWithInnerExceptions(Int32 depth) in {ProjectDirectory}Verify/VerifyLogExceptionTests.cs:line 47
+   at Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyLogExceptionTests.ThrowAnExceptionWithInnerExceptions(Int32 depth) in {ProjectDirectory}Verify/VerifyLogExceptionTests.cs:line 43,
           InnerException: {
-            Message: Current depth is 2.,
             Type: System.ApplicationException,
+            Message: Current depth is 2.,
             StackTrace:
-   at Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyLogExceptionTests.ThrowAnExceptionWithInnerExceptions(Int32 depth) in {ProjectDirectory}Verify/VerifyLogExceptionTests.cs:line 43
-   at Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyLogExceptionTests.ThrowAnExceptionWithInnerExceptions(Int32 depth) in {ProjectDirectory}Verify/VerifyLogExceptionTests.cs:line 39,
+   at Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyLogExceptionTests.ThrowAnExceptionWithInnerExceptions(Int32 depth) in {ProjectDirectory}Verify/VerifyLogExceptionTests.cs:line 47
+   at Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyLogExceptionTests.ThrowAnExceptionWithInnerExceptions(Int32 depth) in {ProjectDirectory}Verify/VerifyLogExceptionTests.cs:line 43,
             InnerException: {
-              Message: Current depth is 1.,
               Type: System.ApplicationException,
+              Message: Current depth is 1.,
               StackTrace:
-   at Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyLogExceptionTests.ThrowAnExceptionWithInnerExceptions(Int32 depth) in {ProjectDirectory}Verify/VerifyLogExceptionTests.cs:line 43
-   at Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyLogExceptionTests.ThrowAnExceptionWithInnerExceptions(Int32 depth) in {ProjectDirectory}Verify/VerifyLogExceptionTests.cs:line 39,
+   at Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyLogExceptionTests.ThrowAnExceptionWithInnerExceptions(Int32 depth) in {ProjectDirectory}Verify/VerifyLogExceptionTests.cs:line 47
+   at Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyLogExceptionTests.ThrowAnExceptionWithInnerExceptions(Int32 depth) in {ProjectDirectory}Verify/VerifyLogExceptionTests.cs:line 43,
               InnerException: {
-                Message: This method throws exceptions!,
                 Type: System.InvalidOperationException,
+                Message: This method throws exceptions!,
                 StackTrace:
-   at Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyLogExceptionTests.ThrowAnExceptionWithInnerExceptions(Int32 depth) in {ProjectDirectory}Verify/VerifyLogExceptionTests.cs:line 46
-   at Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyLogExceptionTests.ThrowAnExceptionWithInnerExceptions(Int32 depth) in {ProjectDirectory}Verify/VerifyLogExceptionTests.cs:line 39
+   at Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyLogExceptionTests.ThrowAnExceptionWithInnerExceptions(Int32 depth) in {ProjectDirectory}Verify/VerifyLogExceptionTests.cs:line 50
+   at Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyLogExceptionTests.ThrowAnExceptionWithInnerExceptions(Int32 depth) in {ProjectDirectory}Verify/VerifyLogExceptionTests.cs:line 43
               }
             }
           }

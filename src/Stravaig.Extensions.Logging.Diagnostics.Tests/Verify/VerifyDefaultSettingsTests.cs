@@ -17,7 +17,7 @@ public class VerifyDefaultSettingsTests
     public async Task TestExplicitDefaultAsync()
     {
         var settings = new VerifySettings()
-            .AddStravaigTests();
+            .AddCapturedLogs();
         var logs = GetLogEntries();
         await Verifier.Verify(logs, settings);
     }
@@ -25,7 +25,8 @@ public class VerifyDefaultSettingsTests
     [Test]
     public async Task TestImplicitDefaultAwait()
     {
-        // The settings are added as part of the module initialiser
+        // The settings are added as part of the module initialiser, so no
+        // verify settings object is added to the Verify method.
         var logs = GetLogEntries();
         await Verifier.Verify(logs);
     }
