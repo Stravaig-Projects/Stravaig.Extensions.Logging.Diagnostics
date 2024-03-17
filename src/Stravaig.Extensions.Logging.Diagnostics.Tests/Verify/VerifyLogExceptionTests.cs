@@ -27,7 +27,11 @@ public class VerifyLogExceptionTests
         var logs = logger.GetLogs();
 
         VerifySettings verifySettings = new VerifySettings()
-            .AddStravaigTests(Settings.Default | Settings.StackTrace);
+            .AddCapturedLogs(new LoggingCaptureVerifySettings
+            {
+                Message = MessageSetting.Formatted,
+                Exception = ExceptionSetting.IncludeInnerExceptions | ExceptionSetting.Message | ExceptionSetting.Type | ExceptionSetting.Message | ExceptionSetting.StackTrace,
+            });
         await Verifier.Verify(logs, verifySettings);
     }
 

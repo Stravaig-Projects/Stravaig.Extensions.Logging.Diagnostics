@@ -16,7 +16,14 @@ public class VerifyLogConverterSettingsTests
         var logger = new TestCaptureLogger<VerifyLogConverterSettingsTests>();
         logger.LogInformation("A {TypeOfThing} with {PropertyCount} properties.", "message", 2);
         var settings = new VerifySettings()
-            .AddStravaigTests(Settings.FormattedMessage | Settings.Properties);
+            .AddCapturedLogs(new LoggingCaptureVerifySettings
+            {
+                Sequence = Sequence.Hide,
+                LogLevel = false,
+                CategoryName = false,
+                Message = MessageSetting.Formatted,
+                Properties = PropertySetting.Verify,
+            });
         await Verifier.Verify(logger.GetLogs(), settings);
     }
 }

@@ -3,21 +3,20 @@
     Sequence: 0,
     LogLevel: Information,
     CategoryName: Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyDefaultSettingsTests,
-    FormattedMessage: This is the first default log message
+    MessageTemplate: This is the first default log message
   },
   {
     Sequence: 1,
     LogLevel: Warning,
     CategoryName: Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyDefaultSettingsTests,
-    FormattedMessage: This is a warning
+    MessageTemplate: This is a warning
   },
   {
     Sequence: 2,
     LogLevel: Error,
     CategoryName: Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyDefaultSettingsTests,
-    FormattedMessage: An exception was thrown. See the exception for details.,
+    MessageTemplate: An exception was thrown. See the exception for details.,
     Exception: {
-      Message: I'm a fake exception to be put in the log.,
       Type: System.ApplicationException
     }
   },
@@ -25,12 +24,10 @@
     Sequence: 3,
     LogLevel: Critical,
     CategoryName: Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyDefaultSettingsTests,
-    FormattedMessage: An exception was thrown, which caused another exception to be thrown.,
+    MessageTemplate: An exception was thrown, which caused another exception to be thrown.,
     Exception: {
-      Message: An application exception happened,
       Type: System.ApplicationException,
       InnerException: {
-        Message: An invalid operation happened.,
         Type: System.InvalidOperationException
       }
     }
