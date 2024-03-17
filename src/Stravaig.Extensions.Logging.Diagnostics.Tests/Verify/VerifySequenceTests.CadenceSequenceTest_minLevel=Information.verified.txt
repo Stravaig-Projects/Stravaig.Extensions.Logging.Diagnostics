@@ -1,0 +1,42 @@
+﻿[
+  {
+    Sequence: 0,
+    LogLevel: Information,
+    FormattedMessage: This is the first log.
+  },
+  {
+    Sequence: 2,
+    LogLevel: Warning,
+    FormattedMessage: This is the third log.
+  },
+  {
+    Sequence: 4,
+    LogLevel: Error,
+    FormattedMessage: This is the fifth log.
+  },
+  {
+    Sequence: 5,
+    LogLevel: Critical,
+    FormattedMessage: This is the sixth log.
+  },
+  {
+    Sequence: 6,
+    LogLevel: Information,
+    FormattedMessage: This is the seventh log.
+  },
+  {
+    Sequence: 8,
+    LogLevel: Warning,
+    FormattedMessage: This is the ninth log.
+  },
+  {
+    Sequence: 10,
+    LogLevel: Error,
+    FormattedMessage: This is the eleventh log.
+  },
+  {
+    Sequence: 11,
+    LogLevel: Critical,
+    FormattedMessage: This is the twelfth log.
+  }
+]
