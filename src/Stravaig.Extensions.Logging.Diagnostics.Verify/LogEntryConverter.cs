@@ -8,22 +8,16 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Verify;
 
 internal class LogEntryConverter : WriteOnlyJsonConverter<IEnumerable<LogEntry>>
 {
-    internal const string DefaultNonDeterministicPropertyValueSubstitute = "*** NONDETERMINISTIC ***";
-    private readonly Settings _settings;
-    private readonly IReadOnlySet<string> _nonDeterministicPropertyNames;
-    private readonly string _nonDeterministicPropertyValueSubstitute;
+    private readonly LoggingCaptureVerifySettings _settings;
 
     public LogEntryConverter()
-        : this(Settings.Default, ImmutableHashSet<string>.Empty, DefaultNonDeterministicPropertyValueSubstitute)
+        : this(LoggingCaptureVerifySettings.Default)
     {
-        
     }
     
-    public LogEntryConverter(Settings settings, IReadOnlySet<string> nonDeterministicPropertyNames, string nonDeterministicPropertyValueSubstitute)
+    public LogEntryConverter(LoggingCaptureVerifySettings settings)
     {
         _settings = settings;
-        _nonDeterministicPropertyNames = nonDeterministicPropertyNames;
-        _nonDeterministicPropertyValueSubstitute = nonDeterministicPropertyValueSubstitute;
     }
 
     private class Context

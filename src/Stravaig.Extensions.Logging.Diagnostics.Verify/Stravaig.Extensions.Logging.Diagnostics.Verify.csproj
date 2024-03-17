@@ -16,7 +16,7 @@
             Verify extensions for Stravaig Logging Capture for Tests.
         </Description>
         <Nullable>enable</Nullable>
-        <LangVersion>11</LangVersion>
+        <LangVersion>12</LangVersion>
         <RootNamespace>Stravaig.Extensions.Logging.Diagnostics.Verify</RootNamespace>
     </PropertyGroup>
 
@@ -28,7 +28,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Verify" Version="22.11.1" />
+      <PackageReference Include="Verify" Version="23.5.2" />
     </ItemGroup>
 
     <ItemGroup>
