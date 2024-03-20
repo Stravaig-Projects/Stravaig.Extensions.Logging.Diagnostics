@@ -7,6 +7,12 @@ title: Release Notes
 
 The releases on this package most recent first.
 
+- **[v2.2.1](release-notes-2.2.1.md) released on Tuesday, 27 February, 2024 at 21:50:08 +00:00**
+  - [GitHub Release](https://github.com/Stravaig-Projects/Stravaig.Extensions.Logging.Diagnostics/releases/tag/v2.2.1)
+- **[v2.2.0](release-notes-2.2.0.md) released on Wednesday, 15 November, 2023 at 14:09:34 +00:00**
+  - [GitHub Release](https://github.com/Stravaig-Projects/Stravaig.Extensions.Logging.Diagnostics/releases/tag/v2.2.0)
+- **[v2.1.0](release-notes-2.1.0.md) released on Monday, 31 July, 2023 at 23:49:18 +01:00**
+  - [GitHub Release](https://github.com/Stravaig-Projects/Stravaig.Extensions.Logging.Diagnostics/releases/tag/v2.1.0)
 - **[v2.0.1](release-notes-2.0.1.md) released on Tuesday, 13 June, 2023 at 22:19:18 +01:00**
   - [GitHub Release](https://github.com/Stravaig-Projects/Stravaig.Extensions.Logging.Diagnostics/releases/tag/v2.0.1)
 - **[v2.0.0](release-notes-2.0.0.md) released on Saturday, 11 February, 2023 at 23:00:02 +00:00**
