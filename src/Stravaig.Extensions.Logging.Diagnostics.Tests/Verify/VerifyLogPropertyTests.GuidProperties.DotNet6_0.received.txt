@@ -1,0 +1,16 @@
+﻿[
+  {
+    FormattedMessage: Thing 40e4cfcb-2e13-4ce5-83dd-e2f1056fd173 is good.,
+    Properties: {
+      {OriginalFormat}: Thing {id} is good.,
+      id: Guid_1
+    }
+  },
+  {
+    FormattedMessage: Thing a3022d80-1726-488c-9dd6-7e588fe1311b is good too.,
+    Properties: {
+      {OriginalFormat}: Thing {id} is good too.,
+      id: Guid_2
+    }
+  }
+]
