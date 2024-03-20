@@ -37,6 +37,7 @@ This package is designed to hook into the .NET logging framework so that the log
 
 * [Rendering](docs/library/log-entry-renderer-extensions.md)
 * [XUnit](docs/library/xunit-extensions.md)
+* [Verify](docs/library/verify-extensions.md)
 
 # Project details
 
