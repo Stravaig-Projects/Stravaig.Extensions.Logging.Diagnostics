@@ -39,7 +39,7 @@ public class VerifySequenceTests
     {
         var logs = GetLogs().Where(l => l.LogLevel >= minLevel);
         VerifySettings verifySettings = new VerifySettings()
-            .AddCapturedLogs(new LoggingCaptureVerifySettings()
+            .AddCapturedLogs(new LoggingCaptureVerifySettings
             {
                 Message = MessageSetting.Formatted,
                 Sequence = Sequence.ShowAsCadence,

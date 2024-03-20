@@ -1,0 +1,11 @@
+﻿[
+  {
+    FormattedMessage: This is shown: show me, this is redacted: hide me; and this might be redacted if case insensitive maybe hide me,
+    Properties: {
+      {OriginalFormat}: This is shown: {StandardProperty}, this is redacted: {NondeterministicProperty}; and this might be redacted if case insensitive {CaseDependentNondeterministicProperty},
+      CaseDependentNondeterministicProperty: maybe hide me,
+      NondeterministicProperty: *** Nondeterministic ***,
+      StandardProperty: show me
+    }
+  }
+]
