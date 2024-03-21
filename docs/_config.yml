@@ -18,9 +18,8 @@ kramdown:
 github:
   repository_url: https://github.com/Stravaig-Projects/Stravaig.Extensions.Logging.Diagnostics
 
-# UPDATE ME IN A NEW REPOSITORY
 nuget:
   urls:
     - https://www.nuget.org/packages/Stravaig.Extensions.Logging.Diagnostics
     - https://www.nuget.org/packages/Stravaig.Extensions.Logging.Diagnostics.XUnit
-#    - https://www.nuget.org/packages/Stravaig.Package3.etc
+    - https://www.nuget.org/packages/Stravaig.Extensions.Logging.Diagnostics.Verify

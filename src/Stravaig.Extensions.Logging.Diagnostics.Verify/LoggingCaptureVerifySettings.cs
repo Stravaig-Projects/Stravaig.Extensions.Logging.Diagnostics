@@ -36,7 +36,7 @@ public class LoggingCaptureVerifySettings
     public Sequence Sequence { get; init; } = Sequence.ShowAsConsecutive;
 
     /// <summary>
-    /// Gets whether the log leve is to be verified.
+    /// Gets whether the log level is to be verified.
     /// Default is true.
     /// </summary>
     public bool LogLevel { get; init; } = true;

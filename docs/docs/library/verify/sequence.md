@@ -25,6 +25,14 @@ public async Task VerifyWarningLogsAreEmittedCorrectlyTestAsync()
 }
 ```
 
+## When is this useful?
+
+`ShowAsConsecutive` is useful if you want to verify logs in a custom order, but still want to verify which sequence they were originally in.
+
+`ShowAsCadence` is useful if you are only interested in verifying certain logs (e.g. Warnings and above), and want to show that there were some skipped logs in between those you are verifying. However, this may intruduce some brittleness to the verify process as it is easy to insert or remove logs that you may not wish to test for when diagnosing bugs or tidying up the application.
+
+`Hide` is useful if you want to reduce the size of the verify files and you have the logs directly from one of the various `Get...Logs()` methods on the `TestCaptureLoggerProvider` or `TestCaptureLogger`, as they return the logs in the sequence in which they were logged.
+
 ## Example output
 
 Here are some examples of the verify output for difference `Sequence` settings.
