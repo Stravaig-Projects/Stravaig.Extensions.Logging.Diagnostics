@@ -67,4 +67,5 @@ Nondeterministic values in the verified file produce brittle tests, so the parts
 ## How do I set up to verify the things I want?
 
 * Configure the [Sequence](verify/sequence.md)
+* Verify the [LogLevel](verify/loglevel.md)
 
