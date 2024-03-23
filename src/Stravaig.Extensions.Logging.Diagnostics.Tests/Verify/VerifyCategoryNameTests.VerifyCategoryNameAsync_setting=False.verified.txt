@@ -1,0 +1,12 @@
+﻿[
+  {
+    Sequence: 0,
+    LogLevel: Information,
+    MessageTemplate: This is the first log. It is from the test class's category.
+  },
+  {
+    Sequence: 1,
+    LogLevel: Information,
+    MessageTemplate: This is the second log. It has a custom category name.
+  }
+]

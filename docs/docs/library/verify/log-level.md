@@ -7,6 +7,8 @@ title: Verify Logs - Sequence
 
 The `LoggingCaptureVerifySettings` has a Boolean `LogLevel` property that defines if the log level is to be verified or not.
 
+The default value is `true`.
+
 ```csharp
 public async Task VerifyWarningLogsAreEmittedCorrectlyTestAsync()
 {

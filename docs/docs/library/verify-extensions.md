@@ -60,12 +60,17 @@ The verified output might look like this:
 ]
 ```
 
-The default settings emit 5 things - The Sequence number, the log level, the category name (usually the name of the class that generated the log), the message template, and the exception if it exists. The reson it doesn't emit the formatted message or exception message by default is that can be nondeterministic.
+The default settings emit 5 things: 
+* The Sequence number,
+* The log level,
+* The category name (usually the name of the class that generated the log),
+* The message template, and
+* the exception if it exists.
 
-Nondeterministic values in the verified file produce brittle tests, so the parts of the log most likely to be brittle are ommited by default. So things like the formatted message or exception messages are not shown unless explicitly requested.
+The reson it doesn't emit the formatted message or exception message by default is that can be nondeterministic. Nondeterministic values in the verified file produce brittle tests, so the parts of the log most likely to be brittle are ommited by default. Therefore, things like the formatted message or exception messages are not shown unless explicitly requested.
 
 ## How do I set up to verify the things I want?
 
 * Configure the [Sequence](verify/sequence.md)
-* Verify the [LogLevel](verify/loglevel.md)
-
+* Verify the [LogLevel](verify/log-level.md)
+* Verify the [CategoryName](verify/category-name.md)
