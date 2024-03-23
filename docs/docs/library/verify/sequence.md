@@ -10,6 +10,8 @@ The `LoggingCaptureVerifySettings` has a `Sequence` property that defines how th
 * `ShowAsConsecutive`: The sequence numbers increment consecutively in the verified files. i.e. 0, 1, 2, 3, 4, etc. regardless of whether any logs were filtered out.
 * `ShowAsCadence`: The sequence numbers maintain their cadence in the verified files. This allows you to see that there are skipped logs in the verified files that you are not verifying. Say the the original sequence is 25, 27, 32 then it will be verified as 0, 2, 7.
 
+The default value is `ShowAsConsecutive`
+
 ```csharp
 public async Task VerifyWarningLogsAreEmittedCorrectlyTestAsync()
 {
