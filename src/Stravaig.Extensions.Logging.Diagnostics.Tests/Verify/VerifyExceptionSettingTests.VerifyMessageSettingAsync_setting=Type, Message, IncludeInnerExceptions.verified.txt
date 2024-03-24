@@ -1,0 +1,16 @@
+﻿[
+  {
+    Sequence: 0,
+    LogLevel: Error,
+    CategoryName: Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyExceptionSettingTests,
+    MessageTemplate: An error happened that resulted in an exception being thrown.,
+    Exception: {
+      Type: System.ApplicationException,
+      Message: This is the application exception, it contains an inner exception.,
+      InnerException: {
+        Type: System.InvalidOperationException,
+        Message: Boo! You performed an invalid operation.
+      }
+    }
+  }
+]

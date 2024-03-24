@@ -1,0 +1,13 @@
+﻿[
+  {
+    Sequence: 0,
+    LogLevel: Error,
+    CategoryName: Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyExceptionSettingTests,
+    MessageTemplate: An error happened that resulted in an exception being thrown.,
+    Exception: {
+      StackTrace:
+   at Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyExceptionSettingTests.DoTheThing() in {ProjectDirectory}Verify/VerifyExceptionSettingTests.cs:line 61
+   at Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyExceptionSettingTests.VerifyMessageSettingAsync(ExceptionSetting setting) in {ProjectDirectory}Verify/VerifyExceptionSettingTests.cs:line 34
+    }
+  }
+]
