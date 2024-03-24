@@ -1,0 +1,16 @@
+﻿[
+  {
+    Sequence: 0,
+    LogLevel: Information,
+    CategoryName: Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyMessageSettingTests,
+    FormattedMessage: This is a test of the Formatted message setting.
+  },
+  {
+    Sequence: 1,
+    LogLevel: Information,
+    CategoryName: Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyMessageSettingTests,
+    FormattedMessage:
+This is a multiline log message.
+This is the second line of the message.
+  }
+]

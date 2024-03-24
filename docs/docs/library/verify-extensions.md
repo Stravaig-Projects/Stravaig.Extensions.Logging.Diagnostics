@@ -74,3 +74,4 @@ The reson it doesn't emit the formatted message or exception message by default 
 * Configure the [Sequence](verify/sequence.md)
 * Verify the [LogLevel](verify/log-level.md)
 * Verify the [CategoryName](verify/category-name.md)
+* Verify the log [Message](verify/message.md)
