@@ -1,0 +1,22 @@
+﻿[
+  {
+    Sequence: 0,
+    LogLevel: Error,
+    CategoryName: Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyExceptionSettingTests,
+    MessageTemplate: An error happened that resulted in an exception being thrown.,
+    Exception: {
+      Type: System.ApplicationException,
+      Message: This is the application exception, it contains an inner exception.,
+      StackTrace:
+   at Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyExceptionSettingTests.DoTheThing() in {ProjectDirectory}Verify/VerifyExceptionSettingTests.cs:line 61
+   at Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyExceptionSettingTests.VerifyMessageSettingAsync(ExceptionSetting setting) in {ProjectDirectory}Verify/VerifyExceptionSettingTests.cs:line 34,
+      InnerException: {
+        Type: System.InvalidOperationException,
+        Message: Boo! You performed an invalid operation.,
+        StackTrace:
+   at Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyExceptionSettingTests.PerformThePartOfTheTaskThatActuallyBreaks() in {ProjectDirectory}Verify/VerifyExceptionSettingTests.cs:line 68
+   at Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyExceptionSettingTests.DoTheThing() in {ProjectDirectory}Verify/VerifyExceptionSettingTests.cs:line 57
+      }
+    }
+  }
+]
