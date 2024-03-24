@@ -1,0 +1,12 @@
+﻿[
+  {
+    Sequence: 0,
+    LogLevel: Information,
+    CategoryName: Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyMessageSettingTests
+  },
+  {
+    Sequence: 1,
+    LogLevel: Information,
+    CategoryName: Stravaig.Extensions.Logging.Diagnostics.Tests.Verify.VerifyMessageSettingTests
+  }
+]
