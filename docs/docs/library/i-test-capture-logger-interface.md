@@ -1,19 +1,21 @@
 ---
 layout: default
-title: TestCaptureLogger class
+title: ITestCaptureLogger interface
 ---
 
-# TestCaptureLogger
+# ITestCaptureLogger
 
-This class implements
-* `ITestCaptureLogger` (See: [ITestCaptureLogger interface](i-test-capture-logger-interface.md))
-* `ILogger`
+**Available from v3.0**
 
-# TestCaptureLogger methods
+This interface is implemented by:
+* `TestCaptureLogger` (see: [TestCaptureLogger](test-capture-logger.md))
+* `TestCaptureLogger<T>` (see: [TestCaptureLogger&lt;T>](test-capture-logger-of-t.md))
+
+# ITestCaptureLogger methods
 
 ## GetLogs()
 
-The `TestCaptureLogger.GetLogs()` allows you to retrieve the logs within your test method. The property will be in sequence, timestamps will be incremental, however adjacent log entries created sufficiently close to one another may contain the same timestamp due to the resolution of the clock.
+The `ITestCaptureLogger.GetLogs()` method allows you to retrieve the logs within your test method. The property will be in sequence, timestamps will be incremental, however adjacent log entries created sufficiently close to one another may contain the same timestamp due to the resolution of the clock.
 
 #### Returns
 
@@ -27,7 +29,7 @@ The result of the method can be passed into `RenderLogs()` extension method. See
 ---
 ## GetLogEntriesWithExceptions()
 
-Gets all the log entries generated via this logger in sequential order that have exception objects attached to them.
+The `ITestCaptureLogger.GetLogEntriesWithExceptions()` method gets all the log entries generated via this logger in sequential order that have exception objects attached to them.
 
 ```csharp
 // Arrange

@@ -7,6 +7,14 @@ title: TestCaptureLoggerProvider class
 
 The provider passed to the logging framework.
 
+This class implements
+* `ICapturedLogs`
+* `ILoggingProvider`
+
+## CreateLogger&lt;T>
+
+Creates or returns an exsting `TestCaptureLogger<T>`. This is a generic alternative to the non-generic version from `ILoggerProvider`.
+
 ## GetCategories()
 
 Gets all the logger categories created by this provider. NOTE: There is the possibility that the category may not contain any logs.

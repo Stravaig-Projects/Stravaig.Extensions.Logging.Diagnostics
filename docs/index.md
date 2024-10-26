@@ -22,13 +22,15 @@ This package is designed to hook into the .NET logging framework so that the log
 ## Scenarios
 
 * [Injecting a logger to the class under test](docs/scenarios/inject-logger-to-class-under-test.md)
-* [Injecing a logger factory to the class under test](docs/scenarios/inject-logger-factory-to-class-under-test.md)
+* [Injecting a logger factory to the class under test](docs/scenarios/inject-logger-factory-to-class-under-test.md)
 * [Using a WebApplicationFactory](docs/scenarios/using-a-web-application-factory.md)
 
 ## Library
 
+* [ITestCaptureLogger](docs/library/i-test-capture-logger-interface.md)
 * [LogEntry](docs/library/log-entry.md)
 * [TestCaptureLogger](docs/library/test-capture-logger.md)
+* [TestCaptureLogger&lt;T>](docs/library/test-capture-logger-of-t.md)
 * [TestCaptureLoggerProvider](docs/library/test-capture-logger-provider.md)
 
 #### Extensions
@@ -49,9 +51,9 @@ This package is designed to hook into the .NET logging framework so that the log
 
 ## Supported .NET Versions
 
-Current version supports: 6.0, 7.0 and 8.0
+v2.x supports: .NET 6.0, 7.0 and 8.0
 
-.NET Core 3.1 and .NET 5.0 support was dropped as of v2.0. Use v1.x when targeting .NET Core 3.1 or .NET 5.0.
+v1.z supports: .NET Core 3.1 and .NET 5.0
 
 ## Other Stuff
 
