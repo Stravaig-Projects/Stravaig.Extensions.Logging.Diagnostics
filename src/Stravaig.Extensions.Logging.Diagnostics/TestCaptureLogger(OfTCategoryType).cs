@@ -44,8 +44,13 @@ public class TestCaptureLogger<TCategoryType> : ITestCaptureLogger, ILogger<TCat
         => _logger.IsEnabled(logLevel);
 
     /// <inheritdoc />
+#if NET7_0_OR_GREATER
     public IDisposable? BeginScope<TState>(TState state) where TState : notnull
         => _logger.BeginScope(state);
+#else
+    public IDisposable BeginScope<TState>(TState state)
+        => _logger.BeginScope(state);
+#endif
 
     /// <summary>
     /// Resets the logger by discarding the captured logs.
