@@ -9,7 +9,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics;
 /// A logger that writes messages to a store that can later be examined
 /// programatically, such as in unit tests.
 /// </summary>
-public class TestCaptureLogger : ILogger
+public class TestCaptureLogger : ITestCaptureLogger
 {
     private readonly List<LogEntry> _logs;
     private readonly object _syncRoot;
@@ -34,16 +34,12 @@ public class TestCaptureLogger : ILogger
         CategoryName = categoryName;
     }
 
-    /// <summary>
-    /// The name of the category the log entry belongs to.
-    /// </summary>
+
+    /// <inheritdoc />
     public string CategoryName { get; }
-        
-    /// <summary>
-    /// Gets a read-only list of logs that is a snapshot of this logger.
-    /// </summary>
-    /// <remarks>Any additional logs added to the logger after this is
-    /// called won't be available in the list and it will have to be called again.</remarks>
+
+
+    /// <inheritdoc />
     public IReadOnlyList<LogEntry> GetLogs()
     {
         lock (_syncRoot)
@@ -52,10 +48,9 @@ public class TestCaptureLogger : ILogger
             return _logs.ToArray();
         }
     }
-        
-    /// <summary>
-    /// Gets a read-only list of logs that have an exception attached in sequential order.
-    /// </summary>
+
+
+    /// <inheritdoc />
     public IReadOnlyList<LogEntry> GetLogEntriesWithExceptions()
     {
         List<LogEntry> result;
@@ -124,7 +119,7 @@ public class TestCaptureLogger : ILogger
         public IDisposable BeginScope<TState>(TState state)
             => DoNothing.Instance;
 #endif
-        
+
     private class DoNothing : IDisposable
     {
         public static readonly DoNothing Instance = new ();
@@ -132,9 +127,7 @@ public class TestCaptureLogger : ILogger
         { }
     }
 
-    /// <summary>
-    /// Resets the logger by discarding the captured logs.
-    /// </summary>
+    /// <inheritdoc />
     public void Reset()
     {
         lock (_syncRoot)

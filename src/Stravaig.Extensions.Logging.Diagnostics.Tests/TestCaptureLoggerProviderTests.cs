@@ -9,13 +9,19 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
     public class TestCaptureLoggerProviderTests
     {
         [Test]
-        public void GetAllLogEntriesReturnsLogsInCorrectSequence()
+        [TestCase(false)]
+        [TestCase(true)]
+        public void GetAllLogEntriesReturnsLogsInCorrectSequence(bool useTyped)
         {
             var provider = new TestCaptureLoggerProvider();
 
-            var logger1 = provider.CreateLogger("logger1");
-            var logger2 = provider.CreateLogger("logger2");
-            
+            ITestCaptureLogger logger1 = useTyped
+                ? provider.CreateLogger<Logger1>()
+                : provider.CreateLogger("logger1");
+            ITestCaptureLogger logger2 = useTyped
+                ? provider.CreateLogger<Logger2>()
+                : provider.CreateLogger("logger2");
+
             logger1.LogInformation("One");
             logger2.LogInformation("Two");
             logger1.LogInformation("Three");
@@ -29,15 +35,21 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
             allLogs[3].OriginalMessage.ShouldBe("Four");
             allLogs[4].OriginalMessage.ShouldBe("Five");
         }
-        
+
         [Test]
-        public void GetAllLogEntriesWithExceptionsReturnsLogsInCorrectSequence()
+        [TestCase(false)]
+        [TestCase(true)]
+        public void GetAllLogEntriesWithExceptionsReturnsLogsInCorrectSequence(bool useTyped)
         {
             var provider = new TestCaptureLoggerProvider();
 
-            var logger1 = provider.CreateLogger("logger1");
-            var logger2 = provider.CreateLogger("logger2");
-            
+            ITestCaptureLogger logger1 = useTyped
+                ? provider.CreateLogger<Logger1>()
+                : provider.CreateLogger("logger1");
+            ITestCaptureLogger logger2 = useTyped
+                ? provider.CreateLogger<Logger2>()
+                : provider.CreateLogger("logger2");
+
             logger1.LogInformation(new Exception(), "One");
             logger2.LogInformation("Two");
             logger1.LogInformation("Three");
@@ -49,7 +61,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
             allLogsWithExceptions[1].OriginalMessage.ShouldBe("Four");
             allLogsWithExceptions[2].OriginalMessage.ShouldBe("Five");
         }
-        
+
         [Test]
         public void GetCategoriesReturnsListOfCategoryNames()
         {
@@ -60,22 +72,28 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
             provider.CreateLogger("logger1");
             provider.CreateLogger("logger2");
             factory.CreateLogger<TestCaptureLoggerTests>();
-            
+
             var categories = provider.GetCategories();
             categories.Count.ShouldBe(3);
             categories.ShouldContain("logger1");
             categories.ShouldContain("logger2");
             categories.ShouldContain(typeof(TestCaptureLoggerTests).FullName);
         }
-        
+
         [Test]
-        public void ResetAfterLoggingReturnsZeroLogs()
+        [TestCase(false)]
+        [TestCase(true)]
+        public void ResetAfterLoggingReturnsZeroLogs(bool useTyped)
         {
             var provider = new TestCaptureLoggerProvider();
 
-            var logger1 = provider.CreateLogger("logger1");
-            var logger2 = provider.CreateLogger("logger2");
-            
+            ITestCaptureLogger logger1 = useTyped
+                ? provider.CreateLogger<Logger1>()
+                : provider.CreateLogger("logger1");
+            ITestCaptureLogger logger2 = useTyped
+                ? provider.CreateLogger<Logger2>()
+                : provider.CreateLogger("logger2");
+
             logger1.LogInformation("One");
             logger2.LogInformation("Two");
             logger1.LogInformation("Three");
@@ -83,41 +101,62 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
             logger2.LogInformation("Five");
 
             provider.Reset();
-            
+
             provider.GetAllLogEntries().ShouldBeEmpty();
         }
-        
+
         [Test]
-        public void ReuseAfterResetReturnsOnlyNewLogs()
+        [TestCase(false)]
+        [TestCase(true)]
+        public void ReuseAfterResetReturnsOnlyNewLogs(bool useTyped)
         {
             var provider = new TestCaptureLoggerProvider();
 
-            var logger1 = provider.CreateLogger("logger1");
-            var logger2 = provider.CreateLogger("logger2");
-            
+            ITestCaptureLogger logger1 = useTyped
+                ? provider.CreateLogger<Logger1>()
+                : provider.CreateLogger("Logger1");
+            ITestCaptureLogger logger2 = useTyped
+                ? provider.CreateLogger<Logger2>()
+                : provider.CreateLogger("Logger2");
+
             logger1.LogInformation("Old-One");
             logger2.LogInformation("Old-Two");
 
             provider.Reset();
 
-            var loggerNew1 = provider.CreateLogger("logger1");
-            var loggerNew2 = provider.CreateLogger("logger2");
-            var logger3 = provider.CreateLogger("logger3");
-            
+            ITestCaptureLogger loggerNew1 = useTyped
+                ? provider.CreateLogger<Logger1>()
+                : provider.CreateLogger("Logger1");
+            ITestCaptureLogger loggerNew2 = useTyped
+                ? provider.CreateLogger<Logger2>()
+                : provider.CreateLogger("Logger2");
+            ITestCaptureLogger logger3 = useTyped
+                ? provider.CreateLogger<Logger3>()
+                : provider.CreateLogger("Logger3");
+
             loggerNew1.LogInformation("One");
             loggerNew2.LogInformation("Two");
             logger3.LogInformation("Three");
-            
+
             var allLogs = provider.GetAllLogEntries();
             allLogs[0].OriginalMessage.ShouldBe("One");
-            allLogs[0].CategoryName.ShouldBe("logger1");
+            allLogs[0].CategoryName.ShouldContain("Logger1");
             allLogs[1].OriginalMessage.ShouldBe("Two");
-            allLogs[1].CategoryName.ShouldBe("logger2");
+            allLogs[1].CategoryName.ShouldContain("Logger2");
             allLogs[2].OriginalMessage.ShouldBe("Three");
-            allLogs[2].CategoryName.ShouldBe("logger3");
+            allLogs[2].CategoryName.ShouldContain("Logger3");
 
             logger1.ShouldBeSameAs(loggerNew1);
             logger2.ShouldBeSameAs(loggerNew2);
         }
+
+        // Classes exist for to attach a logger.
+        // ReSharper disable ClassNeverInstantiated.Local
+        private class Logger1;
+
+        private class Logger2;
+
+        private class Logger3;
+        // ReSharper restore ClassNeverInstantiated.Local
     }
 }
