@@ -5,7 +5,7 @@ title: TestCaptureLogger&lt;T> class
 
 # TestCaptureLogger&lt;T>
 
-**In V1 & V2 this class inherits from `TestCaptureLogger`. From V3 this class implements the interface `ITestCaptureLogger`**
+**In V1 & V2 this class inherits from `TestCaptureLogger`. From V3 this class implements the interface `ITestCaptureLogger`.**
 
 This class implements
 * `ITestCaptureLogger` (See: [ITestCaptureLogger interface](i-test-capture-logger-interface.md))
