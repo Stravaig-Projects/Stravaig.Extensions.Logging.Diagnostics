@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using Stravaig.Extensions.Logging.Diagnostics.ExternalHelpers;
 
@@ -8,14 +10,66 @@ namespace Stravaig.Extensions.Logging.Diagnostics;
 /// programatically, such as in unit tests.
 /// </summary>
 /// <typeparam name="TCategoryType"></typeparam>
-public class TestCaptureLogger<TCategoryType>
-    : TestCaptureLogger, ILogger<TCategoryType>
+public class TestCaptureLogger<TCategoryType> : ITestCaptureLogger, ILogger<TCategoryType>
 {
+    private readonly TestCaptureLogger _logger;
+
     /// <summary>
     /// Initialises a new instance of the <see cref="T:Stravaig.Extensions.Logging.Diagnostics.TestCaptureLogger&lt;TCategoryType>"/> class.
     /// </summary>
     public TestCaptureLogger()
-        : base(TypeNameHelper.GetTypeDisplayName(typeof(TCategoryType)))
     {
+        _logger = new TestCaptureLogger(TypeNameHelper.GetTypeDisplayName(typeof(TCategoryType)));
     }
+
+    /// <summary>
+    /// Initialises a new instance of the <see cref="T:Stravaig.Extensions.Logging.Diagnostics.TestCaptureLogger&lt;TCategoryType>"/>
+    /// class, using an existing logger as the underlying logger.
+    /// </summary>
+    public TestCaptureLogger(TestCaptureLogger logger)
+    {
+        var expectedCategoryName = TypeNameHelper.GetTypeDisplayName(typeof(TCategoryType));
+        if (logger.CategoryName != expectedCategoryName)
+            throw new InvalidOperationException(
+                $"The category name does not match the type of this logger. Expected \"{expectedCategoryName}\", got \"{logger.CategoryName}\".");
+        _logger = logger;
+    }
+
+    /// <inheritdoc />
+    public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
+        => _logger.Log(logLevel, eventId, state, exception, formatter);
+
+    /// <inheritdoc />
+    public bool IsEnabled(LogLevel logLevel)
+        => _logger.IsEnabled(logLevel);
+
+    /// <inheritdoc />
+    public IDisposable? BeginScope<TState>(TState state) where TState : notnull
+        => _logger.BeginScope(state);
+
+    /// <summary>
+    /// Resets the logger by discarding the captured logs.
+    /// </summary>
+    public void Reset()
+        => _logger.Reset();
+
+    /// <summary>
+    /// Gets a read-only list of logs that is a snapshot of this logger.
+    /// </summary>
+    /// <remarks>Any additional logs added to the logger after this is
+    /// called won't be available in the list, and it will have to be called again.</remarks>
+    public IReadOnlyList<LogEntry> GetLogs()
+        => _logger.GetLogs();
+
+    /// <summary>
+    /// Gets a read-only list of logs that have an exception attached in sequential order.
+    /// </summary>
+    public IReadOnlyList<LogEntry> GetLogEntriesWithExceptions()
+        => _logger.GetLogEntriesWithExceptions();
+
+    /// <summary>
+    /// The name of the category the log entry belongs to.
+    /// </summary>
+    public string CategoryName
+        => _logger.CategoryName;
 }
