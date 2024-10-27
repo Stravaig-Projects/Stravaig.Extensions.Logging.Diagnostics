@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <YEAR>$([System.DateTime]::Now.Year)</YEAR>
-        <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
+        <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
         <Title>XUnit extensions for Stravaig Logging Capture for Tests</Title>
         <Authors>Colin Angus Mackay</Authors>
         <Copyright>©$2023-(YEAR) Colin Angus Mackay. See licence for more information.</Copyright>
@@ -14,6 +14,9 @@
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <Description>
             XUnit extensions for Stravaig Logging Capture for Tests.
+
+            Use version 2.x for .NET 6.0 onwards.
+            Use version 3.x for .NET 6.0 &amp; 8.0 onwards.
         </Description>
         <Nullable>enable</Nullable>
         <LangVersion>12</LangVersion>

@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
-    
+
     <PropertyGroup>
         <YEAR>$([System.DateTime]::Now.Year)</YEAR>
-        <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
+        <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
         <Title>Stravaig Logging Capture for Tests</Title>
         <Authors>Colin Angus Mackay</Authors>
         <Copyright>©2020-$(YEAR) Colin Angus Mackay. See licence for more information.</Copyright>
@@ -15,8 +15,10 @@
 	    <Description>
             A logging provider that hooks into the .NET Logging extensions and captures
             the logs that it receives so they can be examined later by tests.
-            
-            Use version 1.x for .NET prior to 6.0. Use version 2.0 for .NET 6.0 onwards.
+
+            Use version 1.x for .NET prior to 6.0.
+            Use version 2.x for .NET 6.0 onwards.
+            Use version 3.x for .NET 6.0 &amp; 8.0 onwards.
 	    </Description>
         <Nullable>enable</Nullable>
         <LangVersion>12</LangVersion>
@@ -24,7 +26,7 @@
     <ItemGroup>
         <None Include="stravaig-icon.png" Pack="true" PackagePath="/" />
     </ItemGroup>
-    
+
     <!-- Source link properties -->
     <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -37,16 +39,12 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
     </ItemGroup>
-    
+
     <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.4" />
     </ItemGroup>
 
-    <ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.1" />
-    </ItemGroup>
-
     <ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.2" />
     </ItemGroup>
 </Project>
