@@ -41,3 +41,12 @@ public class ThingamajigTests
     }
 }
 ```
+
+#### Variants
+
+* `ITestOutputHelper.WriteLogs(ITestCaptureLogger logger, Func<LogEntry, string>? formatter = null)`
+  * Available from v3.0
+  * Takes an `ITestCaptureLogger` and outputs all of the log messages captured by that logger.
+* `ITestOutputHelper.WriteLogs(TestCaptureLoggerProvider provider, Func<LogEntry, string>? formatter = null)`
+  * Available from v3.0
+  * Takes an `TestCaptureLoggerProvider` and outputs all of the log messages captured by all the loggers in the provider.

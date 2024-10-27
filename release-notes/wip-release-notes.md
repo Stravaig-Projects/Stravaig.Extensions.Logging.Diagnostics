@@ -15,6 +15,9 @@ Date: ???
 - #123: `TestCaptureLoggerProvider.CreateLogger<T>()`
   - Potential breaking change: `TestCaptureLogger<T>` no longer inherits from `TestCaptureLogger`.
   - Add `ITestCaptureLogger` and have `TestCaptureLogger` and `TestCaptureLogger<T>` be concrete implementations of the interface so you can reference the interface and not care which concrete implementation you have.
+- #170: Additional xunit extension methods to write out all log messages to the `ITestOutputHelper`.
+  - `ITestOutputHelper.WriteLogs(ITestCaptureLogger...)`
+  - `ITestOutputHelper.WriteLogs(TestCaptureLoggerProvider...)`
 
 ### Miscellaneous
 
