@@ -51,9 +51,11 @@ This package is designed to hook into the .NET logging framework so that the log
 
 ## Supported .NET Versions
 
+v1.x supports: .NET Core 3.1 and .NET 5.0
+
 v2.x supports: .NET 6.0, 7.0 and 8.0
 
-v1.z supports: .NET Core 3.1 and .NET 5.0
+v3.x supports: .NET 6.0 and 8.0
 
 ## Other Stuff
 
