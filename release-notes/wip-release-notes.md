@@ -27,8 +27,8 @@ Date: ???
 
 ### Dependencies
 
-- #166 Update package references:
+- #166 & #172 Update package references:
   - .NET 8.0 targets:
-    - Bump Microsoft.Extensions.Logging.Abstractions to 8.0.1
+    - Bump Microsoft.Extensions.Logging.Abstractions to 8.0.2
   - .NET 7.0 targets:
     - Dropped
