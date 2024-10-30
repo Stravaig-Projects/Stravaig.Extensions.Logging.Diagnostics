@@ -28,6 +28,7 @@ public class TestCaptureLogger<TCategoryType> : ITestCaptureLogger, ILogger<TCat
     /// </summary>
     public TestCaptureLogger(TestCaptureLogger logger)
     {
+        ArgumentNullException.ThrowIfNull(logger, nameof(logger));
         var expectedCategoryName = TypeNameHelper.GetTypeDisplayName(typeof(TCategoryType));
         if (logger.CategoryName != expectedCategoryName)
             throw new InvalidOperationException(
@@ -65,6 +66,10 @@ public class TestCaptureLogger<TCategoryType> : ITestCaptureLogger, ILogger<TCat
     /// called won't be available in the list, and it will have to be called again.</remarks>
     public IReadOnlyList<LogEntry> GetLogs()
         => _logger.GetLogs();
+
+    /// <inheritdoc />
+    public IReadOnlyList<LogEntry> GetLogs(Func<LogEntry, bool> predicate)
+        => _logger.GetLogs(predicate);
 
     /// <summary>
     /// Gets a read-only list of logs that have an exception attached in sequential order.

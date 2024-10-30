@@ -103,17 +103,26 @@ public class TestCaptureLoggerProvider : ILoggerProvider, ICapturedLogs
     }
 
     /// <summary>
-    /// Gets all log entries with exceptions attached regardless of the
-    /// Category they were logged as.
+    /// Gets all log entries matching the predicate regardless of the Category
+    /// they were logged as.
     /// </summary>
-    /// <returns>A read only list of <see cref="LogEntry"/></returns>
-    public IReadOnlyList<LogEntry> GetAllLogEntriesWithExceptions()
+    /// <returns>A read only list of <see cref="LogEntry"/> objects.</returns>
+    public IReadOnlyList<LogEntry> GetLogEntriesMatchingPredicate(Func<LogEntry, bool> predicate)
     {
         var loggers = _captures.Values;
-        var allLogs = loggers.SelectMany(l => l.GetLogEntriesWithExceptions()).ToList();
+        var allLogs = loggers.SelectMany(l => l.GetLogs(predicate)).ToList();
         allLogs.Sort();
         return allLogs;
     }
+
+
+    /// <summary>
+    /// Gets all log entries with exceptions attached regardless of the
+    /// Category they were logged as.
+    /// </summary>
+    /// <returns>A read only list of <see cref="LogEntry"/> objects.</returns>
+    public IReadOnlyList<LogEntry> GetAllLogEntriesWithExceptions()
+        => GetLogEntriesMatchingPredicate(static log => log.Exception != null);
 
     /// <summary>
     /// Resets the captures to an empty state.
