@@ -61,7 +61,6 @@ public class TestCaptureLogger : ITestCaptureLogger
         }
     }
 
-
     /// <inheritdoc />
     public IReadOnlyList<LogEntry> GetLogEntriesWithExceptions()
         => GetLogs(log => log.Exception != null);

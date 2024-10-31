@@ -107,7 +107,7 @@ public class TestCaptureLoggerProvider : ILoggerProvider, ICapturedLogs
     /// they were logged as.
     /// </summary>
     /// <returns>A read only list of <see cref="LogEntry"/> objects.</returns>
-    public IReadOnlyList<LogEntry> GetLogEntriesMatchingPredicate(Func<LogEntry, bool> predicate)
+    public IReadOnlyList<LogEntry> GetLogs(Func<LogEntry, bool> predicate)
     {
         var loggers = _captures.Values;
         var allLogs = loggers.SelectMany(l => l.GetLogs(predicate)).ToList();
@@ -122,7 +122,7 @@ public class TestCaptureLoggerProvider : ILoggerProvider, ICapturedLogs
     /// </summary>
     /// <returns>A read only list of <see cref="LogEntry"/> objects.</returns>
     public IReadOnlyList<LogEntry> GetAllLogEntriesWithExceptions()
-        => GetLogEntriesMatchingPredicate(static log => log.Exception != null);
+        => GetLogs(static log => log.Exception != null);
 
     /// <summary>
     /// Resets the captures to an empty state.
@@ -140,6 +140,8 @@ public class TestCaptureLoggerProvider : ILoggerProvider, ICapturedLogs
     /// </summary>
     public void Dispose()
     {
-        Reset();
+        _captures.Clear();
+        _typedCaptures.Clear();
+        GC.SuppressFinalize(this);
     }
 }
