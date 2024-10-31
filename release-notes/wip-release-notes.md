@@ -19,6 +19,7 @@ Date: ???
 - #170: Additional xunit extension methods to write out all log messages to the `ITestOutputHelper`.
   - `ITestOutputHelper.WriteLogs(ITestCaptureLogger...)`
   - `ITestOutputHelper.WriteLogs(TestCaptureLoggerProvider...)`
+- #171: Add `GetLogs(predicate)` to `TestCaptureLogger` and `TestCaptureLoggerProvider`.
 
 ### Miscellaneous
 
