@@ -66,7 +66,7 @@ public class TestCaptureLoggerProvider : ILoggerProvider, ICapturedLogs
     /// <param name="categoryName">The category name for messages produced by the logger.</param>
     /// <returns>The instance of the <see cref="TestCaptureLogger"/> that was created.</returns>
     public TestCaptureLogger CreateLogger(string categoryName)
-        => _captures.GetOrAdd(categoryName, static (cn) => new TestCaptureLogger(cn));
+        => _captures.GetOrAdd(categoryName, static cn => new TestCaptureLogger(cn));
 
     /// <summary>
     /// Creates a new <see cref="T:TestCaptureLogger"/> instance.
@@ -76,7 +76,7 @@ public class TestCaptureLoggerProvider : ILoggerProvider, ICapturedLogs
     public TestCaptureLogger<T> CreateLogger<T>()
         => (TestCaptureLogger<T>)_typedCaptures.GetOrAdd(typeof(T), type =>
         {
-            var categoryName = GetTypeDisplayName(typeof(T));
+            var categoryName = GetTypeDisplayName(type);
             var underlyingLogger = CreateLogger(categoryName);
             return new TestCaptureLogger<T>(underlyingLogger);
         });
@@ -97,7 +97,7 @@ public class TestCaptureLoggerProvider : ILoggerProvider, ICapturedLogs
     public IReadOnlyList<LogEntry> GetAllLogEntries()
     {
         var loggers = _captures.Values;
-        var allLogs = loggers.SelectMany(l => l.GetLogs()).ToList();
+        var allLogs = loggers.SelectMany(static l => l.GetLogs()).ToList();
         allLogs.Sort();
         return allLogs;
     }
