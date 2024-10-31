@@ -79,6 +79,33 @@ var allLogs = logProvider.GetAllLogEntries();
 The result of the method can be passed into `RenderLogs()` extension method. See [Renderer](log-entry-renderer-extensions.md)
 
 ---
+
+## GetLogs(predicate)
+
+The `TestCaptureLoggerProvider.GetLogs(predicate)` allows you to retrieve specific logs within your test method that match the predicate. The log entries will be in sequence, timestamps will be incremental, however adjacent log entries created sufficiently close to one another may contain the same timestamp due to the resolution of the clock.
+
+#### Returns
+
+`IReadOnlyList<LogEntry>`: A read only list of log entries. See [LogEntry](log-entry.md)
+
+##### Example
+
+This example checks that a specific log entry was generated.
+
+```csharp
+// Arrange
+var logProvider = new TestCaptureLoggerProvider();
+
+// Act: Do something using the log provider.
+
+// Assert
+var logs = logProvider.GetLogs(
+    static le => le.LogLevel == LogLevel.Warning &&
+        le.OriginalMessage == "A thing happened.");
+logs.Count.ShouldBe(1);
+```
+
+---
 ## GetAllLogEntriesWithExceptions()
 
 Gets all the log entries generated via this provider in sequential order that have exception objects attached to them.
