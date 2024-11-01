@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 
@@ -19,6 +20,13 @@ public interface ITestCaptureLogger : ILogger
     /// <remarks>Any additional logs added to the logger after this is
     /// called won't be available in the list, and it will have to be called again.</remarks>
     IReadOnlyList<LogEntry> GetLogs();
+
+    /// <summary>
+    /// Gets a read-only list of logs that is a snapshot of this logger filtered by the predicate.
+    /// </summary>
+    /// <remarks>Any additional logs added to the logger after this is
+    /// called won't be available in the list, and it will have to be called again.</remarks>
+    IReadOnlyList<LogEntry> GetLogs(Func<LogEntry, bool> predicate);
 
     /// <summary>
     /// Gets a read-only list of logs that have an exception attached in sequential order.

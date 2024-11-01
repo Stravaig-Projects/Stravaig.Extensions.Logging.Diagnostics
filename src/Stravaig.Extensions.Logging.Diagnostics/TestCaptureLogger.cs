@@ -49,20 +49,21 @@ public class TestCaptureLogger : ITestCaptureLogger
         }
     }
 
+    /// <inheritdoc />
+    public IReadOnlyList<LogEntry> GetLogs(Func<LogEntry, bool> predicate)
+    {
+        lock (_syncRoot)
+        {
+            return _logs
+                .Where(predicate)
+                .OrderBy(static log => log)
+                .ToArray();
+        }
+    }
 
     /// <inheritdoc />
     public IReadOnlyList<LogEntry> GetLogEntriesWithExceptions()
-    {
-        List<LogEntry> result;
-        lock (_syncRoot)
-        {
-            result = _logs
-                .Where(l => l.Exception != null)
-                .ToList();
-        }
-        result.Sort();
-        return result;
-    }
+        => GetLogs(log => log.Exception != null);
 
     /// <summary>
     /// Writes a log entry

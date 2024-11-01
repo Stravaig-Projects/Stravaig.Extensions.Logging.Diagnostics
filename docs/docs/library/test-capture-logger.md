@@ -13,7 +13,7 @@ This class implements
 
 ## GetLogs()
 
-The `TestCaptureLogger.GetLogs()` allows you to retrieve the logs within your test method. The property will be in sequence, timestamps will be incremental, however adjacent log entries created sufficiently close to one another may contain the same timestamp due to the resolution of the clock.
+The `TestCaptureLogger.GetLogs()` allows you to retrieve the logs within your test method. The log entries will be in sequence, timestamps will be incremental, however adjacent log entries created sufficiently close to one another may contain the same timestamp due to the resolution of the clock.
 
 #### Returns
 
@@ -22,6 +22,33 @@ The `TestCaptureLogger.GetLogs()` allows you to retrieve the logs within your te
 ##### Remarks
 
 The result of the method can be passed into `RenderLogs()` extension method. See [Renderer](log-entry-renderer-extensions.md)
+
+---
+## GetLogs(predicate)
+
+The `TestCaptureLogger.GetLogs(predicate)` allows you to retrieve specific logs within your test method that match the predicate. The log entries will be in sequence, timestamps will be incremental, however adjacent log entries created sufficiently close to one another may contain the same timestamp due to the resolution of the clock.
+
+#### Returns
+
+`IReadOnlyList<LogEntry>`: A read only list of log entries. See [LogEntry](log-entry.md)
+
+##### Example
+
+This example checks that a specific log entry was generated.
+
+```csharp
+// Arrange
+var logger = new TestCaptureLogger();
+
+// Act: Do something using the logger
+
+// Assert
+var logs = logger.GetLogs(
+    static le => le.LogLevel == LogLevel.Warning &&
+        le.OriginalMessage == "A thing happened.");
+logs.Count.ShouldBe(1);
+```
+
 
 
 ---

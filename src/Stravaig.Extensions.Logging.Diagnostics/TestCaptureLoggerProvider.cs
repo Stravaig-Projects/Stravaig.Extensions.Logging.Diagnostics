@@ -66,7 +66,7 @@ public class TestCaptureLoggerProvider : ILoggerProvider, ICapturedLogs
     /// <param name="categoryName">The category name for messages produced by the logger.</param>
     /// <returns>The instance of the <see cref="TestCaptureLogger"/> that was created.</returns>
     public TestCaptureLogger CreateLogger(string categoryName)
-        => _captures.GetOrAdd(categoryName, static (cn) => new TestCaptureLogger(cn));
+        => _captures.GetOrAdd(categoryName, static cn => new TestCaptureLogger(cn));
 
     /// <summary>
     /// Creates a new <see cref="T:TestCaptureLogger"/> instance.
@@ -76,7 +76,7 @@ public class TestCaptureLoggerProvider : ILoggerProvider, ICapturedLogs
     public TestCaptureLogger<T> CreateLogger<T>()
         => (TestCaptureLogger<T>)_typedCaptures.GetOrAdd(typeof(T), type =>
         {
-            var categoryName = GetTypeDisplayName(typeof(T));
+            var categoryName = GetTypeDisplayName(type);
             var underlyingLogger = CreateLogger(categoryName);
             return new TestCaptureLogger<T>(underlyingLogger);
         });
@@ -97,23 +97,32 @@ public class TestCaptureLoggerProvider : ILoggerProvider, ICapturedLogs
     public IReadOnlyList<LogEntry> GetAllLogEntries()
     {
         var loggers = _captures.Values;
-        var allLogs = loggers.SelectMany(l => l.GetLogs()).ToList();
+        var allLogs = loggers.SelectMany(static l => l.GetLogs()).ToList();
         allLogs.Sort();
         return allLogs;
     }
 
     /// <summary>
-    /// Gets all log entries with exceptions attached regardless of the
-    /// Category they were logged as.
+    /// Gets all log entries matching the predicate regardless of the Category
+    /// they were logged as.
     /// </summary>
-    /// <returns>A read only list of <see cref="LogEntry"/></returns>
-    public IReadOnlyList<LogEntry> GetAllLogEntriesWithExceptions()
+    /// <returns>A read only list of <see cref="LogEntry"/> objects.</returns>
+    public IReadOnlyList<LogEntry> GetLogs(Func<LogEntry, bool> predicate)
     {
         var loggers = _captures.Values;
-        var allLogs = loggers.SelectMany(l => l.GetLogEntriesWithExceptions()).ToList();
+        var allLogs = loggers.SelectMany(l => l.GetLogs(predicate)).ToList();
         allLogs.Sort();
         return allLogs;
     }
+
+
+    /// <summary>
+    /// Gets all log entries with exceptions attached regardless of the
+    /// Category they were logged as.
+    /// </summary>
+    /// <returns>A read only list of <see cref="LogEntry"/> objects.</returns>
+    public IReadOnlyList<LogEntry> GetAllLogEntriesWithExceptions()
+        => GetLogs(static log => log.Exception != null);
 
     /// <summary>
     /// Resets the captures to an empty state.
@@ -131,6 +140,8 @@ public class TestCaptureLoggerProvider : ILoggerProvider, ICapturedLogs
     /// </summary>
     public void Dispose()
     {
-        Reset();
+        _captures.Clear();
+        _typedCaptures.Clear();
+        GC.SuppressFinalize(this);
     }
 }

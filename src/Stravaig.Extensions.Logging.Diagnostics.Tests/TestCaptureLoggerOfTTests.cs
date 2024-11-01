@@ -9,6 +9,21 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests;
 public class TestCaptureLoggerOfTTests
 {
     [Test]
+    public void ConstructorWithNullLoggerThrows()
+    {
+        Should.Throw<ArgumentNullException>(() => new TestCaptureLogger<object>(null!))
+            .ParamName.ShouldBe("logger");
+    }
+
+    [Test]
+    public void ConstructorCategoryMismatchThrows()
+    {
+        var underlyingLogger = new TestCaptureLogger("NotTheRightCategory");
+        Should.Throw<InvalidOperationException>(() => new TestCaptureLogger<object>(underlyingLogger))
+            .Message.ShouldBe("The category name does not match the type of this logger. Expected \"object\", got \"NotTheRightCategory\".");
+    }
+
+    [Test]
     public void CategoryNameIsBasedOnType()
     {
         var logger = new TestCaptureLogger<TestCaptureLoggerOfTTests>();
@@ -50,6 +65,22 @@ public class TestCaptureLoggerOfTTests
         logger.LogError(new Exception(), "This has an exception.");
 
         logger.GetLogEntriesWithExceptions().Count.ShouldBe(2);
+        logger.GetLogs().Count.ShouldBe(4);
+    }
+
+    [Test]
+    public void GetLogsMatchingPredicateWillFilterOutUnwantedLogs()
+    {
+        var logger = new TestCaptureLogger<TestCaptureLoggerOfTTests>();
+        logger.LogInformation("Hello");
+        logger.LogWarning("Hello, {Location}!", "World");
+        logger.LogInformation("This is a log.");
+        logger.LogError(new Exception(), "This has an exception.");
+
+        logger.GetLogs(static l => l.LogLevel == LogLevel.Information).Count.ShouldBe(2);
+
+        logger.GetLogs(static l => l.PropertyDictionary.ContainsKey("Location") && (string)l.PropertyDictionary["Location"] == "World")
+            .Count.ShouldBe(1);
         logger.GetLogs().Count.ShouldBe(4);
     }
 }
