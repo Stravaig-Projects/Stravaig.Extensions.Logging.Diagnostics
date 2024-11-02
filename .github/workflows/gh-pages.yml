@@ -6,7 +6,6 @@ on:
   push:
     branches:
       - "main"
-      - "#179/update-workflow"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
