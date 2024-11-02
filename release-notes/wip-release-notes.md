@@ -23,6 +23,7 @@ Date: ???
 
 ### Miscellaneous
 
+- #36: Add package readme
 - #164: Update pipeline.
 - #172: Drop support and package targeting for .NET 7.0.
 - #179: Update github pages pipeline
