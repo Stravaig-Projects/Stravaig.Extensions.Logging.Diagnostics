@@ -3,7 +3,7 @@
 <!--
 Thank you for taking the time to contribute to this project.
 
-Please, fill in all the sections. 
+Please, fill in all the sections.
 Replace items surrounded by chevrons appropriately.
 -->
 
@@ -23,13 +23,14 @@ This PR addresses Issue #<issue-number>.
 
 ### Optional
 
-<!-- 
+<!--
 Depending on what the PR is for these may not be needed.
 If any of these items are not needed, then they can be removed.
 -->
 
-- [ ] I have updated the `readme.md` file
+- [ ] I have updated the repo `readme.md` file.
+- [ ] I have updated the package `readme.md` file.
 - [ ] I have updated the documentation in the docs folder.
-- [ ] I have bumped the version number in the `version.txt`
+- [ ] I have bumped the version number in the `version.txt`.
 - [ ] I have added or updated any necessary tests.
 - [ ] I have ensured that any new code is covered by tests where reasonably possible.
