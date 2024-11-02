@@ -12,6 +12,7 @@
         <PackageIcon>stravaig-icon.png</PackageIcon>
         <PackageTags>logging testing</PackageTags>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <PackageReadmeFile>readme.md</PackageReadmeFile>
 	    <Description>
             A logging provider that hooks into the .NET Logging extensions and captures
             the logs that it receives so they can be examined later by tests.
@@ -35,6 +36,10 @@
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="readme.md" Pack="True" PackagePath="/" />
+    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
