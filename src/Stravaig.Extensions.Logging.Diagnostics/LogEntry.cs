@@ -90,6 +90,15 @@ public class LogEntry : IComparable<LogEntry>
     public IReadOnlyDictionary<string, object> PropertyDictionary => _lazyPropertyDictionary.Value;
 
     /// <summary>
+    /// Gets the property with the given name.
+    /// </summary>
+    /// <param name="propertyName"></param>
+    public LogProperty this[string propertyName] =>
+        PropertyDictionary.TryGetValue(propertyName, out var value)
+            ? new LogProperty(propertyName, value)
+            : new LogProperty(propertyName);
+
+    /// <summary>
     /// The original message template, if available, for the log entry.
     /// </summary>
     public string OriginalMessage =>
