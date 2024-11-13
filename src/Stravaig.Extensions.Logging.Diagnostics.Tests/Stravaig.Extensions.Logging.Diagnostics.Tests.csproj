@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
+        <TargetFrameworks>net6.0;net8.0;net9.0</TargetFrameworks>
         <IsPackable>false</IsPackable>
 		<LangVersion>12</LangVersion>
     </PropertyGroup>
@@ -14,17 +14,17 @@
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
-        <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
-    </ItemGroup>
-
-    <ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
-        <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="7.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.1" />
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
-        <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="8.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.1" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="8.0.1" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" '$(TargetFramework)' == 'net9.0' ">
+        <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="9.0.0" />
     </ItemGroup>
 
     <ItemGroup>
