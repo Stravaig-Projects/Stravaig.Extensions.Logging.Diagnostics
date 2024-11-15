@@ -35,7 +35,7 @@ jobs:
   build:
     name: Build, Test, and Release
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Set Time Zone to Europe/London
         shell: pwsh
@@ -60,12 +60,12 @@ jobs:
           echo "Is Stable: $STRAVAIG_IS_STABLE"
 
       - uses: actions/setup-dotnet@v4
-        name: Setup .NET 6.0, 7.0 & 8.0
+        name: Setup .NET 6.0, 8.0 & 9.0
         with:
           dotnet-version: |
             6.0.x
-            7.0.x
             8.0.x
+            9.0.x
 
       - name: .NET State
         run: dotnet --info
