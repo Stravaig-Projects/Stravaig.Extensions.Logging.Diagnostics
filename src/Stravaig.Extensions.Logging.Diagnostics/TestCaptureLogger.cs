@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Logging;
+#if NET9_0_OR_GREATER
+using System.Threading;
+#endif
 
 namespace Stravaig.Extensions.Logging.Diagnostics;
 
@@ -11,16 +14,18 @@ namespace Stravaig.Extensions.Logging.Diagnostics;
 /// </summary>
 public class TestCaptureLogger : ITestCaptureLogger
 {
-    private readonly List<LogEntry> _logs;
-    private readonly object _syncRoot;
+    private readonly List<LogEntry> _logs = [];
+#if NET9_0_OR_GREATER
+    private readonly Lock _listGuard = new();
+#else
+    private readonly object _listGuard = new object();
+#endif
 
     /// <summary>
     /// Initialises a new instance of the <see cref="T:Stravaig.Extensions.Logging.Diagnostics.TestCaptureLogger"/> class.
     /// </summary>
     public TestCaptureLogger()
     {
-        _logs = new List<LogEntry>();
-        _syncRoot = new object();
         CategoryName = string.Empty;
     }
 
@@ -29,7 +34,6 @@ public class TestCaptureLogger : ITestCaptureLogger
     /// </summary>
     /// <param name="categoryName">The name of the category</param>
     public TestCaptureLogger(string categoryName)
-        : this()
     {
         CategoryName = categoryName;
     }
@@ -42,7 +46,7 @@ public class TestCaptureLogger : ITestCaptureLogger
     /// <inheritdoc />
     public IReadOnlyList<LogEntry> GetLogs()
     {
-        lock (_syncRoot)
+        lock (_listGuard)
         {
             _logs.Sort();
             return _logs.ToArray();
@@ -52,7 +56,7 @@ public class TestCaptureLogger : ITestCaptureLogger
     /// <inheritdoc />
     public IReadOnlyList<LogEntry> GetLogs(Func<LogEntry, bool> predicate)
     {
-        lock (_syncRoot)
+        lock (_listGuard)
         {
             return _logs
                 .Where(predicate)
@@ -78,7 +82,7 @@ public class TestCaptureLogger : ITestCaptureLogger
     {
         var formattedMessage = formatter(state, exception);
         var logEntry = CreateLogEntry(logLevel, eventId, state, exception, formattedMessage);
-        lock (_syncRoot)
+        lock (_listGuard)
         {
             _logs.Add(logEntry);
         }
@@ -131,7 +135,7 @@ public class TestCaptureLogger : ITestCaptureLogger
     /// <inheritdoc />
     public void Reset()
     {
-        lock (_syncRoot)
+        lock (_listGuard)
         {
             _logs.Clear();
         }

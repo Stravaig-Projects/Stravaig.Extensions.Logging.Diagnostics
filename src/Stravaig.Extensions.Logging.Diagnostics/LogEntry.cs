@@ -5,6 +5,10 @@ using System.Linq;
 using System.Text;
 using Microsoft.Extensions.Logging;
 
+#if NET9_0_OR_GREATER
+using System.Threading;
+#endif
+
 namespace Stravaig.Extensions.Logging.Diagnostics;
 
 /// <summary>
@@ -14,45 +18,49 @@ namespace Stravaig.Extensions.Logging.Diagnostics;
 public class LogEntry : IComparable<LogEntry>
 {
     private static int _sequence;
-    private static readonly object SequenceSyncLock = new ();
+#if NET9_0_OR_GREATER
+    private static readonly Lock SequenceSyncLock = new();
+#else
+    private static readonly object SequenceSyncLock = new();
+#endif
 
     private const string OriginalMessagePropertyName = "{OriginalFormat}";
-        
+
     private readonly Lazy<IReadOnlyDictionary<string, object>> _lazyPropertyDictionary;
-        
+
     /// <summary>
     /// The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/> that the item was logged at.
     /// </summary>
     public LogLevel LogLevel { get; }
-        
+
     /// <summary>
     /// An <see cref="T:Microsoft.Extensions.Logging.EventId"/> that identifies a logging event.
     /// </summary>
     public EventId EventId { get; }
-        
+
     /// <summary>
     /// The entry to be written. Can be also an object.
     /// </summary>
     public object? State { get; }
-        
+
     /// <summary>
     /// The <see cref="T:System.Exception"/> that was attached to the log.
     /// </summary>
     public Exception? Exception { get; }
-        
+
     /// <summary>
     /// The formatted message.
     /// </summary>
     public string FormattedMessage { get; }
-        
+
     /// <summary>
     /// The sequence number of the log message.
     /// </summary>
-    /// <remarks>In a multi-threaded environment there may be gaps between adjacent log messages.</remarks>
+    /// <remarks>In a multithreaded environment there may be gaps between adjacent log messages.</remarks>
     public int Sequence { get; }
-        
+
     /// <summary>
-    /// The time the log entry was created in UTC. 
+    /// The time the log entry was created in UTC.
     /// </summary>
     public DateTime TimestampUtc { get; }
 
@@ -74,7 +82,7 @@ public class LogEntry : IComparable<LogEntry>
     /// </summary>
     public IReadOnlyList<KeyValuePair<string, object>> Properties =>
         State as IReadOnlyList<KeyValuePair<string, object>> ?? Array.Empty<KeyValuePair<string, object>>();
-        
+
     /// <summary>
     /// The properties, if any, for the log entry.
     /// </summary>
@@ -87,7 +95,7 @@ public class LogEntry : IComparable<LogEntry>
         (string) Properties
             .FirstOrDefault(p => p.Key == OriginalMessagePropertyName)
             .Value;
-        
+
     /// <summary>
     /// The category name of the log entry, if available.
     /// </summary>

@@ -22,7 +22,7 @@
             Use version 3.x for .NET 6.0, 8.0 &amp; 9.0 onwards.
 	    </Description>
         <Nullable>enable</Nullable>
-        <LangVersion>12</LangVersion>
+        <LangVersion>13</LangVersion>
     </PropertyGroup>
     <ItemGroup>
         <None Include="stravaig-icon.png" Pack="true" PackagePath="/" />
