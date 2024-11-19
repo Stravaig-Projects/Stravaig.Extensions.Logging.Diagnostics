@@ -36,6 +36,41 @@ public class TestCaptureLogger<TCategoryType> : ITestCaptureLogger, ILogger<TCat
         _logger = logger;
     }
 
+    /// <summary>
+    /// Converts a <see cref="TestCaptureLogger{TCategoryType}"/> instance to a <see cref="TestCaptureLogger"/> instance.
+    /// </summary>
+    /// <param name="logger">The <see cref="TestCaptureLogger{TCategoryType}"/> instance to convert.</param>
+    /// <returns>A <see cref="TestCaptureLogger"/> instance.</returns>
+    public static implicit operator TestCaptureLogger(TestCaptureLogger<TCategoryType> logger)
+    {
+        return logger._logger;
+    }
+
+    /// <summary>
+    /// Defines an implicit conversion from a non-generic <see cref="TestCaptureLogger"/>
+    /// to a generic <see cref="TestCaptureLogger{TCategoryType}"/>.
+    /// </summary>
+    /// <param name="logger">The instance of the non-generic <see cref="TestCaptureLogger"/> to convert.</param>
+    /// <returns>
+    /// A new instance of <see cref="TestCaptureLogger{TCategoryType}"/> if the category name
+    /// of the provided logger matches the type of the category.
+    /// </returns>
+    /// <exception cref="InvalidCastException">
+    /// Thrown if the category name of the provided logger does not match the expected
+    /// category name for the specified <typeparamref name="TCategoryType"/>.
+    /// </exception>
+    public static implicit operator TestCaptureLogger<TCategoryType>(TestCaptureLogger logger)
+    {
+        // Check the category name to see if it matches or can be used for this type
+        var expectedCategoryName = TypeNameHelper.GetTypeDisplayName(typeof(TCategoryType));
+        if (logger.CategoryName != expectedCategoryName)
+            throw new InvalidCastException(
+                $"The category name does not match the type of this logger. Cannot cast a TestCaptureLogger with category name {logger.CategoryName} to TestCaptureLogger<{expectedCategoryName}>.");
+
+        // Return a new generic logger using the existing logger
+        return new TestCaptureLogger<TCategoryType>(logger);
+    }
+
     /// <inheritdoc />
     public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
         => _logger.Log(logLevel, eventId, state, exception, formatter);
