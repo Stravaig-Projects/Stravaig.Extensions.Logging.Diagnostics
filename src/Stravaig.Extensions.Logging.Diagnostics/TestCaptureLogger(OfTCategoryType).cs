@@ -47,7 +47,7 @@ public class TestCaptureLogger<TCategoryType> : ITestCaptureLogger, ILogger<TCat
     }
 
     /// <summary>
-    /// Defines an implicit conversion from a non-generic <see cref="TestCaptureLogger"/>
+    /// Defines an explicit conversion from a non-generic <see cref="TestCaptureLogger"/>
     /// to a generic <see cref="TestCaptureLogger{TCategoryType}"/>.
     /// </summary>
     /// <param name="logger">The instance of the non-generic <see cref="TestCaptureLogger"/> to convert.</param>
@@ -59,7 +59,7 @@ public class TestCaptureLogger<TCategoryType> : ITestCaptureLogger, ILogger<TCat
     /// Thrown if the category name of the provided logger does not match the expected
     /// category name for the specified <typeparamref name="TCategoryType"/>.
     /// </exception>
-    public static implicit operator TestCaptureLogger<TCategoryType>(TestCaptureLogger logger)
+    public static explicit operator TestCaptureLogger<TCategoryType>(TestCaptureLogger logger)
     {
         // Check the category name to see if it matches or can be used for this type
         var expectedCategoryName = TypeNameHelper.GetTypeDisplayName(typeof(TCategoryType));

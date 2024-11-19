@@ -25,17 +25,6 @@ public class TestCaptureLoggerOfTTests
     }
 
     [Test]
-    public void ImplicitCastCategoryMismatchThrows()
-    {
-        var underlyingLogger = new TestCaptureLogger("NotTheRightCategory");
-        Should.Throw<InvalidCastException>(() =>
-            {
-                TestCaptureLogger<object> logger = underlyingLogger; // implicit cast
-            })
-            .Message.ShouldBe("The category name does not match the type of this logger. Cannot cast a TestCaptureLogger with category name NotTheRightCategory to TestCaptureLogger<object>.");
-    }
-
-    [Test]
     public void ExplicitCastCategoryMismatchThrows()
     {
         var underlyingLogger = new TestCaptureLogger("NotTheRightCategory");
@@ -54,17 +43,6 @@ public class TestCaptureLoggerOfTTests
         var typedLogger = new TestCaptureLogger<object>(underlyingLogger);
         typedLogger.ShouldNotBeNull();
         typedLogger.CategoryName.ShouldBe(categoryName);
-    }
-
-    [Test]
-    public void ImplicitCastCategoryCorrectNameIsConstructed()
-    {
-        var categoryName = TypeNameHelper.GetTypeDisplayName(typeof(object));
-        var underlyingLogger = new TestCaptureLogger(categoryName);
-        TestCaptureLogger<object> typedLogger = underlyingLogger;
-        typedLogger.ShouldNotBeNull();
-        typedLogger.CategoryName.ShouldBe(categoryName);
-        typedLogger.ShouldBeOfType<TestCaptureLogger<object>>();
     }
 
     [Test]
