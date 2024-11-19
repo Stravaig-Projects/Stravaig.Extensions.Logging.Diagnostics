@@ -9,8 +9,6 @@ Date: ???
 - Feature #123 changes the `TestCaptureLogger<T>` class to encapsulate an instance of `TestCaptureLogger` rather than inherit from it. If you're code relied on `TestCaptureLogger<T>` inheriting from `TestCaptureLogger` then it will likely break.
 - Feature #172 drops support for .NET 7.0. Use .NET 6.0 LTS, .NET 8.0 LTS or .NET 9.0 STS.
 
-### Bugs
-
 ### Features
 
 - #123: `TestCaptureLoggerProvider.CreateLogger<T>()`
@@ -20,6 +18,9 @@ Date: ???
   - `ITestOutputHelper.WriteLogs(ITestCaptureLogger...)`
   - `ITestOutputHelper.WriteLogs(TestCaptureLoggerProvider...)`
 - #171: Add `GetLogs(predicate)` to `TestCaptureLogger` and `TestCaptureLoggerProvider`.
+- #184: Add casting between `TestCaptureLogger` and `TestCaptureLogger<T>` to compensate for `TestCaptureLogger<T>` no longer inheriting from `TestCaptureLogger`
+  - `TestCaptureLogger<T>` may be implicitly or explicitly cast to `TestCaptureLogger`
+  - `TestCaptureLogger` must be explicitly cast to `TestCaptureLogger<T>`. The cast may fail if the category name used by the `TestCaptureLogger` does not match the type name of `T`.
 
 ### Miscellaneous
 
