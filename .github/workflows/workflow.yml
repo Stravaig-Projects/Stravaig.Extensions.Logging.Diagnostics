@@ -59,8 +59,8 @@ jobs:
             8.0.x
             9.0.x
 
-      - name: .NET State
-        run: dotnet --info
+#      - name: .NET State
+#        run: dotnet --info
 
       - name: Build Solution
         run: dotnet build src/Stravaig.Extensions.Logging.Diagnostics.sln --configuration Release
@@ -80,9 +80,9 @@ jobs:
       - name: Package Stable Release (xunit)
         run: dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics.XUnit/Stravaig.Extensions.Logging.Diagnostics.XUnit.csproj --configuration Release --output ./out/stable --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
 
-      - name: List Packages
-        run: ls -R -l ./out
-
+#      - name: List Packages
+#        run: ls -R -l ./out
+#
       - name: Archive Packages
         uses: actions/upload-artifact@v4
         with:
@@ -100,7 +100,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: packages
-          path: ./out
+          path: ./packages
 
       - name: List Workspace
         run: ls -R -l .
@@ -114,7 +114,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: packages
-          path: ./out
+          path: ./packages
 
       - name: List Workspace
         run: ls -R -l .
