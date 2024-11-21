@@ -93,6 +93,7 @@ jobs:
 
   publish-preview:
     runs-on: ubuntu-latest
+    needs: build
     environment: preview-release
     steps:
       - name: Download Packages
@@ -106,6 +107,7 @@ jobs:
 
   publish-stable:
     runs-on: ubuntu-latest
+    needs: build
     environment: stable-release
     steps:
       - name: Download Packages
