@@ -1,13 +1,4 @@
 [CmdletBinding()]
-param (
-    [Parameter(Mandatory=$false)]
-    [string]
-    $IsPreview = $true,
-
-    [Parameter(Mandatory=$false)]
-    [string]
-    $IsPublicRelease = "false"
-)
 
 function ConvertTo-Boolean([string]$Value, [bool]$EmptyDefault)
 {
@@ -58,5 +49,8 @@ $suffix += $Env:GITHUB_RUN_NUMBER
 "STRAVAIG_PACKAGE_VERSION_SUFFIX=$suffix" | Out-File -FilePath $versionEnvFile -Encoding UTF8 -Append
 
 $previewVersion = "$nextVersion-$suffix";
+"STRAVAIG_STABLE_PACKAGE_VERSION=$nextVersion" | Out-File -FilePath $Env:GITHUB_ENV -Encoding UTF8 -Append
 "STRAVAIG_STABLE_PACKAGE_VERSION=$nextVersion" | Out-File -FilePath $versionEnvFile -Encoding UTF8 -Append
+
+"STRAVAIG_PREVIEW_PACKAGE_VERSION=$previewVersion" | Out-File -FilePath $Env:GITHUB_ENV -Encoding UTF8 -Append
 "STRAVAIG_PREVIEW_PACKAGE_VERSION=$previewVersion" | Out-File -FilePath $versionEnvFile -Encoding UTF8 -Append

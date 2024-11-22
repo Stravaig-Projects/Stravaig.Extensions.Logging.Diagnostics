@@ -40,16 +40,14 @@ jobs:
 
       - name: Set version number
         shell: pwsh
-        run: ./Set-Version.ps1 -IsPublic "${{ github.event.inputs.isPublic }}" -IsPreview "${{ github.event.inputs.isPreview }}"
+        run: ./Set-Version.ps1
 
       - name: Display workflow state
         run: |
           echo "Package version: $STRAVAIG_PACKAGE_VERSION"
-          echo "Version Suffix: $STRAVAIG_PACKAGE_VERSION_SUFFIX"
-          echo "Full Version: $STRAVAIG_PACKAGE_FULL_VERSION"
-          echo "Publish To NuGet: $STRAVAIG_PUBLISH_TO_NUGET"
-          echo "Is Preview: $STRAVAIG_IS_PREVIEW"
-          echo "Is Stable: $STRAVAIG_IS_STABLE"
+          echo "Version Suffix:  $STRAVAIG_PACKAGE_VERSION_SUFFIX"
+          echo "Stable Version:  $STRAVAIG_PACKAGE_STABLE_VERSION"
+          echo "Preview Version: $STRAVAIG_PACKAGE_PREVIEW_VERSION"
 
       - uses: actions/setup-dotnet@v4
         name: Setup .NET 6.0, 8.0 & 9.0
@@ -143,14 +141,18 @@ jobs:
     needs: build
     environment: stable-release
     steps:
-      - name: Environment
-        run: env | sort
-
       - name: Download Packages
         uses: actions/download-artifact@v4
         with:
           name: packages
           path: ./packages
+
+      - name: Apply Env Vars
+        shell: pwsh
+        run: Get-Content ./packages/version-info.env | Out-File -FilePath $env:GITHUB_ENV -Encoding UTF8 -Append -Verbose
+
+      - name: Environment
+        run: env | sort
 
       - name: Download Release Information
         uses: actions/download-artifact@v4
@@ -178,37 +180,31 @@ jobs:
         run: |
           Copy-Item -Path ./release-information/contributors.md -Destination ./contributors.md -Force
           Copy-Item -Path ./release-information/full-release-notes.md -Destination ./release-notes/full-release-notes.md -Force
-          Copy-Item -Path ./release-information/release-notes-${{ env.STRAVAIG_PACKAGE_FULL_VERSION }}.md -Destination ./release-notes/release-notes-${{ env.STRAVAIG_PACKAGE_FULL_VERSION }}.md -Force
+          Copy-Item -Path ./release-information/release-notes-${{ env.STRAVAIG_PACKAGE_STABLE_VERSION }}.md -Destination ./release-notes/release-notes-${{ env.STRAVAIG_PACKAGE_STABLE_VERSION }}.md -Force
           $assets = @();
           $assets += "./out/*.nupkg"
           $assets += "./out/*.snupkg"
           $assets += "LICENSE"
           $assets += "contributors.md"
           $assets += "README.md"
-          $assets += "./release-notes/release-notes-${{ env.STRAVAIG_PACKAGE_FULL_VERSION }}.md"
+          $assets += "./release-notes/release-notes-${{ env.STRAVAIG_PACKAGE_STABLE_VERSION }}.md"
           ./Create-Release.ps1 -NotesFile "./release-body.md" -Assets $assets
-#
-#      - name: Bump version
-#        #IF Publishing & Stable release
-#        if: ${{ env.STRAVAIG_PUBLISH_TO_NUGET == 'true' && env.STRAVAIG_IS_STABLE == 'true' }}
-#        shell: pwsh
-#        run: ./Bump-Version.ps1 -BumpPatch
-#
-#      - name: Reset WIP release notes
-#        #IF Publishing & Stable release
-#        if: ${{ env.STRAVAIG_PUBLISH_TO_NUGET == 'true' && env.STRAVAIG_IS_STABLE == 'true' }}
-#        shell: pwsh
-#        run: ./Reset-WipReleaseNotes.ps1
-#
-#      - name: Commit post release updates
-#        #IF Publishing & Stable release
-#        if: ${{ env.STRAVAIG_PUBLISH_TO_NUGET == 'true' && env.STRAVAIG_IS_STABLE == 'true' }}
-#        uses: EndBug/add-and-commit@v9
-#        with:
-#          add: ./contributors.md ./release-notes/** ./version.txt
-#          author_name: StravaigBot
-#          author_email: github-bot@stravaig.scot
-#          message: "[bot] Post v${{ env.STRAVAIG_PACKAGE_FULL_VERSION }} release updates & bump version."
-#          push: true
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Bump version
+        shell: pwsh
+        run: ./Bump-Version.ps1 -BumpPatch
+
+      - name: Reset WIP release notes
+        shell: pwsh
+        run: ./Reset-WipReleaseNotes.ps1
+
+      - name: Commit post release updates
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: ./contributors.md ./release-notes/** ./version.txt
+          author_name: StravaigBot
+          author_email: github-bot@stravaig.scot
+          message: "[bot] Post v${{ env.STRAVAIG_PACKAGE_STABLE_VERSION }} release updates & bump version."
+          push: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
