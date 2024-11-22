@@ -41,7 +41,7 @@ if ($nextVersion -notmatch "^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$")
 }
 
 $outputFolder = "./out";
-$versionEnvFile = "$ouputFolder/version-info.env";
+$versionEnvFile = "$outputFolder/version-info.env";
 if (-not (Test-Path $outputFolder))
 {
     New-Item $outputFolder -Type Directory;
