@@ -1,17 +1,6 @@
-[CmdletBinding()]
-
-function ConvertTo-Boolean([string]$Value, [bool]$EmptyDefault)
-{
-    if ([string]::IsNullOrWhiteSpace($value)) { return $EmptyDefault; }
-    if ($Value -like "true") { return $true; }
-    if ($Value -like "false") { return $false; }
-    throw "Don't know how to convert `"$Value`" into a Boolean."
-}
-
-[bool]$IsPreview = ConvertTo-Boolean -Value $IsPreview -EmptyDefault $true;
-[bool]$IsPublicRelease = ConvertTo-Boolean -Value $IsPublicRelease -EmptyDefault $false;
-
 $VersionFile = "$PSScriptRoot/version.txt";
+$outputFolder = "./out";
+$versionEnvFile = "$outputFolder/version-info.env";
 
 # Work out the version number
 $nextVersion = Get-Content $VersionFile -ErrorAction Stop
@@ -31,26 +20,21 @@ if ($nextVersion -notmatch "^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$")
     Exit 2
 }
 
-$outputFolder = "./out";
-$versionEnvFile = "$outputFolder/version-info.env";
 if (-not (Test-Path $outputFolder))
 {
     New-Item $outputFolder -Type Directory;
 }
 
-
-"STRAVAIG_PACKAGE_VERSION=$nextVersion" | Out-File -FilePath $Env:GITHUB_ENV -Encoding UTF8 -Append
-"STRAVAIG_PACKAGE_VERSION=$nextVersion" | Out-File -FilePath $versionEnvFile -Encoding UTF8 -Append
-
 $suffix = "preview."
 $suffix += $Env:GITHUB_RUN_NUMBER
 
-"STRAVAIG_PACKAGE_VERSION_SUFFIX=$suffix" | Out-File -FilePath $Env:GITHUB_ENV -Encoding UTF8 -Append
-"STRAVAIG_PACKAGE_VERSION_SUFFIX=$suffix" | Out-File -FilePath $versionEnvFile -Encoding UTF8 -Append
-
 $previewVersion = "$nextVersion-$suffix";
-"STRAVAIG_STABLE_PACKAGE_VERSION=$nextVersion" | Out-File -FilePath $Env:GITHUB_ENV -Encoding UTF8 -Append
-"STRAVAIG_STABLE_PACKAGE_VERSION=$nextVersion" | Out-File -FilePath $versionEnvFile -Encoding UTF8 -Append
+$envContent = "STRAVAIG_PACKAGE_VERSION=$nextVersion
+STRAVAIG_PACKAGE_VERSION_SUFFIX=$suffix
+STRAVAIG_STABLE_PACKAGE_VERSION=$nextVersion
+STRAVAIG_PREVIEW_PACKAGE_VERSION=$previewVersion"
 
-"STRAVAIG_PREVIEW_PACKAGE_VERSION=$previewVersion" | Out-File -FilePath $Env:GITHUB_ENV -Encoding UTF8 -Append
-"STRAVAIG_PREVIEW_PACKAGE_VERSION=$previewVersion" | Out-File -FilePath $versionEnvFile -Encoding UTF8 -Append
+Write-Host $envContent;
+
+$envContent | Out-File -FilePath $versionEnvFile -Encoding UTF8 -Verbose
+$envContent | Out-File -FilePath $env:GITHUB_ENV -Encoding UTF8 -Append -Verbose
