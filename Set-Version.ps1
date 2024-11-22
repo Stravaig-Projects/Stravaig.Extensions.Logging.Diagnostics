@@ -39,32 +39,24 @@ if ($nextVersion -notmatch "^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$")
     Write-Error "The contents of $VersionFile (`"$nextVersion`") not recognised as a valid version number."
     Exit 2
 }
+
+$outputFolder = "./out";
+$versionEnvFile = "$ouputFolder/version-info.env";
+if (-not (Test-Path $outputFolder))
+{
+    New-Item $outputFolder -Type Directory;
+}
+
+
 "STRAVAIG_PACKAGE_VERSION=$nextVersion" | Out-File -FilePath $Env:GITHUB_ENV -Encoding UTF8 -Append
-$fullVersion = $nextVersion;
+"STRAVAIG_PACKAGE_VERSION=$nextVersion" | Out-File -FilePath $versionEnvFile -Encoding UTF8 -Append
 
-# Work out the suffix (~ = no suffix)
-$suffix = "~"
-if ($IsPreview)
-{
-    $suffix = "preview."
-    $suffix += $Env:GITHUB_RUN_NUMBER
-    $fullVersion += "-"+$suffix;
-    "STRAVAIG_IS_STABLE=false" | Out-File -FilePath $Env:GITHUB_ENV -Encoding UTF8 -Append
-    "STRAVAIG_IS_PREVIEW=true" | Out-File -FilePath $Env:GITHUB_ENV -Encoding UTF8 -Append
-}
-else
-{
-    "STRAVAIG_IS_STABLE=true" | Out-File -FilePath $Env:GITHUB_ENV -Encoding UTF8 -Append
-    "STRAVAIG_IS_PREVIEW=false" | Out-File -FilePath $Env:GITHUB_ENV -Encoding UTF8 -Append
-}
+$suffix = "preview."
+$suffix += $Env:GITHUB_RUN_NUMBER
+
 "STRAVAIG_PACKAGE_VERSION_SUFFIX=$suffix" | Out-File -FilePath $Env:GITHUB_ENV -Encoding UTF8 -Append
-"STRAVAIG_PACKAGE_FULL_VERSION=$fullVersion" | Out-File -FilePath $Env:GITHUB_ENV -Encoding UTF8 -Append
+"STRAVAIG_PACKAGE_VERSION_SUFFIX=$suffix" | Out-File -FilePath $versionEnvFile -Encoding UTF8 -Append
 
-if ($IsPublicRelease)
-{
-    "STRAVAIG_PUBLISH_TO_NUGET=true" | Out-File -FilePath $Env:GITHUB_ENV -Encoding UTF8 -Append
-}
-else 
-{
-    "STRAVAIG_PUBLISH_TO_NUGET=false" | Out-File -FilePath $Env:GITHUB_ENV -Encoding UTF8 -Append
-}
+$previewVersion = "$nextVersion-$suffix";
+"STRAVAIG_STABLE_PACKAGE_VERSION=$nextVersion" | Out-File -FilePath $versionEnvFile -Encoding UTF8 -Append
+"STRAVAIG_PREVIEW_PACKAGE_VERSION=$previewVersion" | Out-File -FilePath $versionEnvFile -Encoding UTF8 -Append

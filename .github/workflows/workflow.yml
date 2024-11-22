@@ -114,14 +114,18 @@ jobs:
     needs: build
     environment: preview-release
     steps:
-      - name: Environment
-        run: env | sort
-
       - name: Download Packages
         uses: actions/download-artifact@v4
         with:
           name: packages
           path: ./packages
+
+      - name: Apply Env Vars
+        shell: pwsh
+        run: Get-Content ./packages/version-info.env | Out-File -FilePath $env:GITHUB_ENV -Encoding UTF8 -Append -Verbose
+
+      - name: Environment
+        run: env | sort
 
       - name: List Workspace
         run: ls -R -l .
