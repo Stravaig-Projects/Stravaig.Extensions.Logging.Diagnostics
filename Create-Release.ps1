@@ -48,7 +48,15 @@
         Write-Error "STRAVAIG_STABLE_VERSION is missing."
         Exit 3;
     }
-    $TagName = "v" + $Env:STRAVAIG_STABLE_VERSION
+
+    if ($IsPrerelease)
+    {
+        $TagName = "v" + $Env:STRAVAIG_PREVIEW_VERSION
+    }
+    else
+    {
+        $TagName = "v" + $Env:STRAVAIG_STABLE_VERSION
+    }
 
 
     $ghArgs = "release create `"$TagName`""

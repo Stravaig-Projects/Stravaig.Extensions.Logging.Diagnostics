@@ -123,6 +123,12 @@ jobs:
           name: packages
           path: ./packages
 
+      - name: Download Release Information
+        uses: actions/download-artifact@v4
+        with:
+          name: release-information
+          path: ./release-information
+
       - name: Apply Env Vars
         shell: pwsh
         run: Get-Content ./packages/version-info.env | Out-File -FilePath $env:GITHUB_ENV -Encoding UTF8 -Append
