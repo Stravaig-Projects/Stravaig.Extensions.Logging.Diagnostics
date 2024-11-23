@@ -119,7 +119,7 @@ jobs:
 
       - name: Apply Env Vars
         shell: pwsh
-        run: Get-Content ./packages/version-info.env | Out-File -FilePath $env:GITHUB_ENV -Encoding UTF8 -Append -Verbose
+        run: Get-Content ./packages/version-info.env | Out-File -FilePath $env:GITHUB_ENV -Encoding UTF8 -Append
 
       - name: Environment
         run: env | sort
@@ -148,7 +148,7 @@ jobs:
 
       - name: Apply Env Vars
         shell: pwsh
-        run: Get-Content ./packages/version-info.env | Out-File -FilePath $env:GITHUB_ENV -Encoding UTF8 -Append -Verbose
+        run: Get-Content ./packages/version-info.env | Out-File -FilePath $env:GITHUB_ENV -Encoding UTF8 -Append
 
       - name: Environment
         run: env | sort
@@ -178,8 +178,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           Copy-Item -Path ./release-information/contributors.md -Destination ./contributors.md -Force
-          Copy-Item -Path ./release-information/full-release-notes.md -Destination ./release-notes/full-release-notes.md -Force
-          Copy-Item -Path ./release-information/release-notes-${{ env.STRAVAIG_PACKAGE_VERSION }}.md -Destination ./release-notes/release-notes-${{ env.STRAVAIG_PACKAGE_VERSION }}.md -Force
+          Copy-Item -Path ./release-information/release-notes/full-release-notes.md -Destination ./release-notes/full-release-notes.md -Force
+          Copy-Item -Path ./release-information/release-notes/release-notes-${{ env.STRAVAIG_PACKAGE_VERSION }}.md -Destination ./release-notes/release-notes-${{ env.STRAVAIG_PACKAGE_VERSION }}.md -Force
           $assets = @();
           $assets += "./out/*.nupkg"
           $assets += "./out/*.snupkg"
