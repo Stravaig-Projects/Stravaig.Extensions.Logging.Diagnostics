@@ -29,10 +29,10 @@ $suffix = "preview."
 $suffix += $Env:GITHUB_RUN_NUMBER
 
 $previewVersion = "$nextVersion-$suffix";
-$envContent = "STRAVAIG_PACKAGE_VERSION=$nextVersion
-STRAVAIG_PACKAGE_VERSION_SUFFIX=$suffix
-STRAVAIG_STABLE_VERSION=$nextVersion
-STRAVAIG_PREVIEW_VERSION=$previewVersion"
+$envContent = "STRAVAIG_PACKAGE_VERSION=$nextVersion" + [System.Environment]::NewLine +
+"STRAVAIG_PACKAGE_VERSION_SUFFIX=$suffix" + [System.Environment]::NewLine +
+"STRAVAIG_STABLE_VERSION=$nextVersion" + [System.Environment]::NewLine +
+"STRAVAIG_PREVIEW_VERSION=$previewVersion";
 
 Write-Host $envContent;
 
