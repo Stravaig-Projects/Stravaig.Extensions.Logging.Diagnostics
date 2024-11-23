@@ -40,12 +40,12 @@
     }
     $Commitish = $Env:GITHUB_SHA;
 
-    if ([string]::IsNullOrWhiteSpace($Env:STRAVAIG_PACKAGE_FULL_VERSION))
+    if ([string]::IsNullOrWhiteSpace($Env:STRAVAIG_STABLE_VERSION))
     {
-        Write-Error "STRAVAIG_PACKAGE_FULL_VERSION is missing."
+        Write-Error "STRAVAIG_PACKAGE_VERSION is missing."
         Exit 3;
     }
-    $TagName = "v" + $Env:STRAVAIG_PACKAGE_FULL_VERSION
+    $TagName = "v" + $Env:STRAVAIG_STABLE_VERSION
 
 
     if ([string]::IsNullOrWhiteSpace($Env:STRAVAIG_IS_PREVIEW))
@@ -89,4 +89,3 @@
         Write-Error "Failed to create a release."
         Exit $exitCode;
     }
-

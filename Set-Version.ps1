@@ -22,7 +22,7 @@ if ($nextVersion -notmatch "^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$")
 
 if (-not (Test-Path $outputFolder))
 {
-    New-Item $outputFolder -Type Directory;
+    $null = New-Item $outputFolder -Type Directory;
 }
 
 $suffix = "preview."
@@ -31,10 +31,10 @@ $suffix += $Env:GITHUB_RUN_NUMBER
 $previewVersion = "$nextVersion-$suffix";
 $envContent = "STRAVAIG_PACKAGE_VERSION=$nextVersion
 STRAVAIG_PACKAGE_VERSION_SUFFIX=$suffix
-STRAVAIG_STABLE_PACKAGE_VERSION=$nextVersion
-STRAVAIG_PREVIEW_PACKAGE_VERSION=$previewVersion"
+STRAVAIG_STABLE_VERSION=$nextVersion
+STRAVAIG_PREVIEW_VERSION=$previewVersion"
 
 Write-Host $envContent;
 
-$envContent | Out-File -FilePath $versionEnvFile -Encoding UTF8 -Verbose
-$envContent | Out-File -FilePath $env:GITHUB_ENV -Encoding UTF8 -Append -Verbose
+$envContent | Out-File -FilePath $versionEnvFile -Encoding UTF8
+$envContent | Out-File -FilePath $env:GITHUB_ENV -Encoding UTF8 -Append

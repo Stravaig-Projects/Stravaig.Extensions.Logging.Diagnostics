@@ -1,4 +1,4 @@
-$fullVersion = $Env:STRAVAIG_PACKAGE_FULL_VERSION
+$fullVersion = $Env:STRAVAIG_PACKAGE_VERSION
 
 $currentReleaseNotes = Get-Content "$PSScriptRoot/release-notes/wip-release-notes.md";
 
@@ -37,4 +37,3 @@ Set-Content "$PSScriptRoot/release-notes/full-release-notes.md" $fullReleaseNote
 $contributors = Get-Content "$PSScriptRoot/contributors.md";
 $releaseBody = $currentReleaseNotes + @("", "---", "") + $contributors
 Set-Content "$PSScriptRoot/release-body.md" $releaseBody -Encoding UTF8 -Force
-

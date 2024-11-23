@@ -46,8 +46,8 @@ jobs:
         run: |
           echo "Package version: $STRAVAIG_PACKAGE_VERSION"
           echo "Version Suffix:  $STRAVAIG_PACKAGE_VERSION_SUFFIX"
-          echo "Stable Version:  $STRAVAIG_PACKAGE_STABLE_VERSION"
-          echo "Preview Version: $STRAVAIG_PACKAGE_PREVIEW_VERSION"
+          echo "Stable Version:  $STRAVAIG_STABLE_VERSION"
+          echo "Preview Version: $STRAVAIG_PREVIEW_VERSION"
 
       - uses: actions/setup-dotnet@v4
         name: Setup .NET 6.0, 8.0 & 9.0
@@ -104,7 +104,7 @@ jobs:
           path: |
             contributors.md
             release-notes/full-release-notes.md
-            release-notes/release-notes-${{ env.STRAVAIG_PACKAGE_FULL_VERSION }}.md
+            release-notes/release-notes-${{ env.STRAVAIG_PACKAGE_VERSION }}.md
           retention-days: 7
 
   publish-preview:
@@ -166,7 +166,7 @@ jobs:
 #      - name: Push package to NuGet
 #        shell: pwsh
 #        run: |
-#          Get-ChildItem ./out/preview/*.nupkg | ForEach-Object {
+#          Get-ChildItem ./out/stable/*.nupkg | ForEach-Object {
 #            $name = $_.FullName;
 #            Write-Output "Pushing $name";
 #            dotnet nuget push "$name" --api-key ${{ secrets.STRAVAIG_NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
@@ -180,14 +180,14 @@ jobs:
         run: |
           Copy-Item -Path ./release-information/contributors.md -Destination ./contributors.md -Force
           Copy-Item -Path ./release-information/full-release-notes.md -Destination ./release-notes/full-release-notes.md -Force
-          Copy-Item -Path ./release-information/release-notes-${{ env.STRAVAIG_PACKAGE_STABLE_VERSION }}.md -Destination ./release-notes/release-notes-${{ env.STRAVAIG_PACKAGE_STABLE_VERSION }}.md -Force
+          Copy-Item -Path ./release-information/release-notes-${{ env.STRAVAIG_PACKAGE_VERSION }}.md -Destination ./release-notes/release-notes-${{ env.STRAVAIG_PACKAGE_VERSION }}.md -Force
           $assets = @();
           $assets += "./out/*.nupkg"
           $assets += "./out/*.snupkg"
           $assets += "LICENSE"
           $assets += "contributors.md"
           $assets += "README.md"
-          $assets += "./release-notes/release-notes-${{ env.STRAVAIG_PACKAGE_STABLE_VERSION }}.md"
+          $assets += "./release-notes/release-notes-${{ env.STRAVAIG_PACKAGE_VERSION }}.md"
           ./Create-Release.ps1 -NotesFile "./release-body.md" -Assets $assets
 
       - name: Bump version
