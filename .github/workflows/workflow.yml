@@ -160,7 +160,9 @@ jobs:
           path: ./release-information
 
       - name: List Workspace
-        run: ls -R -l .
+        run: |
+          pwd
+          ls -R -l .
 
 #      - name: Push package to NuGet
 #        shell: pwsh
@@ -177,12 +179,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          Get-Location
           Copy-Item -Path ./release-information/contributors.md -Destination ./contributors.md -Force
           Copy-Item -Path ./release-information/release-notes/full-release-notes.md -Destination ./release-notes/full-release-notes.md -Force
           Copy-Item -Path ./release-information/release-notes/release-notes-${{ env.STRAVAIG_PACKAGE_VERSION }}.md -Destination ./release-notes/release-notes-${{ env.STRAVAIG_PACKAGE_VERSION }}.md -Force
           $assets = @();
-          $assets += "./out/*.nupkg"
-          $assets += "./out/*.snupkg"
+          $assets += "./packages/stable/*.nupkg"
+          $assets += "./packages/stable/*.snupkg"
           $assets += "LICENSE"
           $assets += "contributors.md"
           $assets += "README.md"
