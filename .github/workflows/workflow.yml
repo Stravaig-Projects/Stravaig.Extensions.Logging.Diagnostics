@@ -140,6 +140,11 @@ jobs:
     needs: build
     environment: stable-release
     steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
       - name: Download Packages
         uses: actions/download-artifact@v4
         with:
@@ -179,8 +184,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          Get-Location
-          Get-ChildItem
           Copy-Item -Path ./release-information/contributors.md -Destination ./contributors.md -Force
           Copy-Item -Path ./release-information/release-notes/full-release-notes.md -Destination ./release-notes/full-release-notes.md -Force
           Copy-Item -Path ./release-information/release-notes/release-notes-${{ env.STRAVAIG_PACKAGE_VERSION }}.md -Destination ./release-notes/release-notes-${{ env.STRAVAIG_PACKAGE_VERSION }}.md -Force
