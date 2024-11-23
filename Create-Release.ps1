@@ -22,7 +22,7 @@
         $pinfo.FileName = "gh"
         $pinfo.UseShellExecute = $false
         $pinfo.Arguments = $ghArgs
-        Write-Verbose -Message $pinfo.Arguments
+        Write-Host $pinfo.Arguments
         $ghProcess = New-Object System.Diagnostics.Process
         $ghProcess.StartInfo = $pinfo
         $null = $ghProcess.Start();
@@ -47,6 +47,12 @@
     {
         Write-Error "STRAVAIG_STABLE_VERSION is missing."
         Exit 3;
+    }
+
+    if ([string]::IsNullOrWhiteSpace($Env:STRAVAIG_PREVIEW_VERSION))
+    {
+        Write-Error "STRAVAIG_PREVIEW_VERSION is missing."
+        Exit 4;
     }
 
     if ($IsPrerelease)
