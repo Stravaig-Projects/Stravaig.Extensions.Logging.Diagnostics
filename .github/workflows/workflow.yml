@@ -112,6 +112,11 @@ jobs:
     needs: build
     environment: preview-release
     steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
       - name: Download Packages
         uses: actions/download-artifact@v4
         with:
@@ -135,6 +140,24 @@ jobs:
 #            $name = $_.FullName;
 #            Write-Output "Pushing $name";
 #            dotnet nuget push "$name" --api-key ${{ secrets.STRAVAIG_NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+
+      - name: Create Release
+        shell: pwsh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          Copy-Item -Path ./release-information/contributors.md -Destination ./contributors.md -Force
+          Copy-Item -Path ./release-information/release-notes/full-release-notes.md -Destination ./release-notes/full-release-notes.md -Force
+          Copy-Item -Path ./release-information/release-notes/release-notes-${{ env.STRAVAIG_PACKAGE_VERSION }}.md -Destination ./release-notes/release-notes-${{ env.STRAVAIG_PACKAGE_VERSION }}.md -Force
+          $assets = @();
+          $assets += "./packages/stable/*.nupkg"
+          $assets += "./packages/stable/*.snupkg"
+          $assets += "LICENSE"
+          $assets += "contributors.md"
+          $assets += "README.md"
+          $assets += "./release-notes/release-notes-${{ env.STRAVAIG_PACKAGE_VERSION }}.md"
+          ./Create-Release.ps1 -IsDraft -IsPrerelease -NotesFile "./release-information/release-body.md" -Assets $assets
+
 
   publish-stable:
     runs-on: ubuntu-latest
@@ -195,7 +218,7 @@ jobs:
           $assets += "contributors.md"
           $assets += "README.md"
           $assets += "./release-notes/release-notes-${{ env.STRAVAIG_PACKAGE_VERSION }}.md"
-          ./Create-Release.ps1 -NotesFile "./release-information/release-body.md" -Assets $assets
+          ./Create-Release.ps1 -IsDraft -NotesFile "./release-information/release-body.md" -Assets $assets
 
       - name: Bump version
         shell: pwsh

@@ -4,6 +4,9 @@
         [parameter(Mandatory=$false)]
         [switch]$IsDraft,
 
+        [parameter(Mandatory=$false)]
+        [switch]$IsPrerelease,
+
         [ValidateScript({Test-Path $_ -PathType Leaf})]
         [parameter(Mandatory=$true)]
         [string]$NotesFile,
@@ -42,18 +45,10 @@
 
     if ([string]::IsNullOrWhiteSpace($Env:STRAVAIG_STABLE_VERSION))
     {
-        Write-Error "STRAVAIG_PACKAGE_VERSION is missing."
+        Write-Error "STRAVAIG_STABLE_VERSION is missing."
         Exit 3;
     }
     $TagName = "v" + $Env:STRAVAIG_STABLE_VERSION
-
-
-    if ([string]::IsNullOrWhiteSpace($Env:STRAVAIG_IS_PREVIEW))
-    {
-        Write-Error "STRAVAIG_IS_PREVIEW is missing."
-        Exit 4;
-    }
-    $IsPrerelease = [System.Convert]::ToBoolean($Env:STRAVAIG_IS_PREVIEW);
 
 
     $ghArgs = "release create `"$TagName`""
