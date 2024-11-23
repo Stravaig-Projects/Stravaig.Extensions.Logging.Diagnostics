@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - main
-      - '#183/workflow'
 
     paths-ignore:
       - 'README.md'
@@ -57,9 +56,6 @@ jobs:
             8.0.x
             9.0.x
 
-#      - name: .NET State
-#        run: dotnet --info
-
       - name: Build Solution
         run: dotnet build src/Stravaig.Extensions.Logging.Diagnostics.sln --configuration Release
 
@@ -78,9 +74,6 @@ jobs:
       - name: Package Stable Release (xunit)
         run: dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics.XUnit/Stravaig.Extensions.Logging.Diagnostics.XUnit.csproj --configuration Release --output ./out/stable --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
 
-#      - name: List Packages
-#        run: ls -R -l ./out
-#
       - name: Archive Packages
         uses: actions/upload-artifact@v4
         with:
@@ -133,19 +126,13 @@ jobs:
         shell: pwsh
         run: Get-Content ./packages/version-info.env | Out-File -FilePath $env:GITHUB_ENV -Encoding UTF8 -Append
 
-      - name: Environment
-        run: env | sort
-
-      - name: List Workspace
-        run: ls -R -l .
-
-#      - name: Push package to NuGet
-#        shell: pwsh
-#        run: |
-#          Get-ChildItem ./packages/preview/*.nupkg | ForEach-Object {
-#            $name = $_.FullName;
-#            Write-Output "Pushing $name";
-#            dotnet nuget push "$name" --api-key ${{ secrets.STRAVAIG_NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+      - name: Push package to NuGet
+        shell: pwsh
+        run: |
+          Get-ChildItem ./packages/preview/*.nupkg | ForEach-Object {
+            $name = $_.FullName;
+            Write-Output "Pushing $name";
+            dotnet nuget push "$name" --api-key ${{ secrets.STRAVAIG_NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
 
       - name: Create Release
         shell: pwsh
@@ -162,7 +149,7 @@ jobs:
           $assets += "contributors.md"
           $assets += "README.md"
           $assets += "./release-notes/release-notes-${{ env.STRAVAIG_PACKAGE_VERSION }}.md"
-          ./Create-Release.ps1 -IsDraft -IsPrerelease -NotesFile "./release-information/release-body.md" -Assets $assets
+          ./Create-Release.ps1 -IsPrerelease -NotesFile "./release-information/release-body.md" -Assets $assets
 
 
   publish-stable:
@@ -185,30 +172,21 @@ jobs:
         shell: pwsh
         run: Get-Content ./packages/version-info.env | Out-File -FilePath $env:GITHUB_ENV -Encoding UTF8 -Append
 
-      - name: Environment
-        run: env | sort
-
       - name: Download Release Information
         uses: actions/download-artifact@v4
         with:
           name: release-information
           path: ./release-information
 
-      - name: List Workspace
+      - name: Push package to NuGet
+        shell: pwsh
         run: |
-          pwd
-          ls -R -l .
+          Get-ChildItem ./out/stable/*.nupkg | ForEach-Object {
+            $name = $_.FullName;
+            Write-Output "Pushing $name";
+            dotnet nuget push "$name" --api-key ${{ secrets.STRAVAIG_NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+          }
 
-#      - name: Push package to NuGet
-#        shell: pwsh
-#        run: |
-#          Get-ChildItem ./out/stable/*.nupkg | ForEach-Object {
-#            $name = $_.FullName;
-#            Write-Output "Pushing $name";
-#            dotnet nuget push "$name" --api-key ${{ secrets.STRAVAIG_NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
-#          }
-#
-#
       - name: Create Release
         shell: pwsh
         env:
@@ -224,7 +202,7 @@ jobs:
           $assets += "contributors.md"
           $assets += "README.md"
           $assets += "./release-notes/release-notes-${{ env.STRAVAIG_PACKAGE_VERSION }}.md"
-          ./Create-Release.ps1 -IsDraft -NotesFile "./release-information/release-body.md" -Assets $assets
+          ./Create-Release.ps1 -NotesFile "./release-information/release-body.md" -Assets $assets
 
       - name: Bump version
         shell: pwsh
