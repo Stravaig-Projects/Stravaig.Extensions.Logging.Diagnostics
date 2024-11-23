@@ -4,6 +4,9 @@
         [parameter(Mandatory=$false)]
         [switch]$IsDraft,
 
+        [parameter(Mandatory=$false)]
+        [switch]$IsPrerelease,
+
         [ValidateScript({Test-Path $_ -PathType Leaf})]
         [parameter(Mandatory=$true)]
         [string]$NotesFile,
@@ -19,7 +22,7 @@
         $pinfo.FileName = "gh"
         $pinfo.UseShellExecute = $false
         $pinfo.Arguments = $ghArgs
-        Write-Verbose -Message $pinfo.Arguments
+        Write-Host $pinfo.Arguments
         $ghProcess = New-Object System.Diagnostics.Process
         $ghProcess.StartInfo = $pinfo
         $null = $ghProcess.Start();
@@ -40,20 +43,26 @@
     }
     $Commitish = $Env:GITHUB_SHA;
 
-    if ([string]::IsNullOrWhiteSpace($Env:STRAVAIG_PACKAGE_FULL_VERSION))
+    if ([string]::IsNullOrWhiteSpace($Env:STRAVAIG_STABLE_VERSION))
     {
-        Write-Error "STRAVAIG_PACKAGE_FULL_VERSION is missing."
+        Write-Error "STRAVAIG_STABLE_VERSION is missing."
         Exit 3;
     }
-    $TagName = "v" + $Env:STRAVAIG_PACKAGE_FULL_VERSION
 
-
-    if ([string]::IsNullOrWhiteSpace($Env:STRAVAIG_IS_PREVIEW))
+    if ([string]::IsNullOrWhiteSpace($Env:STRAVAIG_PREVIEW_VERSION))
     {
-        Write-Error "STRAVAIG_IS_PREVIEW is missing."
+        Write-Error "STRAVAIG_PREVIEW_VERSION is missing."
         Exit 4;
     }
-    $IsPrerelease = [System.Convert]::ToBoolean($Env:STRAVAIG_IS_PREVIEW);
+
+    if ($IsPrerelease)
+    {
+        $TagName = "v" + $Env:STRAVAIG_PREVIEW_VERSION
+    }
+    else
+    {
+        $TagName = "v" + $Env:STRAVAIG_STABLE_VERSION
+    }
 
 
     $ghArgs = "release create `"$TagName`""
@@ -89,4 +98,3 @@
         Write-Error "Failed to create a release."
         Exit $exitCode;
     }
-

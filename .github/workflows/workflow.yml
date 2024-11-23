@@ -1,0 +1,226 @@
+name: Stravaig Test Capture Logger V3
+on:
+  push:
+    branches:
+      - main
+
+    paths-ignore:
+      - 'README.md'
+      - 'Example/**'
+      - '.vscode/**'
+      - '.gitignore'
+      - 'contributors.md'
+      - 'release-notes/**'
+
+  pull_request:
+    types: [assigned, opened, synchronize, reopened]
+    paths-ignore:
+      - 'README.md'
+      - 'Example/**'
+      - '.vscode/**'
+      - '.gitignore'
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build, Test, and Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set Time Zone to Europe/London
+        shell: pwsh
+        run: sudo timedatectl set-timezone "Europe/London"
+
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set version number
+        shell: pwsh
+        run: ./Set-Version.ps1
+
+      - name: Display workflow state
+        run: |
+          echo "Package version: $STRAVAIG_PACKAGE_VERSION"
+          echo "Version Suffix:  $STRAVAIG_PACKAGE_VERSION_SUFFIX"
+          echo "Stable Version:  $STRAVAIG_STABLE_VERSION"
+          echo "Preview Version: $STRAVAIG_PREVIEW_VERSION"
+
+      - uses: actions/setup-dotnet@v4
+        name: Setup .NET 6.0, 8.0 & 9.0
+        with:
+          dotnet-version: |
+            6.0.x
+            8.0.x
+            9.0.x
+
+      - name: Build Solution
+        run: dotnet build src/Stravaig.Extensions.Logging.Diagnostics.sln --configuration Release
+
+      - name: Run Tests
+        run: dotnet test src/Stravaig.Extensions.Logging.Diagnostics.Tests/Stravaig.Extensions.Logging.Diagnostics.Tests.csproj --configuration Release
+
+      - name: Package Preview Release (main)
+        run: dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics/Stravaig.Extensions.Logging.Diagnostics.csproj --configuration Release --output ./out/preview --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" --version-suffix "$STRAVAIG_PACKAGE_VERSION_SUFFIX" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
+
+      - name: Package Preview Release (xunit)
+        run: dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics.XUnit/Stravaig.Extensions.Logging.Diagnostics.XUnit.csproj --configuration Release --output ./out/preview --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" --version-suffix "$STRAVAIG_PACKAGE_VERSION_SUFFIX" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
+
+      - name: Package Stable Release (main)
+        run: dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics/Stravaig.Extensions.Logging.Diagnostics.csproj --configuration Release --output ./out/stable --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
+
+      - name: Package Stable Release (xunit)
+        run: dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics.XUnit/Stravaig.Extensions.Logging.Diagnostics.XUnit.csproj --configuration Release --output ./out/stable --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
+
+      - name: Archive Packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: packages
+          path: ./out/**
+          retention-days: 7
+
+      - name: List Contributors
+        shell: pwsh
+        run: ./list-contributors.ps1 -HideAKAs -HideSummaryAwards
+
+      - name: Build Release Notes
+        shell: pwsh
+        run: ./build-release-notes.ps1
+
+      - name: Archive Release Notes
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-information
+          path: |
+            contributors.md
+            release-notes/full-release-notes.md
+            release-notes/release-notes-${{ env.STRAVAIG_PACKAGE_VERSION }}.md
+            release-body.md
+          retention-days: 7
+
+  publish-preview:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    needs: build
+    environment: preview-release
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Download Packages
+        uses: actions/download-artifact@v4
+        with:
+          name: packages
+          path: ./packages
+
+      - name: Download Release Information
+        uses: actions/download-artifact@v4
+        with:
+          name: release-information
+          path: ./release-information
+
+      - name: Apply Env Vars
+        shell: pwsh
+        run: Get-Content ./packages/version-info.env | Out-File -FilePath $env:GITHUB_ENV -Encoding UTF8 -Append
+
+      - name: Push package to NuGet
+        shell: pwsh
+        run: |
+          Get-ChildItem ./packages/preview/*.nupkg | ForEach-Object {
+            $name = $_.FullName;
+            Write-Output "Pushing $name";
+            dotnet nuget push "$name" --api-key ${{ secrets.STRAVAIG_NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+
+      - name: Create Release
+        shell: pwsh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          Copy-Item -Path ./release-information/contributors.md -Destination ./contributors.md -Force
+          Copy-Item -Path ./release-information/release-notes/full-release-notes.md -Destination ./release-notes/full-release-notes.md -Force
+          Copy-Item -Path ./release-information/release-notes/release-notes-${{ env.STRAVAIG_PACKAGE_VERSION }}.md -Destination ./release-notes/release-notes-${{ env.STRAVAIG_PACKAGE_VERSION }}.md -Force
+          $assets = @();
+          $assets += "./packages/stable/*.nupkg"
+          $assets += "./packages/stable/*.snupkg"
+          $assets += "LICENSE"
+          $assets += "contributors.md"
+          $assets += "README.md"
+          $assets += "./release-notes/release-notes-${{ env.STRAVAIG_PACKAGE_VERSION }}.md"
+          ./Create-Release.ps1 -IsPrerelease -NotesFile "./release-information/release-body.md" -Assets $assets
+
+
+  publish-stable:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    needs: build
+    environment: stable-release
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Download Packages
+        uses: actions/download-artifact@v4
+        with:
+          name: packages
+          path: ./packages
+
+      - name: Apply Env Vars
+        shell: pwsh
+        run: Get-Content ./packages/version-info.env | Out-File -FilePath $env:GITHUB_ENV -Encoding UTF8 -Append
+
+      - name: Download Release Information
+        uses: actions/download-artifact@v4
+        with:
+          name: release-information
+          path: ./release-information
+
+      - name: Push package to NuGet
+        shell: pwsh
+        run: |
+          Get-ChildItem ./out/stable/*.nupkg | ForEach-Object {
+            $name = $_.FullName;
+            Write-Output "Pushing $name";
+            dotnet nuget push "$name" --api-key ${{ secrets.STRAVAIG_NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+          }
+
+      - name: Create Release
+        shell: pwsh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          Copy-Item -Path ./release-information/contributors.md -Destination ./contributors.md -Force
+          Copy-Item -Path ./release-information/release-notes/full-release-notes.md -Destination ./release-notes/full-release-notes.md -Force
+          Copy-Item -Path ./release-information/release-notes/release-notes-${{ env.STRAVAIG_PACKAGE_VERSION }}.md -Destination ./release-notes/release-notes-${{ env.STRAVAIG_PACKAGE_VERSION }}.md -Force
+          $assets = @();
+          $assets += "./packages/stable/*.nupkg"
+          $assets += "./packages/stable/*.snupkg"
+          $assets += "LICENSE"
+          $assets += "contributors.md"
+          $assets += "README.md"
+          $assets += "./release-notes/release-notes-${{ env.STRAVAIG_PACKAGE_VERSION }}.md"
+          ./Create-Release.ps1 -NotesFile "./release-information/release-body.md" -Assets $assets
+
+      - name: Bump version
+        shell: pwsh
+        run: ./Bump-Version.ps1 -BumpPatch
+
+      - name: Reset WIP release notes
+        shell: pwsh
+        run: ./Reset-WipReleaseNotes.ps1
+
+      - name: Commit post release updates
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: ./contributors.md ./release-notes/** ./version.txt
+          author_name: StravaigBot
+          author_email: github-bot@stravaig.scot
+          message: "[bot] Post v${{ env.STRAVAIG_PACKAGE_STABLE_VERSION }} release updates & bump version."
+          push: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

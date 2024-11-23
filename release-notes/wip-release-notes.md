@@ -6,7 +6,7 @@ Date: ???
 
 ### Breaking Changes
 
-- Feature #123 changes the `TestCaptureLogger<T>` class to encapsulate an instance of `TestCaptureLogger` rather than inherit from it. If you're code relied on `TestCaptureLogger<T>` inheriting from `TestCaptureLogger` then it will likely break.
+- Feature #123 changes the `TestCaptureLogger<T>` class to encapsulate an instance of `TestCaptureLogger` rather than inherit from it. If your code relied on `TestCaptureLogger<T>` inheriting from `TestCaptureLogger` then it will likely break, however an implicit and explicit cast operators were added to mitigate this issue.
 - Feature #172 drops support for .NET 7.0. Use .NET 6.0 LTS, .NET 8.0 LTS or .NET 9.0 STS.
 
 ### Features
@@ -24,11 +24,12 @@ Date: ???
 
 ### Miscellaneous
 
-- #36: Add package readme
+- #36: Add package readme.
 - #164: Update pipeline.
 - #172: Drop support and package targeting for .NET 7.0.
-- #179: Update github pages pipeline
-- #181: Add support for .NET 9.0
+- #179: Update github pages pipeline.
+- #181: Add support for .NET 9.0.
+- #183: Update github action workflow to separate the build and deploy stages.
 
 ### Dependencies
 

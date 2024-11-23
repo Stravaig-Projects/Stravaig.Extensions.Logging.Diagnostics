@@ -6,7 +6,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stravaig.Extensions.Logging
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "__Build_and_Deploy", "__Build_and_Deploy", "{8A448F20-3311-4F77-86C4-BAA662A18E40}"
 ProjectSection(SolutionItems) = preProject
-	..\.github\workflows\build.yml = ..\.github\workflows\build.yml
 	..\Set-Version.ps1 = ..\Set-Version.ps1
 	..\version.txt = ..\version.txt
 	..\build-release-notes.ps1 = ..\build-release-notes.ps1
@@ -15,6 +14,7 @@ ProjectSection(SolutionItems) = preProject
 	..\Reset-WipReleaseNotes.ps1 = ..\Reset-WipReleaseNotes.ps1
 	..\Create-Release.ps1 = ..\Create-Release.ps1
 	..\.github\workflows\gh-pages.yml = ..\.github\workflows\gh-pages.yml
+	..\.github\workflows\workflow.yml = ..\.github\workflows\workflow.yml
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "__Documentation", "__Documentation", "{25CEBD2E-CFB3-492A-8C4D-C0C983009F39}"

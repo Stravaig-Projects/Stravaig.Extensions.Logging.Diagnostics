@@ -1,26 +1,6 @@
-[CmdletBinding()]
-param (
-    [Parameter(Mandatory=$false)]
-    [string]
-    $IsPreview = $true,
-
-    [Parameter(Mandatory=$false)]
-    [string]
-    $IsPublicRelease = "false"
-)
-
-function ConvertTo-Boolean([string]$Value, [bool]$EmptyDefault)
-{
-    if ([string]::IsNullOrWhiteSpace($value)) { return $EmptyDefault; }
-    if ($Value -like "true") { return $true; }
-    if ($Value -like "false") { return $false; }
-    throw "Don't know how to convert `"$Value`" into a Boolean."
-}
-
-[bool]$IsPreview = ConvertTo-Boolean -Value $IsPreview -EmptyDefault $true;
-[bool]$IsPublicRelease = ConvertTo-Boolean -Value $IsPublicRelease -EmptyDefault $false;
-
 $VersionFile = "$PSScriptRoot/version.txt";
+$outputFolder = "./out";
+$versionEnvFile = "$outputFolder/version-info.env";
 
 # Work out the version number
 $nextVersion = Get-Content $VersionFile -ErrorAction Stop
@@ -39,32 +19,49 @@ if ($nextVersion -notmatch "^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$")
     Write-Error "The contents of $VersionFile (`"$nextVersion`") not recognised as a valid version number."
     Exit 2
 }
-"STRAVAIG_PACKAGE_VERSION=$nextVersion" | Out-File -FilePath $Env:GITHUB_ENV -Encoding UTF8 -Append
-$fullVersion = $nextVersion;
 
-# Work out the suffix (~ = no suffix)
-$suffix = "~"
-if ($IsPreview)
+if (-not (Test-Path $outputFolder))
 {
-    $suffix = "preview."
-    $suffix += $Env:GITHUB_RUN_NUMBER
-    $fullVersion += "-"+$suffix;
-    "STRAVAIG_IS_STABLE=false" | Out-File -FilePath $Env:GITHUB_ENV -Encoding UTF8 -Append
-    "STRAVAIG_IS_PREVIEW=true" | Out-File -FilePath $Env:GITHUB_ENV -Encoding UTF8 -Append
+    $null = New-Item $outputFolder -Type Directory;
+}
+
+$sha = $(git rev-list --tags --max-count=1);
+$tag = $(git describe --tags $sha);
+Write-Host "Last deployment was $tag";
+$parts = $tag.Split("-preview.");
+
+if ($parts.Length -eq 1)
+{
+    $runNumber = 1;
+}
+elseif ($parts.Length -eq 2)
+{
+    $runNumber = [int]$parts[1];
+    if ($parts[0] -ne "v$nextVersion")
+    {
+        $runNumber = 1;
+    }
+    else
+    {
+        $runNumber += 1;
+    }
 }
 else
 {
-    "STRAVAIG_IS_STABLE=true" | Out-File -FilePath $Env:GITHUB_ENV -Encoding UTF8 -Append
-    "STRAVAIG_IS_PREVIEW=false" | Out-File -FilePath $Env:GITHUB_ENV -Encoding UTF8 -Append
+    Write-Error "The last tag was not in a recognisable format. Expected v?.?.?-preview.?, but was $tag";
+    Exit 3;
 }
-"STRAVAIG_PACKAGE_VERSION_SUFFIX=$suffix" | Out-File -FilePath $Env:GITHUB_ENV -Encoding UTF8 -Append
-"STRAVAIG_PACKAGE_FULL_VERSION=$fullVersion" | Out-File -FilePath $Env:GITHUB_ENV -Encoding UTF8 -Append
 
-if ($IsPublicRelease)
-{
-    "STRAVAIG_PUBLISH_TO_NUGET=true" | Out-File -FilePath $Env:GITHUB_ENV -Encoding UTF8 -Append
-}
-else 
-{
-    "STRAVAIG_PUBLISH_TO_NUGET=false" | Out-File -FilePath $Env:GITHUB_ENV -Encoding UTF8 -Append
-}
+$suffix = "preview."
+$suffix += $runNumber.ToString();
+
+$previewVersion = "$nextVersion-$suffix";
+$envContent = "STRAVAIG_PACKAGE_VERSION=$nextVersion" + [System.Environment]::NewLine +
+"STRAVAIG_PACKAGE_VERSION_SUFFIX=$suffix" + [System.Environment]::NewLine +
+"STRAVAIG_STABLE_VERSION=$nextVersion" + [System.Environment]::NewLine +
+"STRAVAIG_PREVIEW_VERSION=$previewVersion";
+
+Write-Host $envContent;
+
+$envContent | Out-File -FilePath $versionEnvFile -Encoding UTF8
+$envContent | Out-File -FilePath $env:GITHUB_ENV -Encoding UTF8 -Append
