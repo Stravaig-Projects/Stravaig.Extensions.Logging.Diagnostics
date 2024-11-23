@@ -134,6 +134,7 @@ jobs:
             $name = $_.FullName;
             Write-Output "Pushing $name";
             dotnet nuget push "$name" --api-key ${{ secrets.STRAVAIG_NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+          }
 
       - name: Create Release
         shell: pwsh
