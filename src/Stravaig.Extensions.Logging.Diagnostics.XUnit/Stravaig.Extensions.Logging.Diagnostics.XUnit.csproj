@@ -4,7 +4,7 @@
         <YEAR>$([System.DateTime]::Now.Year)</YEAR>
         <TargetFrameworks>net6.0;net8.0;net9.0</TargetFrameworks>
         <Title>XUnit extensions for Stravaig Logging Capture for Tests</Title>
-        <Version>$(STRAVAIG_PACKAGE_VERSION)</Version>
+        <Version>$(STRAVAIG_NUGET_VERSION)</Version>
         <Authors>Colin Angus Mackay</Authors>
         <Copyright>©$2023-(YEAR) Colin Angus Mackay. See licence for more information.</Copyright>
         <PackageProjectUrl>https://stravaig-projects.github.io/Stravaig.Extensions.Logging.Diagnostics/</PackageProjectUrl>
