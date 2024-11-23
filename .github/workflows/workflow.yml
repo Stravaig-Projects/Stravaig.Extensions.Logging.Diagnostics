@@ -104,6 +104,7 @@ jobs:
             contributors.md
             release-notes/full-release-notes.md
             release-notes/release-notes-${{ env.STRAVAIG_PACKAGE_VERSION }}.md
+            release-body.md
           retention-days: 7
 
   publish-preview:
@@ -194,7 +195,7 @@ jobs:
           $assets += "contributors.md"
           $assets += "README.md"
           $assets += "./release-notes/release-notes-${{ env.STRAVAIG_PACKAGE_VERSION }}.md"
-          ./Create-Release.ps1 -NotesFile "./release-body.md" -Assets $assets
+          ./Create-Release.ps1 -NotesFile "./release-information/release-body.md" -Assets $assets
 
       - name: Bump version
         shell: pwsh
