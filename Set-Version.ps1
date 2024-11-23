@@ -41,6 +41,10 @@ elseif ($parts.Length -eq 2)
     {
         $runNumber = 1;
     }
+    else
+    {
+        $runNumber += 1;
+    }
 }
 else
 {
