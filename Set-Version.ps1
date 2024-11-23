@@ -25,8 +25,31 @@ if (-not (Test-Path $outputFolder))
     $null = New-Item $outputFolder -Type Directory;
 }
 
+$sha = $(git rev-list --tags --max-count=1);
+$tag = $(git describe --tags $sha);
+Write-Host "Last deployment was $tag";
+$parts = $tag.Split("-preview.");
+
+if ($parts.Length -eq 1)
+{
+    $runNumber = 1;
+}
+elseif ($parts.Length -eq 2)
+{
+    $runNumber = [int]$parts[1];
+    if ($parts[0] -ne "v$nextVersion")
+    {
+        $runNumber = 1;
+    }
+}
+else
+{
+    Write-Error "The last tag was not in a recognisable format. Expected v?.?.?-preview.?, but was $tag";
+    Exit 3;
+}
+
 $suffix = "preview."
-$suffix += $Env:GITHUB_RUN_NUMBER
+$suffix += $runNumber.ToString();
 
 $previewVersion = "$nextVersion-$suffix";
 $envContent = "STRAVAIG_PACKAGE_VERSION=$nextVersion" + [System.Environment]::NewLine +
