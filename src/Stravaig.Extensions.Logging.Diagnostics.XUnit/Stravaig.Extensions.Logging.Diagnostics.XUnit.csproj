@@ -13,6 +13,7 @@
         <PackageIcon>stravaig-icon.png</PackageIcon>
         <PackageTags>logging testing xunit</PackageTags>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <PackageReadmeFile>readme.md</PackageReadmeFile>
         <Description>
             XUnit extensions for Stravaig Logging Capture for Tests.
 
@@ -27,6 +28,10 @@
     <ItemGroup>
       <None Include="stravaig-icon.png">
         <Pack>true</Pack>
+        <PackagePath>/</PackagePath>
+      </None>
+      <None Update="readme.md">
+        <Pack>True</Pack>
         <PackagePath>/</PackagePath>
       </None>
     </ItemGroup>

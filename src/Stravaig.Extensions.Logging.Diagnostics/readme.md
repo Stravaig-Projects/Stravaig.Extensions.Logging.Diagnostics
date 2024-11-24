@@ -42,4 +42,7 @@ public void EnsureSomeFunctionalityWorks()
 }
 ```
 
-For more details on more complex scenarios, see the full documentation at https://stravaig-projects.github.io/Stravaig.Extensions.Logging.Diagnostics/
+## See also
+
+* [Full Documentation](https://stravaig-projects.github.io/Stravaig.Extensions.Logging.Diagnostics/)
+* [Release Notes](https://github.com/Stravaig-Projects/Stravaig.Extensions.Logging.Diagnostics/releases)
