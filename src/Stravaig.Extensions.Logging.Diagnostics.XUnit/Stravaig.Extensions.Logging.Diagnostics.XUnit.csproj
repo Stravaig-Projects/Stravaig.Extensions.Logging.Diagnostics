@@ -6,13 +6,14 @@
         <Title>XUnit extensions for Stravaig Logging Capture for Tests</Title>
         <Version>$(STRAVAIG_NUGET_VERSION)</Version>
         <Authors>Colin Angus Mackay</Authors>
-        <Copyright>©$2023-(YEAR) Colin Angus Mackay. See licence for more information.</Copyright>
+        <Copyright>©2023-$(YEAR) Colin Angus Mackay. See licence for more information.</Copyright>
         <PackageProjectUrl>https://stravaig-projects.github.io/Stravaig.Extensions.Logging.Diagnostics/</PackageProjectUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <RepositoryUrl>https://github.com/Stravaig-Projects/Stravaig.Extensions.Logging.Diagnostics</RepositoryUrl>
         <PackageIcon>stravaig-icon.png</PackageIcon>
         <PackageTags>logging testing xunit</PackageTags>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <PackageReadmeFile>readme.md</PackageReadmeFile>
         <Description>
             XUnit extensions for Stravaig Logging Capture for Tests.
 
@@ -27,6 +28,10 @@
     <ItemGroup>
       <None Include="stravaig-icon.png">
         <Pack>true</Pack>
+        <PackagePath>/</PackagePath>
+      </None>
+      <None Include="readme.md">
+        <Pack>True</Pack>
         <PackagePath>/</PackagePath>
       </None>
     </ItemGroup>
