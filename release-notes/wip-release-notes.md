@@ -30,6 +30,7 @@ Date: ???
 - #179: Update github pages pipeline.
 - #181: Add support for .NET 9.0.
 - #183: Update github action workflow to separate the build and deploy stages.
+- #185: Add package readme to the XUnit extensions package
 
 ### Dependencies
 
