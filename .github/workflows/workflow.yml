@@ -181,7 +181,7 @@ jobs:
       - name: Push package to NuGet
         shell: pwsh
         run: |
-          Get-ChildItem ./out/stable/*.nupkg | ForEach-Object {
+          Get-ChildItem ./packages/stable/*.nupkg | ForEach-Object {
             $name = $_.FullName;
             Write-Output "Pushing $name";
             dotnet nuget push "$name" --api-key ${{ secrets.STRAVAIG_NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
