@@ -6,9 +6,7 @@ Date: ???
 
 ### Bug Fixes
 
-### Features
-
-### Miscellaneous
+- #190: Fix issue with timestamps being out of order.
 
 ### Dependencies
 
