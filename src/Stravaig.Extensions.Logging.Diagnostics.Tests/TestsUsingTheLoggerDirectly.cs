@@ -102,11 +102,13 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
         [Test]
         public void ManyThreadsAccessingLogger()
         {
+            // This test is designed to test that the logger is thread-safe.
+            // It may take a while to run.
             const int timeoutMs = 30000;
-            const int iterationsPerThread = 25000;
+            const int iterationsPerThread = 250_000;
             int numThreads = Environment.ProcessorCount * 4;
             int expectedLogCount = iterationsPerThread * numThreads;
-            Console.WriteLine($"Performing {iterationsPerThread} iterations on each of {numThreads} threads for an expected total of {expectedLogCount} log messages.");
+            Console.WriteLine($"[{DateTime.UtcNow:O}] Performing {iterationsPerThread} iterations on each of {numThreads} threads for an expected total of {expectedLogCount} log messages.");
             Task[] tasks = new Task[numThreads];
             var logger = new TestCaptureLogger();
 
@@ -115,7 +117,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
                 int localTaskNumber = taskNumber;
                 tasks[taskNumber] = Task.Factory.StartNew(() =>
                 {
-                    Console.WriteLine($"Starting task {localTaskNumber} on thread {Environment.CurrentManagedThreadId}");
+                    Console.WriteLine($"[{DateTime.UtcNow:O}] Starting task {localTaskNumber} on thread {Environment.CurrentManagedThreadId}");
                     for (int i = 0; i < iterationsPerThread; i++)
                     {
                         logger.LogInformation(
@@ -123,7 +125,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
                             i,
                             Environment.CurrentManagedThreadId);
                     }
-                    Console.WriteLine($"Finished task {localTaskNumber} on thread {Environment.CurrentManagedThreadId}");
+                    Console.WriteLine($"[{DateTime.UtcNow:O}] Finished task {localTaskNumber} on thread {Environment.CurrentManagedThreadId}");
                 });
             }
 
@@ -132,31 +134,24 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
 
             tasks.ShouldAllBe(t => t.IsCompleted);
             var logs = logger.GetLogs();
+            Console.WriteLine($"[{DateTime.UtcNow:O}] Should Be {expectedLogCount} logs.");
             logs.Count.ShouldBe(expectedLogCount);
 
             // Check no duplicate sequence numbers
+            Console.WriteLine($"[{DateTime.UtcNow:O}] Should not have duplicate sequence numbers.");
             logs.Select(l => l.Sequence).Distinct().Count().ShouldBe(expectedLogCount);
 
             // Checks that log entries are in sequence order
-            logs.ShouldBeInOrder(SortDirection.Ascending);
+            Console.WriteLine($"[{DateTime.UtcNow:O}] Should be in sequence order.");
+            logs.Select(l => l.Sequence).ShouldBeInOrder(SortDirection.Ascending);
 
-            // Check that timestamps progressed forward-only
-            Enumerable.Range(0, logs.Count - 2)
-                .Select( i => new
-                {
-                    Index = i,
-                    Current = logs[i],
-                    CurrentSequence = logs[i].Sequence,
-                    CurrentTimestamp = logs[i].TimestampUtc.ToString("O"),
-                    Next = logs[i+1],
-                    NextSequence = logs[i+1].Sequence,
-                    NextTimestamp = logs[i+1].TimestampUtc.ToString("O"),
-                }).ShouldAllBe(e => e.Current.TimestampUtc <= e.Next.TimestampUtc);
+            Console.WriteLine($"[{DateTime.UtcNow:O}] Should be in timestamp order.");
+            logs.Select(l => l.TimestampUtc).ShouldBeInOrder(SortDirection.Ascending);
 
             DateTime first = logs.First().TimestampUtc;
             DateTime last = logs.Last().TimestampUtc;
             first.ShouldBeLessThanOrEqualTo(last);
-            Console.WriteLine($"Logging started at {first:HH:mm:ss.fff} and ended at {last:HH:mm:ss.fff} taking a total of {(last-first):G}");
+            Console.WriteLine($"[{DateTime.UtcNow:O}] Logging started at {first:HH:mm:ss.fff} and ended at {last:HH:mm:ss.fff} taking a total of {(last-first):G}");
         }
     }
 }

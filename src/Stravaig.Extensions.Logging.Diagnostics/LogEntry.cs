@@ -17,6 +17,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics;
 [DebuggerDisplay("{" + nameof(DebuggerDisplayString) + "}")]
 public class LogEntry : IComparable<LogEntry>
 {
+    private static long _lastTimestampUtc;
     private static int _sequence;
 #if NET9_0_OR_GREATER
     private static readonly Lock SequenceSyncLock = new();
@@ -125,7 +126,12 @@ public class LogEntry : IComparable<LogEntry>
         lock (SequenceSyncLock)
         {
             Sequence = _sequence++;
-            TimestampUtc = DateTime.UtcNow;
+
+            // Ensure monotonicity of the timestamp between log entries, even
+            // in high-frequency logging scenarios.
+            var now = DateTime.UtcNow.Ticks;
+            _lastTimestampUtc = Math.Max(_lastTimestampUtc + 1, now);
+            TimestampUtc = new DateTime(_lastTimestampUtc, DateTimeKind.Utc);
         }
     }
 
