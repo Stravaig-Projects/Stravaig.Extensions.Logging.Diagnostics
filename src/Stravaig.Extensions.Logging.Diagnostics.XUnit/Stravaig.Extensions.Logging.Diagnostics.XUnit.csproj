@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <YEAR>$([System.DateTime]::Now.Year)</YEAR>
-        <TargetFrameworks>net6.0;net8.0;net9.0</TargetFrameworks>
+        <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
         <Title>XUnit extensions for Stravaig Logging Capture for Tests</Title>
         <Version>$(STRAVAIG_NUGET_VERSION)</Version>
         <Authors>Colin Angus Mackay</Authors>
@@ -18,7 +18,8 @@
             XUnit extensions for Stravaig Logging Capture for Tests.
 
             Use version 2.x for .NET 6.0 onwards.
-            Use version 3.x for .NET 6.0, 8.0 &amp; 9.0 onwards.
+            Use version 3.x for .NET 6.0, 8.0 &amp;amp; 9.0 onwards.
+            Use version 4.x for .NET 8.0 &amp; 9.0 onwards.
         </Description>
         <Nullable>enable</Nullable>
         <LangVersion>12</LangVersion>

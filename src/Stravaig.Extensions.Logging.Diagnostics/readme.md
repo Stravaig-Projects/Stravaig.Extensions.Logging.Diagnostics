@@ -7,6 +7,7 @@ Stravaig Log Capture is a way to capture the logs in a test and examine them to 
 * v1.x: Supports .NET Core 3.1 & .NET 5
 * v2.x: Supports .NET 6.0, 7.0 & 8.0
 * v3.x: Supports .NET 6.0, 8.0 & 9.0
+* v4.x: Supports .NET 8.0 & 9.0
 
 ## Why do I want to test my logs?
 
