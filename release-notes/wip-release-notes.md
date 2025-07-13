@@ -4,18 +4,11 @@
 
 Date: ???
 
-### Bug Fixes
-
-### Features
-
 ### Miscellaneous
+
+- Drop support for .NET 6.0
 
 ### Dependencies
 
-- All targets:
-- .NET 6.0 targets:
-- .NET 8.0 targets:
 - .NET 9.0 targets:
-
-
-
+  - Bump Microsoft.Extensions.Logging.Abstractions to 9.0.7
