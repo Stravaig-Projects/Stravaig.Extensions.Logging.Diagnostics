@@ -56,10 +56,13 @@ $suffix = "preview."
 $suffix += $runNumber.ToString();
 
 $previewVersion = "$nextVersion-$suffix";
+$assemblyVersion = "$nextVersion.$runNumber"
 $envContent = "STRAVAIG_PACKAGE_VERSION=$nextVersion" + [System.Environment]::NewLine +
 "STRAVAIG_PACKAGE_VERSION_SUFFIX=$suffix" + [System.Environment]::NewLine +
 "STRAVAIG_STABLE_VERSION=$nextVersion" + [System.Environment]::NewLine +
-"STRAVAIG_PREVIEW_VERSION=$previewVersion";
+"STRAVAIG_PREVIEW_VERSION=$previewVersion" + [System.Environment]::NewLine +
+"STRAVAIG_PREVIEW_ASSEMBLY_VERSION=$assemblyVersion" + [System.Environment]::NewLine +
+"STRAVAIG_ASSEMBLY_VERSION=$nextVersion"
 
 Write-Host $envContent;
 

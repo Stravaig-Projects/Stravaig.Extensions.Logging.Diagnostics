@@ -1,4 +1,4 @@
-name: Stravaig Test Capture Logger V3
+name: Stravaig Test Capture Logger V4
 on:
   push:
     branches:
@@ -46,13 +46,14 @@ jobs:
           echo "Package version: $STRAVAIG_PACKAGE_VERSION"
           echo "Version Suffix:  $STRAVAIG_PACKAGE_VERSION_SUFFIX"
           echo "Stable Version:  $STRAVAIG_STABLE_VERSION"
+          echo "Assembly Version: $STRAVAIG_ASSEMBLY_VERSION"
           echo "Preview Version: $STRAVAIG_PREVIEW_VERSION"
+          exho "Preview Assembly Version: $STRAVAIG_PREVIEW_ASSEMBLY_VERSION"
 
       - uses: actions/setup-dotnet@v4
-        name: Setup .NET 6.0, 8.0 & 9.0
+        name: Setup .NET 8.0 & 9.0
         with:
           dotnet-version: |
-            6.0.x
             8.0.x
             9.0.x
 
@@ -62,14 +63,14 @@ jobs:
       - name: Package Preview Release
         run: |
           export STRAVAIG_NUGET_VERSION=$STRAVAIG_PREVIEW_VERSION
-          dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics/Stravaig.Extensions.Logging.Diagnostics.csproj --configuration Release --output ./out/preview --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" --version-suffix "$STRAVAIG_PACKAGE_VERSION_SUFFIX" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
-          dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics.XUnit/Stravaig.Extensions.Logging.Diagnostics.XUnit.csproj --configuration Release --output ./out/preview --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" --version-suffix "$STRAVAIG_PACKAGE_VERSION_SUFFIX" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
+          dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics/Stravaig.Extensions.Logging.Diagnostics.csproj --configuration Release --output ./out/preview --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" --version-suffix "$STRAVAIG_PACKAGE_VERSION_SUFFIX" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg /p:Version=$STRAVAIG_PREVIEW_ASSEMBLY_VERSION /p:AssemblyVersion=$STRAVAIG_PREVIEW_ASSEMBLY_VERSION /p:FileVersion=$STRAVAIG_PREVIEW_ASSEMBLY_VERSION
+          dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics.XUnit/Stravaig.Extensions.Logging.Diagnostics.XUnit.csproj --configuration Release --output ./out/preview --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" --version-suffix "$STRAVAIG_PACKAGE_VERSION_SUFFIX" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg /p:Version=$STRAVAIG_PREVIEW_ASSEMBLY_VERSION /p:AssemblyVersion=$STRAVAIG_PREVIEW_ASSEMBLY_VERSION /p:FileVersion=$STRAVAIG_PREVIEW_ASSEMBLY_VERSION
 
       - name: Package Stable Release
         run: |
           export STRAVAIG_NUGET_VERSION=$STRAVAIG_STABLE_VERSION
-          dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics/Stravaig.Extensions.Logging.Diagnostics.csproj --configuration Release --output ./out/stable --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
-          dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics.XUnit/Stravaig.Extensions.Logging.Diagnostics.XUnit.csproj --configuration Release --output ./out/stable --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
+          dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics/Stravaig.Extensions.Logging.Diagnostics.csproj --configuration Release --output ./out/stable --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg /p:Version=$STRAVAIG_ASSEMBLY_VERSION /p:AssemblyVersion=$STRAVAIG_ASSEMBLY_VERSION /p:FileVersion=$STRAVAIG_ASSEMBLY_VERSION
+          dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics.XUnit/Stravaig.Extensions.Logging.Diagnostics.XUnit.csproj --configuration Release --output ./out/stable --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg /p:Version=$STRAVAIG_ASSEMBLY_VERSION /p:AssemblyVersion=$STRAVAIG_ASSEMBLY_VERSION /p:FileVersion=$STRAVAIG_ASSEMBLY_VERSION
 
       - name: Archive Packages
         uses: actions/upload-artifact@v4
