@@ -42,13 +42,7 @@ jobs:
         run: ./Set-Version.ps1
 
       - name: Display workflow state
-        run: |
-          echo "Package version: $STRAVAIG_PACKAGE_VERSION"
-          echo "Version Suffix:  $STRAVAIG_PACKAGE_VERSION_SUFFIX"
-          echo "Stable Version:  $STRAVAIG_STABLE_VERSION"
-          echo "Assembly Version: $STRAVAIG_ASSEMBLY_VERSION"
-          echo "Preview Version: $STRAVAIG_PREVIEW_VERSION"
-          echo "Preview Assembly Version: $STRAVAIG_PREVIEW_ASSEMBLY_VERSION"
+        run: env | sort
 
       - uses: actions/setup-dotnet@v4
         name: Setup .NET 8.0 & 9.0
