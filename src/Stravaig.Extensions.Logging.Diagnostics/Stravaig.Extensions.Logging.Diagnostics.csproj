@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <YEAR>$([System.DateTime]::Now.Year)</YEAR>
-        <TargetFrameworks>net6.0;net8.0;net9.0</TargetFrameworks>
+        <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
         <Title>Stravaig Logging Capture for Tests</Title>
         <Version>$(STRAVAIG_NUGET_VERSION)</Version>
         <Authors>Colin Angus Mackay</Authors>
@@ -20,7 +20,8 @@
 
             Use version 1.x for .NET prior to 6.0.
             Use version 2.x for .NET 6.0 onwards.
-            Use version 3.x for .NET 6.0, 8.0 &amp; 9.0 onwards.
+            Use version 3.x for .NET 6.0, 8.0 &amp;amp; 9.0 onwards.
+            Use version 4.x for .NET 8.0 &amp; 9.0 onwards.
 	    </Description>
         <Nullable>enable</Nullable>
         <LangVersion>13</LangVersion>
@@ -46,16 +47,12 @@
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
     </ItemGroup>
 
-    <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.4" />
-    </ItemGroup>
-
     <ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.3" />
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'net9.0' ">
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.3" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.7" />
     </ItemGroup>
 
 </Project>

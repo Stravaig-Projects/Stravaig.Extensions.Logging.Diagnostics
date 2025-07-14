@@ -57,6 +57,8 @@ v2.x supports: .NET 6.0, 7.0 and 8.0
 
 v3.x supports: .NET 6.0, 8.0 & 9.0
 
+v4.x supports: .NET 8.0 & 9.0
+
 ## Other Stuff
 
 * [Contributors](contributors.md)
