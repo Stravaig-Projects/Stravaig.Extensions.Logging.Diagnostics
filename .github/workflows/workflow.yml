@@ -42,14 +42,30 @@ jobs:
         run: ./Set-Version.ps1
 
       - name: Display workflow state
-        run: env | sort
+        run: |
+          echo
+          echo "All vars:"
+          env | sort
+          echo
+          echo "Key vars:"
+          echo "GITHUB_SHA: $GITHUB_SHA" 
+          echo "Solution: $STRAVAIG_SOLUTION"
+          echo "Project: $STRAVAIG_PROJECT"
+          echo "Tests: $STRAVAIG_TESTS"
+          echo "Package version: $STRAVAIG_PACKAGE_VERSION"
+          echo "Version Suffix: $STRAVAIG_PACKAGE_VERSION_SUFFIX"
+          echo "Full Version: $STRAVAIG_PACKAGE_FULL_VERSION"
+          echo "Publish To NuGet: $STRAVAIG_PUBLISH_TO_NUGET"
+          echo "Is Preview: $STRAVAIG_IS_PREVIEW"
+          echo "Is Stable: $STRAVAIG_IS_STABLE"
 
       - uses: actions/setup-dotnet@v4
-        name: Setup .NET 8.0 & 9.0
+        name: Setup .NET 8.0, 9.0 & 10.0
         with:
           dotnet-version: |
             8.0.x
             9.0.x
+            10.0.x
 
       - name: Run Tests
         run: dotnet test src/Stravaig.Extensions.Logging.Diagnostics.Tests/Stravaig.Extensions.Logging.Diagnostics.Tests.csproj --configuration Release
@@ -217,3 +233,4 @@ jobs:
           push: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
