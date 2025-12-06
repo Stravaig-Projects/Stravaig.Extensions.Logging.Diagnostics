@@ -54,10 +54,10 @@ jobs:
           echo "Tests: $STRAVAIG_TESTS"
           echo "Package version: $STRAVAIG_PACKAGE_VERSION"
           echo "Version Suffix: $STRAVAIG_PACKAGE_VERSION_SUFFIX"
-          echo "Full Version: $STRAVAIG_PACKAGE_FULL_VERSION"
-          echo "Publish To NuGet: $STRAVAIG_PUBLISH_TO_NUGET"
-          echo "Is Preview: $STRAVAIG_IS_PREVIEW"
-          echo "Is Stable: $STRAVAIG_IS_STABLE"
+          echo "Stable Version: $STRAVAIG_STABLE_VERSION"
+          ecbo "Preview Version: $STRAVAIG_PREVIEW_VERSION"
+          echo "Preview Assembly Version: $STRAVAIG_PREVIEW_ASSEMBLY_VERSION"
+          echo "Assembly Version: $STRAVAIG_ASSEMBLY_VERSION"
 
       - uses: actions/setup-dotnet@v4
         name: Setup .NET 8.0, 9.0 & 10.0
@@ -233,4 +233,5 @@ jobs:
           push: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
