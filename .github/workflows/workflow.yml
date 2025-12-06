@@ -55,7 +55,7 @@ jobs:
           echo "Package version: $STRAVAIG_PACKAGE_VERSION"
           echo "Version Suffix: $STRAVAIG_PACKAGE_VERSION_SUFFIX"
           echo "Stable Version: $STRAVAIG_STABLE_VERSION"
-          ecbo "Preview Version: $STRAVAIG_PREVIEW_VERSION"
+          echo "Preview Version: $STRAVAIG_PREVIEW_VERSION"
           echo "Preview Assembly Version: $STRAVAIG_PREVIEW_ASSEMBLY_VERSION"
           echo "Assembly Version: $STRAVAIG_ASSEMBLY_VERSION"
 
@@ -233,6 +233,7 @@ jobs:
           push: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
 
 
