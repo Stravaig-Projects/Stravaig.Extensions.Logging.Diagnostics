@@ -18,11 +18,11 @@
             XUnit extensions for Stravaig Logging Capture for Tests.
 
             Use version 2.x for .NET 6.0 onwards.
-            Use version 3.x for .NET 6.0, 8.0 &amp;amp; 9.0 onwards.
-            Use version 4.x for .NET 8.0 &amp; 9.0 onwards.
+            Use version 3.x for .NET 6.0, 8.0 and 9.0 onwards.
+            Use version 4.x for .NET 8.0, 9.0 and 10.0 onwards.
         </Description>
         <Nullable>enable</Nullable>
-        <LangVersion>12</LangVersion>
+        <LangVersion>latest</LangVersion>
         <RootNamespace>Stravaig.Extensions.Logging.Diagnostics.XUnit</RootNamespace>
     </PropertyGroup>
 
