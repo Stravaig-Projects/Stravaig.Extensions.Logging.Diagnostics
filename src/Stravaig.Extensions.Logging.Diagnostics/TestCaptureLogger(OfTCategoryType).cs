@@ -28,7 +28,7 @@ public class TestCaptureLogger<TCategoryType> : ITestCaptureLogger, ILogger<TCat
     /// </summary>
     public TestCaptureLogger(TestCaptureLogger logger)
     {
-        ArgumentNullException.ThrowIfNull(logger, nameof(logger));
+        ArgumentNullException.ThrowIfNull(logger);
         var expectedCategoryName = TypeNameHelper.GetTypeDisplayName(typeof(TCategoryType));
         if (logger.CategoryName != expectedCategoryName)
             throw new InvalidOperationException(

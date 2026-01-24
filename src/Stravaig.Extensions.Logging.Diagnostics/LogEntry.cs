@@ -105,7 +105,7 @@ public class LogEntry : IComparable<LogEntry>
     /// <summary>
     /// Initialises a <see cref="T:Stravaig.Extensions.Logging.Diagnostics.LogEntry"/>.
     /// </summary>
-    /// <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLeve"/> that was logged.</param>
+    /// <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/> that was logged.</param>
     /// <param name="eventId">An <see cref="T:Microsoft.Extensions.Logging.EventId"/> that identifies the logging event.</param>
     /// <param name="state">The entry that was written. Can be also an object.</param>
     /// <param name="exception">The <see cref="T:System.Exception"/> that was attached to the log.</param>
