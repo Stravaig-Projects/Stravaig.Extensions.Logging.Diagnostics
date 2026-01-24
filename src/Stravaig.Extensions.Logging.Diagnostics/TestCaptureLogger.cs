@@ -15,6 +15,9 @@ namespace Stravaig.Extensions.Logging.Diagnostics;
 public class TestCaptureLogger : ITestCaptureLogger
 {
     private readonly List<LogEntry> _logs = [];
+    private bool _needsSort;
+    private bool _hasLastSequence;
+    private int _lastSequence;
 #if NET9_0_OR_GREATER
     private readonly Lock _listGuard = new();
 #else
@@ -48,7 +51,7 @@ public class TestCaptureLogger : ITestCaptureLogger
     {
         lock (_listGuard)
         {
-            _logs.Sort();
+            EnsureSortedNoLock();
             return _logs.ToArray();
         }
     }
@@ -58,10 +61,8 @@ public class TestCaptureLogger : ITestCaptureLogger
     {
         lock (_listGuard)
         {
-            return _logs
-                .Where(predicate)
-                .OrderBy(static log => log)
-                .ToArray();
+            EnsureSortedNoLock();
+            return _logs.Where(predicate).ToArray();
         }
     }
 
@@ -85,6 +86,16 @@ public class TestCaptureLogger : ITestCaptureLogger
         lock (_listGuard)
         {
             _logs.Add(logEntry);
+            if (_hasLastSequence)
+            {
+                if (logEntry.Sequence < _lastSequence)
+                    _needsSort = true;
+            }
+            else
+            {
+                _hasLastSequence = true;
+            }
+            _lastSequence = logEntry.Sequence;
         }
     }
 
@@ -134,6 +145,32 @@ public class TestCaptureLogger : ITestCaptureLogger
         lock (_listGuard)
         {
             _logs.Clear();
+            _needsSort = false;
+            _hasLastSequence = false;
+            _lastSequence = 0;
         }
+    }
+
+    private void EnsureSortedNoLock()
+    {
+        if (!_needsSort)
+            return;
+
+        _logs.Sort();
+        _needsSort = false;
+        UpdateLastSequenceNoLock();
+    }
+
+    private void UpdateLastSequenceNoLock()
+    {
+        if (_logs.Count == 0)
+        {
+            _hasLastSequence = false;
+            _lastSequence = 0;
+            return;
+        }
+
+        _hasLastSequence = true;
+        _lastSequence = _logs[_logs.Count - 1].Sequence;
     }
 }
