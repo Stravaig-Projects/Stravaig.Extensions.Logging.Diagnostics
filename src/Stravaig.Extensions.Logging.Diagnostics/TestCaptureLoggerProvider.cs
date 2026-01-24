@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Logging;
+using Stravaig.Extensions.Logging.Diagnostics.Extensions;
 using static Stravaig.Extensions.Logging.Diagnostics.ExternalHelpers.TypeNameHelper;
 
 namespace Stravaig.Extensions.Logging.Diagnostics;
@@ -43,7 +44,7 @@ public class TestCaptureLoggerProvider : ILoggerProvider, ICapturedLogs
     /// <returns>The list of log entries captured, empty if none.</returns>
     public IReadOnlyList<LogEntry> GetLogEntriesFor(Type type)
     {
-        var categoryName = GetTypeDisplayName(type, includeGenericParameters: false, nestedTypeDelimiter: '.');
+        var categoryName = type.AsCategoryName();
         return GetLogEntriesFor(categoryName);
     }
 
@@ -78,7 +79,7 @@ public class TestCaptureLoggerProvider : ILoggerProvider, ICapturedLogs
             typeof(T),
             static (type, that) =>
             {
-                var categoryName = GetTypeDisplayName(type);
+                var categoryName = type.AsCategoryName();
                 var underlyingLogger = that.CreateLogger(categoryName);
                 return new TestCaptureLogger<T>(underlyingLogger);
             },

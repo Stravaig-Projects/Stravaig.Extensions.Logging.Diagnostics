@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
+using Stravaig.Extensions.Logging.Diagnostics.Extensions;
 using Stravaig.Extensions.Logging.Diagnostics.ExternalHelpers;
 
 namespace Stravaig.Extensions.Logging.Diagnostics;
@@ -12,8 +13,10 @@ namespace Stravaig.Extensions.Logging.Diagnostics;
 /// <typeparam name="TCategoryType"></typeparam>
 public class TestCaptureLogger<TCategoryType> : ITestCaptureLogger, ILogger<TCategoryType>
 {
-    private static readonly string CategoryNameForType =
-        TypeNameHelper.GetTypeDisplayName(typeof(TCategoryType));
+    /// <summary>
+    /// The category name for the type of this logger.
+    /// </summary>
+    private static readonly string CategoryNameForType = typeof(TCategoryType).AsCategoryName();
     private readonly TestCaptureLogger _logger;
 
     /// <summary>
