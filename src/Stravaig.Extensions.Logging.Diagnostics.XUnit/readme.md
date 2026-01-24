@@ -4,9 +4,9 @@ XUnit extensions for [Stravaig Log Capture](https://www.nuget.org/packages/Strav
 
 ## Version & Framework support
 
-* v2.x: Supports .NET 6.0, 7.0 & 8.0
-* v3.x: Supports .NET 6.0, 8.0 & 9.0
-* v4.x: Supports .NET 8.0 & 9.0
+* v2.x: Supports .NET 6.0, 7.0 and 8.0
+* v3.x: Supports .NET 6.0, 8.0 and 9.0
+* v4.x: Supports .NET 8.0, 9.0 and 10.0
 
 
 ## How to use
