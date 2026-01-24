@@ -74,12 +74,15 @@ public class TestCaptureLoggerProvider : ILoggerProvider, ICapturedLogs
     /// <typeparam name="T">The type that the logger is assigned to.</typeparam>
     /// <returns>The instance of the <see cref="TestCaptureLogger{TCategoryType}"/> that was created.</returns>
     public TestCaptureLogger<T> CreateLogger<T>()
-        => (TestCaptureLogger<T>)_typedCaptures.GetOrAdd(typeof(T), type =>
-        {
-            var categoryName = GetTypeDisplayName(type);
-            var underlyingLogger = CreateLogger(categoryName);
-            return new TestCaptureLogger<T>(underlyingLogger);
-        });
+        => (TestCaptureLogger<T>)_typedCaptures.GetOrAdd(
+            typeof(T),
+            static (type, that) =>
+            {
+                var categoryName = GetTypeDisplayName(type);
+                var underlyingLogger = that.CreateLogger(categoryName);
+                return new TestCaptureLogger<T>(underlyingLogger);
+            },
+            this);
 
     /// <summary>
     /// Gets a list of log categories that were set up by this provider.
