@@ -115,15 +115,11 @@ public class TestCaptureLogger : ITestCaptureLogger
     /// </summary>
     /// <param name="state"></param>
     /// <typeparam name="TState"></typeparam>
-    /// <returns>A disposable object that ends the logical operation scope on dispose.</returns>
-#if NET7_0_OR_GREATER
+    /// <returns>A disposable object that ends the logical operation scope when Dispose is called.</returns>
     // ReSharper disable once ReturnTypeCanBeNotNullable
     public IDisposable? BeginScope<TState>(TState state) where TState : notnull
         => DoNothing.Instance;
-#else
-        public IDisposable BeginScope<TState>(TState state)
-            => DoNothing.Instance;
-#endif
+
 
     private class DoNothing : IDisposable
     {
