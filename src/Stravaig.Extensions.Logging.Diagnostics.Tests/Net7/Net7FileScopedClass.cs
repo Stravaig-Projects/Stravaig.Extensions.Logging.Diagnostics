@@ -1,6 +1,4 @@
-﻿#if NET7_0_OR_GREATER
-
-using System;
+﻿using System;
 using System.Linq;
 using Microsoft.Extensions.Logging;
 using NUnit.Framework;
@@ -51,5 +49,3 @@ public class Net7FileScopedClass
         logs[0].OriginalMessage.ShouldBe("This is from a file scoped class!");
     }
 }
-
-#endif
