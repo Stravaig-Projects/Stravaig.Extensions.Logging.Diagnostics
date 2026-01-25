@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
-using Stravaig.Extensions.Logging.Diagnostics.ExternalHelpers;
+using Stravaig.Extensions.Logging.Diagnostics.Extensions;
 
 namespace Stravaig.Extensions.Logging.Diagnostics;
 
@@ -12,6 +12,10 @@ namespace Stravaig.Extensions.Logging.Diagnostics;
 /// <typeparam name="TCategoryType"></typeparam>
 public class TestCaptureLogger<TCategoryType> : ITestCaptureLogger, ILogger<TCategoryType>
 {
+    /// <summary>
+    /// The category name for the type of this logger.
+    /// </summary>
+    public static readonly string CategoryNameForType = typeof(TCategoryType).AsCategoryName();
     private readonly TestCaptureLogger _logger;
 
     /// <summary>
@@ -19,7 +23,7 @@ public class TestCaptureLogger<TCategoryType> : ITestCaptureLogger, ILogger<TCat
     /// </summary>
     public TestCaptureLogger()
     {
-        _logger = new TestCaptureLogger(TypeNameHelper.GetTypeDisplayName(typeof(TCategoryType)));
+        _logger = new TestCaptureLogger(CategoryNameForType);
     }
 
     /// <summary>
@@ -29,10 +33,9 @@ public class TestCaptureLogger<TCategoryType> : ITestCaptureLogger, ILogger<TCat
     public TestCaptureLogger(TestCaptureLogger logger)
     {
         ArgumentNullException.ThrowIfNull(logger);
-        var expectedCategoryName = TypeNameHelper.GetTypeDisplayName(typeof(TCategoryType));
-        if (logger.CategoryName != expectedCategoryName)
+        if (logger.CategoryName != CategoryNameForType)
             throw new InvalidOperationException(
-                $"The category name does not match the type of this logger. Expected \"{expectedCategoryName}\", got \"{logger.CategoryName}\".");
+                $"The category name does not match the type of this logger. Expected \"{CategoryNameForType}\", got \"{logger.CategoryName}\".");
         _logger = logger;
     }
 
@@ -62,10 +65,9 @@ public class TestCaptureLogger<TCategoryType> : ITestCaptureLogger, ILogger<TCat
     public static explicit operator TestCaptureLogger<TCategoryType>(TestCaptureLogger logger)
     {
         // Check the category name to see if it matches or can be used for this type
-        var expectedCategoryName = TypeNameHelper.GetTypeDisplayName(typeof(TCategoryType));
-        if (logger.CategoryName != expectedCategoryName)
+        if (logger.CategoryName != CategoryNameForType)
             throw new InvalidCastException(
-                $"The category name does not match the type of this logger. Cannot cast a TestCaptureLogger with category name {logger.CategoryName} to TestCaptureLogger<{expectedCategoryName}>.");
+                $"The category name does not match the type of this logger. Cannot cast a TestCaptureLogger with category name {logger.CategoryName} to TestCaptureLogger<{CategoryNameForType}>.");
 
         // Return a new generic logger using the existing logger
         return new TestCaptureLogger<TCategoryType>(logger);

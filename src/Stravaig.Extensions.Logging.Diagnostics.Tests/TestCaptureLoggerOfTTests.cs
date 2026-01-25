@@ -2,7 +2,7 @@ using System;
 using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 using Shouldly;
-using Stravaig.Extensions.Logging.Diagnostics.ExternalHelpers;
+using Stravaig.Extensions.Logging.Diagnostics.Extensions;
 
 namespace Stravaig.Extensions.Logging.Diagnostics.Tests;
 
@@ -38,7 +38,7 @@ public class TestCaptureLoggerOfTTests
     [Test]
     public void ConstructorCategoryCorrectNameIsConstructed()
     {
-        var categoryName = TypeNameHelper.GetTypeDisplayName(typeof(object));
+        var categoryName = typeof(object).AsCategoryName();
         var underlyingLogger = new TestCaptureLogger(categoryName);
         var typedLogger = new TestCaptureLogger<object>(underlyingLogger);
         typedLogger.ShouldNotBeNull();
@@ -48,7 +48,7 @@ public class TestCaptureLoggerOfTTests
     [Test]
     public void ExplicitCastCategoryCorrectNameIsConstructed()
     {
-        var categoryName = TypeNameHelper.GetTypeDisplayName(typeof(object));
+        var categoryName = typeof(object).AsCategoryName();
         var underlyingLogger = new TestCaptureLogger(categoryName);
         var typedLogger = (TestCaptureLogger<object>)underlyingLogger;
         typedLogger.ShouldNotBeNull();
@@ -120,7 +120,7 @@ public class TestCaptureLoggerOfTTests
     [Test]
     public void TheImplicitCastOperatorReturnsTheInternalLogger()
     {
-        var categoryName = TypeNameHelper.GetTypeDisplayName(typeof(TestCaptureLoggerOfTTests));
+        var categoryName = typeof(TestCaptureLoggerOfTTests).AsCategoryName();
         var originalLogger = new TestCaptureLogger(categoryName);
         var logger = new TestCaptureLogger<TestCaptureLoggerOfTTests>(originalLogger);
         TestCaptureLogger internalLogger = logger; // implicit cast
@@ -130,7 +130,7 @@ public class TestCaptureLoggerOfTTests
     [Test]
     public void TheExplicitCastReturnsTheInternalLogger()
     {
-        var categoryName = TypeNameHelper.GetTypeDisplayName(typeof(TestCaptureLoggerOfTTests));
+        var categoryName = typeof(TestCaptureLoggerOfTTests).AsCategoryName();
         var originalLogger = new TestCaptureLogger(categoryName);
         var logger = new TestCaptureLogger<TestCaptureLoggerOfTTests>(originalLogger);
         var internalLogger = (TestCaptureLogger)logger; // explicit cast

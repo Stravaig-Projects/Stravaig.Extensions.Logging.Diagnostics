@@ -1,6 +1,6 @@
 // Copied from:
 // General: https://github.com/dotnet/runtime/blob/master/src/libraries/Common/src/Extensions/TypeNameHelper/TypeNameHelper.cs
-// Specific version: https://github.com/dotnet/runtime/blob/e31ddfdc4f574b26231233dc10c9a9c402f40590/src/libraries/Common/src/Extensions/TypeNameHelper/TypeNameHelper.cs
+// Specific version: https://github.com/dotnet/runtime/blob/961257bf1b28c1cc3c111a84644f029481f958f0/src/libraries/Common/src/Extensions/TypeNameHelper/TypeNameHelper.cs
 //
 // Original License:
 // ----------------------------------------------------------------------------
@@ -52,7 +52,7 @@ internal static class TypeNameHelper
 {
     private const char DefaultNestedTypeDelimiter = '+';
 
-    private static readonly Dictionary<Type, string> _builtInTypeNames = new()
+    private static readonly Dictionary<Type, string> _builtInTypeNames = new Dictionary<Type, string>
     {
         { typeof(void), "void" },
         { typeof(bool), "bool" },
@@ -72,11 +72,7 @@ internal static class TypeNameHelper
         { typeof(ushort), "ushort" }
     };
 
-#if NET7_0_OR_GREATER
-        [return: NotNullIfNotNull(nameof(item))]
-#else
-    [return: NotNullIfNotNull("item")]
-#endif
+    [return: NotNullIfNotNull(nameof(item))]
     public static string? GetTypeDisplayName(object? item, bool fullName = true)
     {
         return item == null ? null : GetTypeDisplayName(item.GetType(), fullName);

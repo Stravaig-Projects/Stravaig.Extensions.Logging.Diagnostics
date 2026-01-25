@@ -15,14 +15,14 @@ public interface ITestCaptureLogger : ILogger
     string CategoryName { get; }
 
     /// <summary>
-    /// Gets a read-only list of logs that is a snapshot of this logger.
+    /// Gets a snapshot read-only list of logs from this logger.
     /// </summary>
     /// <remarks>Any additional logs added to the logger after this is
     /// called won't be available in the list, and it will have to be called again.</remarks>
     IReadOnlyList<LogEntry> GetLogs();
 
     /// <summary>
-    /// Gets a read-only list of logs that is a snapshot of this logger filtered by the predicate.
+    /// Gets a snapshot read-only list of logs of this logger filtered by the predicate.
     /// </summary>
     /// <remarks>Any additional logs added to the logger after this is
     /// called won't be available in the list, and it will have to be called again.</remarks>
