@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using Stravaig.Extensions.Logging.Diagnostics.Extensions;
-using Stravaig.Extensions.Logging.Diagnostics.ExternalHelpers;
 
 namespace Stravaig.Extensions.Logging.Diagnostics;
 

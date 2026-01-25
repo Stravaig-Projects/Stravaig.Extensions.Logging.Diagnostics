@@ -3,7 +3,6 @@ using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 using Shouldly;
 using Stravaig.Extensions.Logging.Diagnostics.Extensions;
-using Stravaig.Extensions.Logging.Diagnostics.ExternalHelpers;
 
 namespace Stravaig.Extensions.Logging.Diagnostics.Tests;
 

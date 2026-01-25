@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Logging;
 using Stravaig.Extensions.Logging.Diagnostics.Extensions;
-using static Stravaig.Extensions.Logging.Diagnostics.ExternalHelpers.TypeNameHelper;
 
 namespace Stravaig.Extensions.Logging.Diagnostics;
 
