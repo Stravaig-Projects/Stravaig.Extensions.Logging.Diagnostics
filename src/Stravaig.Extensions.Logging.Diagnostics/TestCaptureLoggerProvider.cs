@@ -34,7 +34,7 @@ public class TestCaptureLoggerProvider : ILoggerProvider, ICapturedLogs
     {
         return _captures.TryGetValue(categoryName, out TestCaptureLogger? logger)
             ? logger.GetLogs()
-            : Array.Empty<LogEntry>();
+            : [];
     }
 
     /// <summary>
@@ -101,9 +101,19 @@ public class TestCaptureLoggerProvider : ILoggerProvider, ICapturedLogs
     public IReadOnlyList<LogEntry> GetAllLogEntries()
     {
         var loggers = _captures.Values;
-        var allLogs = loggers.SelectMany(static l => l.GetLogs()).ToList();
-        allLogs.Sort();
-        return allLogs;
+        var lists = new List<IReadOnlyList<LogEntry>>();
+        int totalCount = 0;
+        foreach (var logger in loggers)
+        {
+            var logs = logger.GetLogs();
+            if (logs.Count == 0)
+                continue;
+
+            lists.Add(logs);
+            totalCount += logs.Count;
+        }
+
+        return MergeSortedLogs(lists, totalCount);
     }
 
     /// <summary>
@@ -114,10 +124,57 @@ public class TestCaptureLoggerProvider : ILoggerProvider, ICapturedLogs
     public IReadOnlyList<LogEntry> GetLogs(Func<LogEntry, bool> predicate)
     {
         var loggers = _captures.Values;
-        var allLogs = loggers.SelectMany(l => l.GetLogs(predicate)).ToList();
-        allLogs.Sort();
-        return allLogs;
+        var lists = new List<IReadOnlyList<LogEntry>>();
+        int totalCount = 0;
+        foreach (var logger in loggers)
+        {
+            var logs = logger.GetLogs(predicate);
+            if (logs.Count == 0)
+                continue;
+
+            lists.Add(logs);
+            totalCount += logs.Count;
+        }
+
+        return MergeSortedLogs(lists, totalCount);
     }
+
+    private static IReadOnlyList<LogEntry> MergeSortedLogs(
+        List<IReadOnlyList<LogEntry>> lists,
+        int totalCount)
+    {
+        if (totalCount == 0)
+            return [];
+
+        if (lists.Count == 1)
+            return lists[0];
+
+        var result = new List<LogEntry>(totalCount);
+        var queue = new PriorityQueue<LogCursor, int>(lists.Count);
+
+        for (int i = 0; i < lists.Count; i++)
+        {
+            var entry = lists[i][0];
+            queue.Enqueue(new LogCursor(i, 0, entry), entry.Sequence);
+        }
+
+        while (queue.Count > 0)
+        {
+            var cursor = queue.Dequeue();
+            result.Add(cursor.Entry);
+
+            int nextIndex = cursor.EntryIndex + 1;
+            if (nextIndex < lists[cursor.ListIndex].Count)
+            {
+                var nextEntry = lists[cursor.ListIndex][nextIndex];
+                queue.Enqueue(new LogCursor(cursor.ListIndex, nextIndex, nextEntry), nextEntry.Sequence);
+            }
+        }
+
+        return result;
+    }
+
+    private readonly record struct LogCursor(int ListIndex, int EntryIndex, LogEntry Entry);
 
 
     /// <summary>
