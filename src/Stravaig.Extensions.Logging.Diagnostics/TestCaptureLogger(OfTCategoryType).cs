@@ -16,7 +16,7 @@ public class TestCaptureLogger<TCategoryType> : ITestCaptureLogger, ILogger<TCat
     /// <summary>
     /// The category name for the type of this logger.
     /// </summary>
-    private static readonly string CategoryNameForType = typeof(TCategoryType).AsCategoryName();
+    public static readonly string CategoryNameForType = typeof(TCategoryType).AsCategoryName();
     private readonly TestCaptureLogger _logger;
 
     /// <summary>

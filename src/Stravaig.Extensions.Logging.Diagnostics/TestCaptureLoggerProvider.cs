@@ -55,7 +55,7 @@ public class TestCaptureLoggerProvider : ILoggerProvider, ICapturedLogs
     /// <returns>The list of log entries captured, empty if none.</returns>
     public IReadOnlyList<LogEntry> GetLogEntriesFor<T>()
     {
-        return GetLogEntriesFor(typeof(T));
+        return GetLogEntriesFor(TestCaptureLogger<T>.CategoryNameForType);
     }
 
     ILogger ILoggerProvider.CreateLogger(string categoryName)
