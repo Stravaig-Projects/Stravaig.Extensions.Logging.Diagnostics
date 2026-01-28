@@ -12,7 +12,7 @@ public class TestCaptureLoggerOfTTests
     [Test]
     public void ConstructorWithNullLoggerThrows()
     {
-        Should.Throw<ArgumentNullException>(() => new TestCaptureLogger<object>(null!))
+        Should.Throw<ArgumentNullException>(() => new TestCaptureLogger<object>((TestCaptureLogger)null!))
             .ParamName.ShouldBe("logger");
     }
 

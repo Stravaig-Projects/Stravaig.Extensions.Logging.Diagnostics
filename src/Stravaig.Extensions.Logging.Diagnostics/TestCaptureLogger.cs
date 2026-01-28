@@ -22,7 +22,7 @@ public class TestCaptureLogger : ITestCaptureLogger
 #if NET9_0_OR_GREATER
     private readonly Lock _listGuard = new();
 #else
-    private readonly object _listGuard = new object();
+    private readonly object _listGuard = new();
 #endif
 
     /// <summary>
@@ -175,14 +175,17 @@ public class TestCaptureLogger : ITestCaptureLogger
         }
 
         _hasLastSequence = true;
-        _lastSequence = _logs[_logs.Count - 1].Sequence;
+        _lastSequence = _logs[^1].Sequence;
     }
 
-    private IReadOnlyList<object?> CaptureScopeStates<TState>(TState? state)
+    private List<object?> CaptureScopeStates<TState>(TState? state)
     {
-        var scopes = new List<object?>();
-        _scopeProvider.ForEachScope(static (scope, list) => list.Add(scope), scopes);
-        scopes.Add(state);
-        return scopes;
+        // Create a list to capture scope states and add the outermost to
+        // innermost (the state from the log operation itself is the
+        // innermost state.)
+        var scopesList = new List<object?>();
+        _scopeProvider.ForEachScope(static (scope, list) => list.Add(scope), scopesList);
+        scopesList.Add(state);
+        return scopesList;
     }
 }
