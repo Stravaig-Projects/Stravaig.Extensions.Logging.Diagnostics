@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 using Shouldly;
@@ -115,5 +116,68 @@ public class LogEntryTests
             Console.WriteLine(actualMessage);
             actualMessage.ShouldBe(expectedMessage);
         }
+    }
+
+    [Test]
+    public void PropertiesFromNonEnumerableStateUsesTypeNameAndToString()
+    {
+        var log = new LogEntry(
+            LogLevel.Information,
+            new EventId(),
+            new SimpleState(),
+            null,
+            "Message",
+            "CategoryName");
+
+        log.Properties.Count.ShouldBe(1);
+        log.Properties[0].Key.ShouldBe(typeof(SimpleState).FullName);
+        log.Properties[0].Value.ShouldBe("simple-state");
+        log.PropertyDictionary[typeof(SimpleState).FullName!].ShouldBe("simple-state");
+    }
+
+    [Test]
+    public void PropertiesFromNonEnumerableStateToStringThrowsUsesExceptionString()
+    {
+        var log = new LogEntry(
+            LogLevel.Information,
+            new EventId(),
+            new ThrowingState(),
+            null,
+            "Message",
+            "CategoryName");
+
+        var value = (string)log.Properties[0].Value!;
+        value.ShouldContain(nameof(InvalidOperationException));
+    }
+
+    [Test]
+    public void PropertyDictionaryLastWinsOnDuplicateKeys()
+    {
+        var state = new List<KeyValuePair<string, object?>>
+        {
+            new("Key", "First"),
+            new("Key", "Second"),
+        };
+
+        var log = new LogEntry(
+            LogLevel.Information,
+            new EventId(),
+            state,
+            null,
+            "Message",
+            "CategoryName");
+
+        log.Properties.Count.ShouldBe(2);
+        log.PropertyDictionary["Key"].ShouldBe("Second");
+    }
+
+    private sealed class SimpleState
+    {
+        public override string ToString() => "simple-state";
+    }
+
+    private sealed class ThrowingState
+    {
+        public override string ToString() => throw new InvalidOperationException("boom");
     }
 }

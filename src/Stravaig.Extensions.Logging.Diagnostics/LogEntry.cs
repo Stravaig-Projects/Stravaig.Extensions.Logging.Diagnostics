@@ -27,7 +27,14 @@ public class LogEntry : IComparable<LogEntry>
 
     private const string OriginalMessagePropertyName = "{OriginalFormat}";
 
-    private readonly Lazy<IReadOnlyDictionary<string, object>> _lazyPropertyDictionary;
+    private readonly IReadOnlyList<object?> _scopeStates;
+    private readonly Lazy<IReadOnlyList<object?>> _lazyScopes;
+    private readonly Lazy<IReadOnlyList<KeyValuePair<string, object?>>> _lazyProperties;
+    private readonly Lazy<IReadOnlyDictionary<string, object?>> _lazyPropertyDictionary;
+    private IReadOnlyList<KeyValuePair<string, object?>>?[]? _scopePropertiesCache;
+    private IReadOnlyDictionary<string, object?>?[]? _scopePropertyDictionaryCache;
+    private IReadOnlyList<KeyValuePair<string, object?>>? _flattenedScopeProperties;
+    private IReadOnlyDictionary<string, object?>? _flattenedScopePropertyDictionary;
 
     /// <summary>
     /// The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/> that the item was logged at.
@@ -81,13 +88,22 @@ public class LogEntry : IComparable<LogEntry>
     /// <summary>
     /// The properties, if any, for the log entry.
     /// </summary>
-    public IReadOnlyList<KeyValuePair<string, object>> Properties =>
-        State as IReadOnlyList<KeyValuePair<string, object>> ?? Array.Empty<KeyValuePair<string, object>>();
+    public IReadOnlyList<KeyValuePair<string, object?>> Properties => _lazyProperties.Value;
 
     /// <summary>
     /// The properties, if any, for the log entry.
     /// </summary>
-    public IReadOnlyDictionary<string, object> PropertyDictionary => _lazyPropertyDictionary.Value;
+    public IReadOnlyDictionary<string, object?> PropertyDictionary => _lazyPropertyDictionary.Value;
+
+    /// <summary>
+    /// The scopes captured for this log entry, outer most to inner most.
+    /// </summary>
+    public IReadOnlyList<object?> Scopes => _lazyScopes.Value;
+
+    /// <summary>
+    /// The number of scope levels captured for this log entry.
+    /// </summary>
+    public int ScopeLevels => _scopeStates.Count;
 
     /// <summary>
     /// The original message template, if available, for the log entry.
@@ -114,15 +130,40 @@ public class LogEntry : IComparable<LogEntry>
     public LogEntry(LogLevel logLevel, EventId eventId, object? state, Exception? exception, string formattedMessage, string categoryName)
     {
         CategoryName = categoryName;
-        _lazyPropertyDictionary =
-            new Lazy<IReadOnlyDictionary<string, object>>(() => Properties.ToDictionary(
-                kvp => kvp.Key,
-                kvp => kvp.Value));
         LogLevel = logLevel;
         EventId = eventId;
         State = state;
         Exception = exception;
         FormattedMessage = formattedMessage;
+        _scopeStates = CreateDefaultScopeStates(state);
+        _lazyScopes = new Lazy<IReadOnlyList<object?>>(() => _scopeStates.ToArray());
+        _lazyProperties = new Lazy<IReadOnlyList<KeyValuePair<string, object?>>>(() => BuildProperties(State));
+        _lazyPropertyDictionary = new Lazy<IReadOnlyDictionary<string, object?>>(() => BuildDictionary(Properties));
+        lock (SequenceSyncLock)
+        {
+            Sequence = _sequence++;
+
+            // Ensure monotonicity of the timestamp between log entries, even
+            // in high-frequency logging scenarios.
+            var now = DateTime.UtcNow.Ticks;
+            _lastTimestampUtc = Math.Max(_lastTimestampUtc + 1, now);
+            TimestampUtc = new DateTime(_lastTimestampUtc, DateTimeKind.Utc);
+        }
+    }
+
+    internal LogEntry(LogLevel logLevel, EventId eventId, object? state, Exception? exception, string formattedMessage, string categoryName, IReadOnlyList<object?> scopeStates)
+    {
+        ArgumentNullException.ThrowIfNull(scopeStates);
+        CategoryName = categoryName;
+        LogLevel = logLevel;
+        EventId = eventId;
+        State = state;
+        Exception = exception;
+        FormattedMessage = formattedMessage;
+        _scopeStates = scopeStates;
+        _lazyScopes = new Lazy<IReadOnlyList<object?>>(() => _scopeStates.ToArray());
+        _lazyProperties = new Lazy<IReadOnlyList<KeyValuePair<string, object?>>>(() => BuildProperties(State));
+        _lazyPropertyDictionary = new Lazy<IReadOnlyDictionary<string, object?>>(() => BuildDictionary(Properties));
         lock (SequenceSyncLock)
         {
             Sequence = _sequence++;
@@ -145,10 +186,10 @@ public class LogEntry : IComparable<LogEntry>
         Sequence = sequence;
         TimestampUtc = timestampUtc;
         CategoryName = categoryName;
-        _lazyPropertyDictionary =
-            new Lazy<IReadOnlyDictionary<string, object>>(() => Properties.ToDictionary(
-                kvp => kvp.Key,
-                kvp => kvp.Value));
+        _scopeStates = CreateDefaultScopeStates(state);
+        _lazyScopes = new Lazy<IReadOnlyList<object?>>(() => _scopeStates.ToArray());
+        _lazyProperties = new Lazy<IReadOnlyList<KeyValuePair<string, object?>>>(() => BuildProperties(State));
+        _lazyPropertyDictionary = new Lazy<IReadOnlyDictionary<string, object?>>(() => BuildDictionary(Properties));
     }
 
     /// <inheritdoc />
@@ -157,6 +198,81 @@ public class LogEntry : IComparable<LogEntry>
         if (ReferenceEquals(this, other)) return 0;
         if (ReferenceEquals(null, other)) return 1;
         return Sequence.CompareTo(other.Sequence);
+    }
+
+    /// <summary>
+    /// Gets the scope properties for a given scope level.
+    /// </summary>
+    /// <param name="level">The scope level, zero based from outer most to inner most.</param>
+    /// <returns>A read only list of scope properties.</returns>
+    public IReadOnlyList<KeyValuePair<string, object?>> GetScopeProperties(int level)
+    {
+        if (level < 0 || level >= _scopeStates.Count)
+            throw new ArgumentOutOfRangeException(nameof(level));
+
+        _scopePropertiesCache ??= new IReadOnlyList<KeyValuePair<string, object?>>?[_scopeStates.Count];
+        var cached = _scopePropertiesCache[level];
+        if (cached != null)
+            return cached;
+
+        IReadOnlyList<KeyValuePair<string, object?>> properties = level == _scopeStates.Count - 1
+            ? _lazyProperties.Value
+            : BuildProperties(_scopeStates[level]);
+
+        _scopePropertiesCache[level] = properties;
+        return properties;
+    }
+
+    /// <summary>
+    /// Gets a scope property dictionary for a given scope level.
+    /// </summary>
+    /// <param name="level">The scope level, zero based from outer most to inner most.</param>
+    /// <returns>A read only dictionary of scope properties.</returns>
+    public IReadOnlyDictionary<string, object?> GetScopePropertyDictionary(int level)
+    {
+        if (level < 0 || level >= _scopeStates.Count)
+            throw new ArgumentOutOfRangeException(nameof(level));
+
+        _scopePropertyDictionaryCache ??= new IReadOnlyDictionary<string, object?>?[_scopeStates.Count];
+        var cached = _scopePropertyDictionaryCache[level];
+        if (cached != null)
+            return cached;
+
+        var dictionary = BuildDictionary(GetScopeProperties(level));
+        _scopePropertyDictionaryCache[level] = dictionary;
+        return dictionary;
+    }
+
+    /// <summary>
+    /// Gets the flattened scope properties across all scope levels.
+    /// </summary>
+    /// <returns>A read only list of scope properties.</returns>
+    public IReadOnlyList<KeyValuePair<string, object?>> GetFlattenedScopeProperties()
+    {
+        if (_flattenedScopeProperties != null)
+            return _flattenedScopeProperties;
+
+        var flattened = new List<KeyValuePair<string, object?>>();
+        for (int i = 0; i < _scopeStates.Count; i++)
+        {
+            flattened.AddRange(GetScopeProperties(i));
+        }
+
+        _flattenedScopeProperties = flattened.ToArray();
+        return _flattenedScopeProperties;
+    }
+
+    /// <summary>
+    /// Gets the flattened scope properties as a dictionary.
+    /// </summary>
+    /// <returns>A read only dictionary of scope properties.</returns>
+    public IReadOnlyDictionary<string, object?> GetFlattenedScopePropertyDictionary()
+    {
+        if (_flattenedScopePropertyDictionary != null)
+            return _flattenedScopePropertyDictionary;
+
+        _flattenedScopePropertyDictionary = BuildDictionary(GetFlattenedScopeProperties());
+        return _flattenedScopePropertyDictionary;
     }
 
     /// <summary>
@@ -192,4 +308,41 @@ public class LogEntry : IComparable<LogEntry>
     }
 
     private string DebuggerDisplayString => $"[#{Sequence} @ {TimestampLocal:HH:mm:ss.fff zzz} {LogLevel} {CategoryName}] {FormattedMessage}";
+
+    private static IReadOnlyList<object?> CreateDefaultScopeStates(object? state)
+        => new object?[] { state };
+
+    private static IReadOnlyList<KeyValuePair<string, object?>> BuildProperties(object? state)
+    {
+        if (state is null)
+            return Array.Empty<KeyValuePair<string, object?>>();
+
+        if (state is IEnumerable<KeyValuePair<string, object?>> kvps)
+            return kvps.ToArray();
+
+        var stateType = state.GetType();
+        var key = stateType.FullName ?? stateType.Name;
+        object? value;
+        try
+        {
+            value = state.ToString();
+        }
+        catch (Exception ex)
+        {
+            value = ex.ToString();
+        }
+
+        return new[] { new KeyValuePair<string, object?>(key, value) };
+    }
+
+    private static IReadOnlyDictionary<string, object?> BuildDictionary(IEnumerable<KeyValuePair<string, object?>> properties)
+    {
+        var dictionary = new Dictionary<string, object?>(StringComparer.Ordinal);
+        foreach (var kvp in properties)
+        {
+            dictionary[kvp.Key] = kvp.Value;
+        }
+
+        return dictionary;
+    }
 }

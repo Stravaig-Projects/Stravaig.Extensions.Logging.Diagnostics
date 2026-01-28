@@ -27,6 +27,16 @@ public class TestCaptureLogger<TCategoryType> : ITestCaptureLogger, ILogger<TCat
     }
 
     /// <summary>
+    /// Initialises a new instance of the <see cref="T:Stravaig.Extensions.Logging.Diagnostics.TestCaptureLogger&lt;TCategoryType>"/> class.
+    /// </summary>
+    /// <param name="scopeProvider">The scope provider to use.</param>
+    public TestCaptureLogger(IExternalScopeProvider scopeProvider)
+    {
+        ArgumentNullException.ThrowIfNull(scopeProvider);
+        _logger = new TestCaptureLogger(CategoryNameForType, scopeProvider);
+    }
+
+    /// <summary>
     /// Initialises a new instance of the <see cref="T:Stravaig.Extensions.Logging.Diagnostics.TestCaptureLogger&lt;TCategoryType>"/>
     /// class, using an existing logger as the underlying logger.
     /// </summary>
