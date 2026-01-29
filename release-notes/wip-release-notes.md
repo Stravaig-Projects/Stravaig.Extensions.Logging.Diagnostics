@@ -9,6 +9,7 @@ Date: ???
 
 # Breaking changes
 - If you are checking the category name for an inner type, in some cases it will now return a slight differently formatted name as a result of a bug fix. e.g. `OuterType+InnerType` will now return `OuterType.InnerType`.
+- Support for .NET 6.0 was dropped.
 
 ### Miscellaneous
 
