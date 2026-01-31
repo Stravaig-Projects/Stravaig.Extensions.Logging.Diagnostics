@@ -18,6 +18,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics;
 public class LogEntry : IComparable<LogEntry>
 {
     private static long _lastTimestampUtc;
+    private static TimeProvider _timeProvider = TimeProvider.System;
     private static int _sequence;
 #if NET9_0_OR_GREATER
     private static readonly Lock SequenceSyncLock = new();
@@ -72,7 +73,7 @@ public class LogEntry : IComparable<LogEntry>
     {
         get
         {
-            TimeSpan offset = TimeZoneInfo.Local.GetUtcOffset(TimestampUtc);
+            TimeSpan offset = _timeProvider.LocalTimeZone.GetUtcOffset(TimestampUtc);
             long localTicks = TimestampUtc.Ticks + offset.Ticks;
             return new DateTimeOffset(localTicks, offset);
         }
@@ -129,26 +130,11 @@ public class LogEntry : IComparable<LogEntry>
 
             // Ensure monotonicity of the timestamp between log entries, even
             // in high-frequency logging scenarios.
-            var now = DateTime.UtcNow.Ticks;
+            var timeNow = _timeProvider.GetUtcNow();
+            var now = timeNow.Ticks;
             _lastTimestampUtc = Math.Max(_lastTimestampUtc + 1, now);
             TimestampUtc = new DateTime(_lastTimestampUtc, DateTimeKind.Utc);
         }
-    }
-
-    internal LogEntry(LogLevel logLevel, EventId eventId, object? state, Exception? exception, string formattedMessage, string categoryName, int sequence, DateTime timestampUtc)
-    {
-        LogLevel = logLevel;
-        EventId = eventId;
-        State = state;
-        Exception = exception;
-        FormattedMessage = formattedMessage;
-        Sequence = sequence;
-        TimestampUtc = timestampUtc;
-        CategoryName = categoryName;
-        _lazyPropertyDictionary =
-            new Lazy<IReadOnlyDictionary<string, object>>(() => Properties.ToDictionary(
-                kvp => kvp.Key,
-                kvp => kvp.Value));
     }
 
     /// <inheritdoc />

@@ -8,6 +8,7 @@ using Xunit;
 
 namespace Stravaig.Extensions.Logging.Diagnostics.XUnit.v3.Tests;
 
+[NonParallelizable]
 public class OutputTestHelperExtensionTests
 {
     private class OutputHelper : ITestOutputHelper
@@ -41,7 +42,7 @@ public class OutputTestHelperExtensionTests
     [Test]
     public void RenderedLogEntryMessagesSentToOutputTestHelper()
     {
-        ResetLogSequence();
+        LogEntryHelper.ResetLogSequence();
         var outputHelper = new OutputHelper();
         var logger = new TestCaptureLogger<OutputTestHelperExtensionTests>();
         logger.LogInformation("This is an information Message.");
@@ -57,7 +58,7 @@ public class OutputTestHelperExtensionTests
     [Test]
     public void RenderedLoggerSentToOutputTestHelper()
     {
-        ResetLogSequence();
+        LogEntryHelper.ResetLogSequence();
         var outputHelper = new OutputHelper();
         var logger = new TestCaptureLogger<OutputTestHelperExtensionTests>();
         logger.LogInformation("This is an information Message.");
@@ -72,7 +73,7 @@ public class OutputTestHelperExtensionTests
     [Test]
     public void RenderedLoggerProviderSentToOutputTestHelper()
     {
-        ResetLogSequence();
+        LogEntryHelper.ResetLogSequence();
         var outputHelper = new OutputHelper();
         var loggerProvider = new TestCaptureLoggerProvider();
         var logger1 = loggerProvider.CreateLogger("logger1");
