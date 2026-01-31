@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 using Microsoft.Extensions.Logging;
 using NUnit.Framework;
@@ -12,8 +13,15 @@ public class TestCaptureLoggerOfTTests
     [Test]
     public void ConstructorWithNullLoggerThrows()
     {
-        Should.Throw<ArgumentNullException>(() => new TestCaptureLogger<object>(null!))
+        Should.Throw<ArgumentNullException>(() => new TestCaptureLogger<object>((TestCaptureLogger?)null!))
             .ParamName.ShouldBe("logger");
+    }
+
+    [Test]
+    public void ConstructorWithNullScopeProviderThrows()
+    {
+        Should.Throw<ArgumentNullException>(() => new TestCaptureLogger<object>((IExternalScopeProvider?)null!))
+            .ParamName.ShouldBe("scopeProvider");
     }
 
     [Test]

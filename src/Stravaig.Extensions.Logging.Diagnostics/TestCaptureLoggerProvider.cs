@@ -10,10 +10,11 @@ namespace Stravaig.Extensions.Logging.Diagnostics;
 /// <summary>
 /// A provider of <see cref="T:Stravaig.Extensions.Logging.Diagnostics.TestCaptureLogger"/> instances.
 /// </summary>
-public class TestCaptureLoggerProvider : ILoggerProvider, ICapturedLogs
+public class TestCaptureLoggerProvider : ILoggerProvider, ICapturedLogs, ISupportExternalScope
 {
     private readonly ConcurrentDictionary<string, TestCaptureLogger> _captures;
     private readonly ConcurrentDictionary<Type, ITestCaptureLogger> _typedCaptures;
+    private IExternalScopeProvider _scopeProvider;
 
     /// <summary>
     /// Creates an instance of <see cref="T:Stravaig.Extensions.Logging.Diagnostics.TestCaptureLoggerProvider"/>
@@ -22,6 +23,7 @@ public class TestCaptureLoggerProvider : ILoggerProvider, ICapturedLogs
     {
         _captures = new ConcurrentDictionary<string, TestCaptureLogger>();
         _typedCaptures = new ConcurrentDictionary<Type, ITestCaptureLogger>();
+        _scopeProvider = new LoggerExternalScopeProvider();
     }
 
     /// <summary>
@@ -66,7 +68,7 @@ public class TestCaptureLoggerProvider : ILoggerProvider, ICapturedLogs
     /// <param name="categoryName">The category name for messages produced by the logger.</param>
     /// <returns>The instance of the <see cref="TestCaptureLogger"/> that was created.</returns>
     public TestCaptureLogger CreateLogger(string categoryName)
-        => _captures.GetOrAdd(categoryName, static cn => new TestCaptureLogger(cn));
+        => _captures.GetOrAdd(categoryName, static (cn, sp) => new TestCaptureLogger(cn, sp), _scopeProvider);
 
     /// <summary>
     /// Creates a new <see cref="T:TestCaptureLogger"/> instance.
@@ -193,6 +195,16 @@ public class TestCaptureLoggerProvider : ILoggerProvider, ICapturedLogs
         {
             logger.Reset();
         }
+    }
+
+    /// <summary>
+    /// Sets the scope provider for the logger factory.
+    /// </summary>
+    /// <param name="scopeProvider">The scope provider.</param>
+    public void SetScopeProvider(IExternalScopeProvider scopeProvider)
+    {
+        ArgumentNullException.ThrowIfNull(scopeProvider);
+        _scopeProvider = scopeProvider;
     }
 
     /// <summary>

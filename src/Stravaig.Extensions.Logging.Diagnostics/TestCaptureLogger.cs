@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using Microsoft.Extensions.Logging;
 #if NET9_0_OR_GREATER
@@ -15,6 +16,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics;
 public class TestCaptureLogger : ITestCaptureLogger
 {
     private readonly List<LogEntry> _logs = [];
+    private readonly IExternalScopeProvider _scopeProvider;
     private bool _needsSort;
     private bool _hasLastSequence;
     private int _lastSequence;
@@ -28,19 +30,26 @@ public class TestCaptureLogger : ITestCaptureLogger
     /// Initialises a new instance of the <see cref="T:Stravaig.Extensions.Logging.Diagnostics.TestCaptureLogger"/> class.
     /// </summary>
     public TestCaptureLogger()
+        : this(string.Empty, new LoggerExternalScopeProvider())
     {
-        CategoryName = string.Empty;
+    }
+
+    public TestCaptureLogger(string categoryName)
+        : this(categoryName, new LoggerExternalScopeProvider())
+    {
     }
 
     /// <summary>
     /// Initialises a new instance of the TestCaptureLogger class.
     /// </summary>
     /// <param name="categoryName">The name of the category</param>
-    public TestCaptureLogger(string categoryName)
+    /// <param name="scopeProvider">The scope provider to use.</param>
+    public TestCaptureLogger(string categoryName, IExternalScopeProvider scopeProvider)
     {
+        ArgumentNullException.ThrowIfNull(scopeProvider);
         CategoryName = categoryName;
+        _scopeProvider = scopeProvider;
     }
-
 
     /// <inheritdoc />
     public string CategoryName { get; }
@@ -111,7 +120,8 @@ public class TestCaptureLogger : ITestCaptureLogger
     /// <returns>A log entry</returns>
     private LogEntry CreateLogEntry<TState>(LogLevel logLevel, EventId eventId, TState? state, Exception? exception, string formattedMessage)
     {
-        return new LogEntry(logLevel, eventId, state, exception, formattedMessage, CategoryName);
+        var scopes = CaptureScopeStates(state);
+        return new LogEntry(logLevel, eventId, state, exception, formattedMessage, CategoryName, scopes);
     }
 
     /// <summary>
@@ -129,15 +139,8 @@ public class TestCaptureLogger : ITestCaptureLogger
     /// <returns>A disposable object that ends the logical operation scope when Dispose is called.</returns>
     // ReSharper disable once ReturnTypeCanBeNotNullable
     public IDisposable? BeginScope<TState>(TState state) where TState : notnull
-        => DoNothing.Instance;
+        => _scopeProvider.Push(state);
 
-
-    private class DoNothing : IDisposable
-    {
-        public static readonly DoNothing Instance = new ();
-        public void Dispose()
-        { }
-    }
 
     /// <inheritdoc />
     public void Reset()
@@ -171,6 +174,14 @@ public class TestCaptureLogger : ITestCaptureLogger
         }
 
         _hasLastSequence = true;
-        _lastSequence = _logs[_logs.Count - 1].Sequence;
+        _lastSequence = _logs[^1].Sequence;
+    }
+
+    private ImmutableArray<object?> CaptureScopeStates<TState>(TState? state)
+    {
+        var builder = ImmutableArray.CreateBuilder<object?>();
+        _scopeProvider.ForEachScope(static (scope, b) => b.Add(scope), builder);
+        builder.Add(state);
+        return builder.ToImmutable();
     }
 }

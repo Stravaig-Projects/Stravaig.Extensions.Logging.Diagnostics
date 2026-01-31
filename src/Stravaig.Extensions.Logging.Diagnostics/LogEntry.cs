@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -17,16 +18,17 @@ namespace Stravaig.Extensions.Logging.Diagnostics;
 [DebuggerDisplay("{" + nameof(DebuggerDisplayString) + "}")]
 public class LogEntry : IComparable<LogEntry>
 {
-    private static long _lastTimestampUtc;
-    private static TimeProvider _timeProvider = TimeProvider.System;
-    private static int _sequence;
+    private const string OriginalMessagePropertyName = "{OriginalFormat}";
+
 #if NET9_0_OR_GREATER
     private static readonly Lock SequenceSyncLock = new();
 #else
     private static readonly object SequenceSyncLock = new();
 #endif
 
-    private const string OriginalMessagePropertyName = "{OriginalFormat}";
+    private static TimeProvider _timeProvider = TimeProvider.System;
+    private static long _lastTimestampUtc;
+    private static int _sequence;
 
     private readonly Lazy<IReadOnlyDictionary<string, object>> _lazyPropertyDictionary;
 
@@ -79,6 +81,8 @@ public class LogEntry : IComparable<LogEntry>
         }
     }
 
+    public ImmutableArray<object?> States { get; }
+
     /// <summary>
     /// The properties, if any, for the log entry.
     /// </summary>
@@ -113,6 +117,21 @@ public class LogEntry : IComparable<LogEntry>
     /// <param name="formattedMessage">The formatted message.</param>
     /// <param name="categoryName">The source or category name.</param>
     public LogEntry(LogLevel logLevel, EventId eventId, object? state, Exception? exception, string formattedMessage, string categoryName)
+        : this(logLevel, eventId, state, exception, formattedMessage, categoryName, [state])
+    {
+    }
+
+    /// <summary>
+    /// Initialises a <see cref="T:Stravaig.Extensions.Logging.Diagnostics.LogEntry"/>.
+    /// </summary>
+    /// <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/> that was logged.</param>
+    /// <param name="eventId">An <see cref="T:Microsoft.Extensions.Logging.EventId"/> that identifies the logging event.</param>
+    /// <param name="state">The entry that was written. Can be also an object.</param>
+    /// <param name="exception">The <see cref="T:System.Exception"/> that was attached to the log.</param>
+    /// <param name="formattedMessage">The formatted message.</param>
+    /// <param name="categoryName">The source or category name.</param>
+    /// <param name="states">The scopes that were active at the time the log was written.</param>
+    public LogEntry(LogLevel logLevel, EventId eventId, object? state, Exception? exception, string formattedMessage, string categoryName, ImmutableArray<object?> states)
     {
         CategoryName = categoryName;
         _lazyPropertyDictionary =
@@ -124,6 +143,7 @@ public class LogEntry : IComparable<LogEntry>
         State = state;
         Exception = exception;
         FormattedMessage = formattedMessage;
+        States = states;
         lock (SequenceSyncLock)
         {
             Sequence = _sequence++;
