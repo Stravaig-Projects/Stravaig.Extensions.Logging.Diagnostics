@@ -22,8 +22,18 @@ public class TestCaptureLogger<TCategoryType> : ITestCaptureLogger, ILogger<TCat
     /// Initialises a new instance of the <see cref="T:Stravaig.Extensions.Logging.Diagnostics.TestCaptureLogger&lt;TCategoryType>"/> class.
     /// </summary>
     public TestCaptureLogger()
+        : this(new TestCaptureLogger(CategoryNameForType))
     {
-        _logger = new TestCaptureLogger(CategoryNameForType);
+    }
+
+    /// <summary>
+    /// Initialises a new instance of the <see cref="T:Stravaig.Extensions.Logging.Diagnostics.TestCaptureLogger&lt;TCategoryType>"/> class.
+    /// </summary>
+    /// <param name="scopeProvider">The scope provider to use.</param>
+    public TestCaptureLogger(IExternalScopeProvider scopeProvider)
+    {
+        ArgumentNullException.ThrowIfNull(scopeProvider);
+        _logger = new TestCaptureLogger(CategoryNameForType, scopeProvider);
     }
 
     /// <summary>
@@ -64,6 +74,8 @@ public class TestCaptureLogger<TCategoryType> : ITestCaptureLogger, ILogger<TCat
     /// </exception>
     public static explicit operator TestCaptureLogger<TCategoryType>(TestCaptureLogger logger)
     {
+        ArgumentNullException.ThrowIfNull(logger);
+
         // Check the category name to see if it matches or can be used for this type
         if (logger.CategoryName != CategoryNameForType)
             throw new InvalidCastException(
