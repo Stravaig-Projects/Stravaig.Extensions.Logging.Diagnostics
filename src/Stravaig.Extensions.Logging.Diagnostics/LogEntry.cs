@@ -30,10 +30,6 @@ public class LogEntry : IComparable<LogEntry>
     private static long _lastTimestampUtc;
     private static int _sequence;
 
-    private IReadOnlyList<KeyValuePair<string, object?>>? _propertiesCache;
-    private IReadOnlyDictionary<string, object?>? _propertyDictionaryCache;
-
-
     /// <summary>
     /// The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/> that the item was logged at.
     /// </summary>
@@ -92,11 +88,11 @@ public class LogEntry : IComparable<LogEntry>
     {
         get
         {
-            if (_propertiesCache is not null)
-                return _propertiesCache;
+            if (field is not null)
+                return field;
 
-            _propertiesCache = BuildProperties(State);
-            return _propertiesCache;
+            field = BuildProperties(State);
+            return field;
         }
     }
 
@@ -107,11 +103,11 @@ public class LogEntry : IComparable<LogEntry>
     {
         get
         {
-            if (_propertyDictionaryCache is not null)
-                return _propertyDictionaryCache;
+            if (field is not null)
+                return field;
 
-            _propertyDictionaryCache = BuildDictionary(Properties);
-            return _propertyDictionaryCache;
+            field = BuildDictionary(Properties);
+            return field;
         }
     }
 
