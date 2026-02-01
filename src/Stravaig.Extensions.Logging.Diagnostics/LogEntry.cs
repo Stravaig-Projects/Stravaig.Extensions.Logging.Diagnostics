@@ -30,7 +30,9 @@ public class LogEntry : IComparable<LogEntry>
     private static long _lastTimestampUtc;
     private static int _sequence;
 
-    private readonly Lazy<IReadOnlyDictionary<string, object>> _lazyPropertyDictionary;
+    private IReadOnlyList<KeyValuePair<string, object?>>? _propertiesCache;
+    private IReadOnlyDictionary<string, object?>? _propertyDictionaryCache;
+
 
     /// <summary>
     /// The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/> that the item was logged at.
@@ -81,24 +83,43 @@ public class LogEntry : IComparable<LogEntry>
         }
     }
 
-    public ImmutableArray<object?> States { get; }
+    public ImmutableArray<object?> ScopeStates { get; }
 
     /// <summary>
     /// The properties, if any, for the log entry.
     /// </summary>
-    public IReadOnlyList<KeyValuePair<string, object>> Properties =>
-        State as IReadOnlyList<KeyValuePair<string, object>> ?? Array.Empty<KeyValuePair<string, object>>();
+    public IReadOnlyList<KeyValuePair<string, object?>> Properties
+    {
+        get
+        {
+            if (_propertiesCache is not null)
+                return _propertiesCache;
+
+            _propertiesCache = BuildProperties(State);
+            return _propertiesCache;
+        }
+    }
 
     /// <summary>
     /// The properties, if any, for the log entry.
     /// </summary>
-    public IReadOnlyDictionary<string, object> PropertyDictionary => _lazyPropertyDictionary.Value;
+    public IReadOnlyDictionary<string, object?> PropertyDictionary
+    {
+        get
+        {
+            if (_propertyDictionaryCache is not null)
+                return _propertyDictionaryCache;
+
+            _propertyDictionaryCache = BuildDictionary(Properties);
+            return _propertyDictionaryCache;
+        }
+    }
 
     /// <summary>
     /// The original message template, if available, for the log entry.
     /// </summary>
-    public string OriginalMessage =>
-        (string) Properties
+    public string? OriginalMessage =>
+        (string?) Properties
             .FirstOrDefault(p => p.Key == OriginalMessagePropertyName)
             .Value;
 
@@ -130,20 +151,16 @@ public class LogEntry : IComparable<LogEntry>
     /// <param name="exception">The <see cref="T:System.Exception"/> that was attached to the log.</param>
     /// <param name="formattedMessage">The formatted message.</param>
     /// <param name="categoryName">The source or category name.</param>
-    /// <param name="states">The scopes that were active at the time the log was written.</param>
-    public LogEntry(LogLevel logLevel, EventId eventId, object? state, Exception? exception, string formattedMessage, string categoryName, ImmutableArray<object?> states)
+    /// <param name="scopeStates">The scopes that were active at the time the log was written.</param>
+    public LogEntry(LogLevel logLevel, EventId eventId, object? state, Exception? exception, string formattedMessage, string categoryName, ImmutableArray<object?> scopeStates)
     {
         CategoryName = categoryName;
-        _lazyPropertyDictionary =
-            new Lazy<IReadOnlyDictionary<string, object>>(() => Properties.ToDictionary(
-                kvp => kvp.Key,
-                kvp => kvp.Value));
         LogLevel = logLevel;
         EventId = eventId;
         State = state;
         Exception = exception;
         FormattedMessage = formattedMessage;
-        States = states;
+        ScopeStates = scopeStates;
         lock (SequenceSyncLock)
         {
             Sequence = _sequence++;
@@ -195,6 +212,40 @@ public class LogEntry : IComparable<LogEntry>
         sb.Append("] ");
         sb.Append(FormattedMessage);
         return sb.ToString();
+    }
+
+    private static IReadOnlyList<KeyValuePair<string, object?>> BuildProperties(object? state)
+    {
+        if (state is null)
+            return [];
+
+        if (state is IEnumerable<KeyValuePair<string, object?>> kvps)
+            return kvps.ToArray();
+
+        var stateType = state.GetType();
+        var key = stateType.FullName ?? stateType.Name;
+        object? value;
+        try
+        {
+            value = state.ToString();
+        }
+        catch (Exception ex)
+        {
+            value = ex.ToString();
+        }
+
+        return [ new KeyValuePair<string, object?>(key, value) ];
+    }
+
+    private static IReadOnlyDictionary<string, object?> BuildDictionary(IEnumerable<KeyValuePair<string, object?>> properties)
+    {
+        var dictionary = new Dictionary<string, object?>(StringComparer.Ordinal);
+        foreach (var kvp in properties)
+        {
+            dictionary[kvp.Key] = kvp.Value;
+        }
+
+        return dictionary;
     }
 
     private string DebuggerDisplayString => $"[#{Sequence} @ {TimestampLocal:HH:mm:ss.fff zzz} {LogLevel} {CategoryName}] {FormattedMessage}";
