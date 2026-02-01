@@ -29,6 +29,8 @@ public class LogEntry : IComparable<LogEntry>
     private static TimeProvider _timeProvider = TimeProvider.System;
     private static long _lastTimestampUtc;
     private static int _sequence;
+    private IReadOnlyList<KeyValuePair<string, object?>>?[]? _scopePropertiesCache;
+
 
     /// <summary>
     /// The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/> that the item was logged at.
@@ -231,6 +233,30 @@ public class LogEntry : IComparable<LogEntry>
         }
 
         return [ new KeyValuePair<string, object?>(key, value) ];
+    }
+
+    /// <summary>
+    /// Gets the scope properties for a given scope level.
+    /// </summary>
+    /// <param name="level">The scope level, zero based from outermost to innermost.</param>
+    /// <returns>A read-only list of scope properties.</returns>
+    public IReadOnlyList<KeyValuePair<string, object?>> GetScopeProperties(int level)
+    {
+        if (level < 0 || level >= ScopeStates.Length)
+            throw new ArgumentOutOfRangeException(nameof(level), level, $"Scope level must be between 0 and {ScopeStates.Length - 1}.");
+
+        _scopePropertiesCache ??= new IReadOnlyList<KeyValuePair<string, object?>>?[ScopeStates.Length];
+        var cached = _scopePropertiesCache[level];
+        if (cached != null)
+            return cached;
+
+        // The innermost scope state is the same as the log entry State property.
+        var properties = level == ScopeStates.Length - 1
+            ? Properties
+            : BuildProperties(ScopeStates[level]);
+
+        _scopePropertiesCache[level] = properties;
+        return properties;
     }
 
     private static IReadOnlyDictionary<string, object?> BuildDictionary(IEnumerable<KeyValuePair<string, object?>> properties)
