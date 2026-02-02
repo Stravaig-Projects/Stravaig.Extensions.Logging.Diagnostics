@@ -30,6 +30,7 @@ public class LogEntry : IComparable<LogEntry>
     private static long _lastTimestampUtc;
     private static int _sequence;
     private IReadOnlyList<KeyValuePair<string, object?>>?[]? _scopePropertiesCache;
+    private IReadOnlyDictionary<string, object?>?[]? _scopePropertyDictionaryCache;
 
 
     /// <summary>
@@ -257,6 +258,21 @@ public class LogEntry : IComparable<LogEntry>
 
         _scopePropertiesCache[level] = properties;
         return properties;
+    }
+
+    public IReadOnlyDictionary<string, object?> GetScopeDictionary(int level)
+    {
+        if (level < 0 || level >= ScopeStates.Length)
+            throw new ArgumentOutOfRangeException(nameof(level));
+
+        _scopePropertyDictionaryCache ??= new IReadOnlyDictionary<string, object?>?[ScopeStates.Length];
+        var cached = _scopePropertyDictionaryCache[level];
+        if (cached != null)
+            return cached;
+
+        var dictionary = BuildDictionary(GetScopeProperties(level));
+        _scopePropertyDictionaryCache[level] = dictionary;
+        return dictionary;
     }
 
     private static IReadOnlyDictionary<string, object?> BuildDictionary(IEnumerable<KeyValuePair<string, object?>> properties)
