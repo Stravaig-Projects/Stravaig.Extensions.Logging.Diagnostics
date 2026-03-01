@@ -68,19 +68,24 @@ jobs:
             10.0.x
 
       - name: Run Tests
-        run: dotnet test src/Stravaig.Extensions.Logging.Diagnostics.Tests/Stravaig.Extensions.Logging.Diagnostics.Tests.csproj --configuration Release
+        run: |
+          dotnet test src/Stravaig.Extensions.Logging.Diagnostics.Tests/Stravaig.Extensions.Logging.Diagnostics.Tests.csproj --configuration Release
+          dotnet test src/Stravaig.Extensions.Logging.Diagnostics.XUnit.Tests/Stravaig.Extensions.Logging.Diagnostics.XUnit.Tests.csproj --configuration Release
+          dotnet test src/Stravaig.Extensions.Logging.Diagnostics.XUnit.v3.Tests/Stravaig.Extensions.Logging.Diagnostics.XUnit.v3.Tests.csproj --configuration Release
 
       - name: Package Preview Release
         run: |
           export STRAVAIG_NUGET_VERSION=$STRAVAIG_PREVIEW_VERSION
           dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics/Stravaig.Extensions.Logging.Diagnostics.csproj --configuration Release --output ./out/preview --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" --version-suffix "$STRAVAIG_PACKAGE_VERSION_SUFFIX" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg /p:AssemblyVersion=$STRAVAIG_PREVIEW_ASSEMBLY_VERSION /p:FileVersion=$STRAVAIG_PREVIEW_ASSEMBLY_VERSION
           dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics.XUnit/Stravaig.Extensions.Logging.Diagnostics.XUnit.csproj --configuration Release --output ./out/preview --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" --version-suffix "$STRAVAIG_PACKAGE_VERSION_SUFFIX" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg /p:AssemblyVersion=$STRAVAIG_PREVIEW_ASSEMBLY_VERSION /p:FileVersion=$STRAVAIG_PREVIEW_ASSEMBLY_VERSION
+          dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics.XUnit.v3/Stravaig.Extensions.Logging.Diagnostics.XUnit.v3.csproj --configuration Release --output ./out/preview --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" --version-suffix "$STRAVAIG_PACKAGE_VERSION_SUFFIX" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg /p:AssemblyVersion=$STRAVAIG_PREVIEW_ASSEMBLY_VERSION /p:FileVersion=$STRAVAIG_PREVIEW_ASSEMBLY_VERSION
 
       - name: Package Stable Release
         run: |
           export STRAVAIG_NUGET_VERSION=$STRAVAIG_STABLE_VERSION
           dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics/Stravaig.Extensions.Logging.Diagnostics.csproj --configuration Release --output ./out/stable --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg /p:AssemblyVersion=$STRAVAIG_ASSEMBLY_VERSION /p:FileVersion=$STRAVAIG_ASSEMBLY_VERSION
           dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics.XUnit/Stravaig.Extensions.Logging.Diagnostics.XUnit.csproj --configuration Release --output ./out/stable --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg /p:AssemblyVersion=$STRAVAIG_ASSEMBLY_VERSION /p:FileVersion=$STRAVAIG_ASSEMBLY_VERSION
+          dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics.XUnit.v3/Stravaig.Extensions.Logging.Diagnostics.XUnit.v3.csproj --configuration Release --output ./out/stable --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg /p:AssemblyVersion=$STRAVAIG_ASSEMBLY_VERSION /p:FileVersion=$STRAVAIG_ASSEMBLY_VERSION
 
       - name: Archive Packages
         uses: actions/upload-artifact@v4
@@ -233,7 +238,3 @@ jobs:
           push: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-
-
-

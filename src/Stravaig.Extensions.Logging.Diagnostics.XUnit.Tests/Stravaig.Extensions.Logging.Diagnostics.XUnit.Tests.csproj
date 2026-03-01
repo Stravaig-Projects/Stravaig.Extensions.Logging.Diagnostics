@@ -1,9 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
         <IsPackable>false</IsPackable>
-		<LangVersion>latest</LangVersion>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -29,6 +29,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Stravaig.Extensions.Logging.Diagnostics\Stravaig.Extensions.Logging.Diagnostics.csproj" />
+        <ProjectReference Include="..\Stravaig.Extensions.Logging.Diagnostics.XUnit\Stravaig.Extensions.Logging.Diagnostics.XUnit.csproj" />
+        <ProjectReference Include="..\Stravaig.Extensions.Logging.Diagnostics\Stravaig.Extensions.Logging.Diagnostics.csproj" />
     </ItemGroup>
 </Project>
