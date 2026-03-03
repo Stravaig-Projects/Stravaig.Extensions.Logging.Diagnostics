@@ -2,7 +2,7 @@ name: Stravaig Test Capture Logger V4
 on:
   push:
     branches:
-      - '#223/support-xunit-v3'
+      - main
 
     paths-ignore:
       - 'README.md'
