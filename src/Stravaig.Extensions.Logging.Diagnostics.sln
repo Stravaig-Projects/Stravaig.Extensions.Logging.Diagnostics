@@ -40,6 +40,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "githooks", "githooks", "{4F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stravaig.Extensions.Logging.Diagnostics.XUnit", "Stravaig.Extensions.Logging.Diagnostics.XUnit\Stravaig.Extensions.Logging.Diagnostics.XUnit.csproj", "{5CFE6D66-19C2-4666-8C26-775C622E2921}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stravaig.Extensions.Logging.Diagnostics.XUnit.v3", "Stravaig.Extensions.Logging.Diagnostics.XUnit.v3\Stravaig.Extensions.Logging.Diagnostics.XUnit.v3.csproj", "{C3EA5914-1F7D-42F9-AA85-FE608382F345}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{3E784BEA-E061-467D-B6BA-DA9B47D8DAD9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stravaig.Extensions.Logging.Diagnostics.XUnit.Tests", "Stravaig.Extensions.Logging.Diagnostics.XUnit.Tests\Stravaig.Extensions.Logging.Diagnostics.XUnit.Tests.csproj", "{796C8355-E151-48CF-879D-AE5B0949F853}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stravaig.Extensions.Logging.Diagnostics.XUnit.v3.Tests", "Stravaig.Extensions.Logging.Diagnostics.XUnit.v3.Tests\Stravaig.Extensions.Logging.Diagnostics.XUnit.v3.Tests.csproj", "{6F76283A-45F2-437C-9E88-E866BF51A7EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,8 +66,23 @@ Global
 		{5CFE6D66-19C2-4666-8C26-775C622E2921}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CFE6D66-19C2-4666-8C26-775C622E2921}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CFE6D66-19C2-4666-8C26-775C622E2921}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3EA5914-1F7D-42F9-AA85-FE608382F345}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3EA5914-1F7D-42F9-AA85-FE608382F345}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3EA5914-1F7D-42F9-AA85-FE608382F345}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3EA5914-1F7D-42F9-AA85-FE608382F345}.Release|Any CPU.Build.0 = Release|Any CPU
+		{796C8355-E151-48CF-879D-AE5B0949F853}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{796C8355-E151-48CF-879D-AE5B0949F853}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{796C8355-E151-48CF-879D-AE5B0949F853}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{796C8355-E151-48CF-879D-AE5B0949F853}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F76283A-45F2-437C-9E88-E866BF51A7EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F76283A-45F2-437C-9E88-E866BF51A7EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F76283A-45F2-437C-9E88-E866BF51A7EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F76283A-45F2-437C-9E88-E866BF51A7EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4F93041F-3DE3-4262-9F56-9F8D5DA253DC} = {403E4EE3-1668-43E3-888D-1ACF5E8D684B}
+		{B340AAA5-0FF9-4838-8788-803DE8D72999} = {3E784BEA-E061-467D-B6BA-DA9B47D8DAD9}
+		{796C8355-E151-48CF-879D-AE5B0949F853} = {3E784BEA-E061-467D-B6BA-DA9B47D8DAD9}
+		{6F76283A-45F2-437C-9E88-E866BF51A7EA} = {3E784BEA-E061-467D-B6BA-DA9B47D8DAD9}
 	EndGlobalSection
 EndGlobal

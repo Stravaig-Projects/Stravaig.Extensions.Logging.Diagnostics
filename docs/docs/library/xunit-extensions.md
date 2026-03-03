@@ -5,7 +5,10 @@ title: XUnit extensions
 
 # XUnit Extensions
 
-**Available from v2.1 in package [Stravaig.Extensions.Logging.Diagnostics.XUnit](https://www.nuget.org/packages/Stravaig.Extensions.Logging.Diagnostics.XUnit)**
+Support for xunit v2 is available from v2.1 onwards in package [Stravaig.Extensions.Logging.Diagnostics.XUnit](https://www.nuget.org/packages/Stravaig.Extensions.Logging.Diagnostics.XUnit)
+
+Support for xunit v3 is available from v4.1 onwards in package [Stravaig.Extensions.Logging.Diagnostics.XUnit.v3](https://www.nuget.org/packages/Stravaig.Extensions.Logging.Diagnostics.XUnit.v3)
+
 
 ## ITestOutputHelper.WriteLogs()
 

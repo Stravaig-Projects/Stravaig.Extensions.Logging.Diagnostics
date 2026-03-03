@@ -45,19 +45,21 @@ This package is designed to hook into the .NET logging framework so that the log
 * Stable releases:
   * ![Nuget](https://img.shields.io/nuget/v/Stravaig.Extensions.Logging.Diagnostics?color=004880&label=nuget%20stable&logo=nuget) [View Stravaig.Extensions.Logging.Diagnostics on NuGet](https://www.nuget.org/packages/Stravaig.Extensions.Logging.Diagnostics)
   * ![Nuget](https://img.shields.io/nuget/v/Stravaig.Extensions.Logging.Diagnostics.XUnit?color=004880&label=nuget%20stable&logo=nuget) [View Stravaig.Extensions.Logging.Diagnostics.XUnit on NuGet](https://www.nuget.org/packages/Stravaig.Extensions.Logging.Diagnostics.XUnit)
+  * ![Nuget](https://img.shields.io/nuget/v/Stravaig.Extensions.Logging.Diagnostics.XUnit.v3?color=004880&label=nuget%20stable&logo=nuget) [View Stravaig.Extensions.Logging.Diagnostics.XUnit.v3 on NuGet](https://www.nuget.org/packages/Stravaig.Extensions.Logging.Diagnostics.XUnit.v3)
 * Latest releases:
   * ![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/Stravaig.Extensions.Logging.Diagnostics?color=ffffff&label=nuget%20latest&logo=nuget) [View Stravaig.Extensions.Logging.Diagnostics on NuGet](https://www.nuget.org/packages/Stravaig.Extensions.Logging.Diagnostics)
   * ![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/Stravaig.Extensions.Logging.Diagnostics.XUnit?color=ffffff&label=nuget%20latest&logo=nuget) [View Stravaig.Extensions.Logging.Diagnostics.XUnit on NuGet](https://www.nuget.org/packages/Stravaig.Extensions.Logging.Diagnostics.XUnit)
+  * ![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/Stravaig.Extensions.Logging.Diagnostics.XUnit.v3?color=ffffff&label=nuget%20latest&logo=nuget) [View Stravaig.Extensions.Logging.Diagnostics.XUnit.v3 on NuGet](https://www.nuget.org/packages/Stravaig.Extensions.Logging.Diagnostics.XUnit.v3)
 
 ## Supported .NET Versions
 
-v1.x supports: .NET Core 3.1 and .NET 5.0
+v1.x supports: .NET Core 3.1, and .NET 5.0
 
-v2.x supports: .NET 6.0, 7.0 and 8.0
+v2.x supports: .NET 6.0, 7.0, and 8.0
 
-v3.x supports: .NET 6.0, 8.0 and 9.0
+v3.x supports: .NET 6.0, 8.0, and 9.0
 
-v4.x supports: .NET 8.0, 9.0 and 10.0
+v4.x supports: .NET 8.0, 9.0, and 10.0
 
 ## Other Stuff
 
