@@ -48,6 +48,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stravaig.Extensions.Logging
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stravaig.Extensions.Logging.Diagnostics.XUnit.v3.Tests", "Stravaig.Extensions.Logging.Diagnostics.XUnit.v3.Tests\Stravaig.Extensions.Logging.Diagnostics.XUnit.v3.Tests.csproj", "{6F76283A-45F2-437C-9E88-E866BF51A7EA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stravaig.Extensions.Logging.Diagnostics.Tests.Helpers", "Stravaig.Extensions.Logging.Diagnostics.Tests.Helpers\Stravaig.Extensions.Logging.Diagnostics.Tests.Helpers.csproj", "{E8AD4D98-9610-4A82-A7D6-809AAB9DF16A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -78,11 +80,16 @@ Global
 		{6F76283A-45F2-437C-9E88-E866BF51A7EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F76283A-45F2-437C-9E88-E866BF51A7EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F76283A-45F2-437C-9E88-E866BF51A7EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8AD4D98-9610-4A82-A7D6-809AAB9DF16A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8AD4D98-9610-4A82-A7D6-809AAB9DF16A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8AD4D98-9610-4A82-A7D6-809AAB9DF16A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8AD4D98-9610-4A82-A7D6-809AAB9DF16A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4F93041F-3DE3-4262-9F56-9F8D5DA253DC} = {403E4EE3-1668-43E3-888D-1ACF5E8D684B}
 		{B340AAA5-0FF9-4838-8788-803DE8D72999} = {3E784BEA-E061-467D-B6BA-DA9B47D8DAD9}
 		{796C8355-E151-48CF-879D-AE5B0949F853} = {3E784BEA-E061-467D-B6BA-DA9B47D8DAD9}
 		{6F76283A-45F2-437C-9E88-E866BF51A7EA} = {3E784BEA-E061-467D-B6BA-DA9B47D8DAD9}
+		{E8AD4D98-9610-4A82-A7D6-809AAB9DF16A} = {3E784BEA-E061-467D-B6BA-DA9B47D8DAD9}
 	EndGlobalSection
 EndGlobal

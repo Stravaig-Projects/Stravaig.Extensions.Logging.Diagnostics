@@ -30,6 +30,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Stravaig.Extensions.Logging.Diagnostics.Tests.Helpers\Stravaig.Extensions.Logging.Diagnostics.Tests.Helpers.csproj" />
       <ProjectReference Include="..\Stravaig.Extensions.Logging.Diagnostics\Stravaig.Extensions.Logging.Diagnostics.csproj" />
     </ItemGroup>
 </Project>
