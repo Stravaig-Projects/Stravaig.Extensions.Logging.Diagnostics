@@ -4,10 +4,10 @@ using System.Reflection;
 using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 using Shouldly;
-using Stravaig.Extensions.Logging.Diagnostics.XUnit;
+using Stravaig.Extensions.Logging.Diagnostics.Tests.Helpers;
 using Xunit.Abstractions;
 
-namespace Stravaig.Extensions.Logging.Diagnostics.Tests.XUnit;
+namespace Stravaig.Extensions.Logging.Diagnostics.XUnit.Tests;
 
 public class OutputTestHelperExtensionTests
 {
@@ -28,7 +28,7 @@ public class OutputTestHelperExtensionTests
     [Test]
     public void RenderedLogEntryMessagesSentToOutputTestHelper()
     {
-        ResetLogSequence();
+        LogEntryHelper.ResetLogSequence();
         var outputHelper = new OutputHelper();
         var logger = new TestCaptureLogger<OutputTestHelperExtensionTests>();
         logger.LogInformation("This is an information Message.");
@@ -37,14 +37,14 @@ public class OutputTestHelperExtensionTests
         var logs = logger.GetLogs();
         outputHelper.WriteLogs(logs);
 
-        outputHelper.Messages[0].ShouldBe("[0 Information Stravaig.Extensions.Logging.Diagnostics.Tests.XUnit.OutputTestHelperExtensionTests] This is an information Message.");
-        outputHelper.Messages[1].ShouldBe("[1 Information Stravaig.Extensions.Logging.Diagnostics.Tests.XUnit.OutputTestHelperExtensionTests] This is a Warning Message.");
+        outputHelper.Messages[0].ShouldBe("[0 Information Stravaig.Extensions.Logging.Diagnostics.XUnit.Tests.OutputTestHelperExtensionTests] This is an information Message.");
+        outputHelper.Messages[1].ShouldBe("[1 Information Stravaig.Extensions.Logging.Diagnostics.XUnit.Tests.OutputTestHelperExtensionTests] This is a Warning Message.");
     }
 
     [Test]
     public void RenderedLoggerSentToOutputTestHelper()
     {
-        ResetLogSequence();
+        LogEntryHelper.ResetLogSequence();
         var outputHelper = new OutputHelper();
         var logger = new TestCaptureLogger<OutputTestHelperExtensionTests>();
         logger.LogInformation("This is an information Message.");
@@ -52,14 +52,14 @@ public class OutputTestHelperExtensionTests
 
         outputHelper.WriteLogs(logger);
 
-        outputHelper.Messages[0].ShouldBe("[0 Information Stravaig.Extensions.Logging.Diagnostics.Tests.XUnit.OutputTestHelperExtensionTests] This is an information Message.");
-        outputHelper.Messages[1].ShouldBe("[1 Information Stravaig.Extensions.Logging.Diagnostics.Tests.XUnit.OutputTestHelperExtensionTests] This is a Warning Message.");
+        outputHelper.Messages[0].ShouldBe("[0 Information Stravaig.Extensions.Logging.Diagnostics.XUnit.Tests.OutputTestHelperExtensionTests] This is an information Message.");
+        outputHelper.Messages[1].ShouldBe("[1 Information Stravaig.Extensions.Logging.Diagnostics.XUnit.Tests.OutputTestHelperExtensionTests] This is a Warning Message.");
     }
 
     [Test]
     public void RenderedLoggerProviderSentToOutputTestHelper()
     {
-        ResetLogSequence();
+        LogEntryHelper.ResetLogSequence();
         var outputHelper = new OutputHelper();
         var loggerProvider = new TestCaptureLoggerProvider();
         var logger1 = loggerProvider.CreateLogger("logger1");
