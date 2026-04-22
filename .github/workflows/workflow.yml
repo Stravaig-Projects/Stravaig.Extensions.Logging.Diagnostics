@@ -59,7 +59,7 @@ jobs:
           echo "Preview Assembly Version: $STRAVAIG_PREVIEW_ASSEMBLY_VERSION"
           echo "Assembly Version: $STRAVAIG_ASSEMBLY_VERSION"
 
-      - uses: actions/setup-dotnet@v4
+      - uses: actions/setup-dotnet@v5
         name: Setup .NET 8.0, 9.0 and 10.0
         with:
           dotnet-version: |
@@ -88,7 +88,7 @@ jobs:
           dotnet pack ./src/Stravaig.Extensions.Logging.Diagnostics.XUnit.v3/Stravaig.Extensions.Logging.Diagnostics.XUnit.v3.csproj --configuration Release --output ./out/stable --include-symbols --include-source /p:VersionPrefix="$STRAVAIG_PACKAGE_VERSION" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg /p:AssemblyVersion=$STRAVAIG_ASSEMBLY_VERSION /p:FileVersion=$STRAVAIG_ASSEMBLY_VERSION
 
       - name: Archive Packages
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: packages
           path: ./out/**
@@ -103,7 +103,7 @@ jobs:
         run: ./build-release-notes.ps1
 
       - name: Archive Release Notes
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: release-information
           path: |
