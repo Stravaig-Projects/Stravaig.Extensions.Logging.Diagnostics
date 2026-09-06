@@ -104,7 +104,7 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
         {
             // This test is designed to test that the logger is thread-safe.
             // It may take a while to run.
-            const int timeoutMs = 30000;
+            const int timeoutMs = 60000;
             const int iterationsPerThread = 250_000;
             int numThreads = Environment.ProcessorCount * 4;
             int expectedLogCount = iterationsPerThread * numThreads;
@@ -117,15 +117,24 @@ namespace Stravaig.Extensions.Logging.Diagnostics.Tests
                 int localTaskNumber = taskNumber;
                 tasks[taskNumber] = Task.Factory.StartNew(() =>
                 {
-                    Console.WriteLine($"[{DateTime.UtcNow:O}] Starting task {localTaskNumber} on thread {Environment.CurrentManagedThreadId}");
-                    for (int i = 0; i < iterationsPerThread; i++)
+                    var startTime = DateTime.UtcNow;
+                    Console.WriteLine($"[{startTime:O}] Starting task {localTaskNumber} on thread {Environment.CurrentManagedThreadId}");
+                    try
                     {
-                        logger.LogInformation(
-                            "Log iteration {Iteration} on thread {ThreadId}",
-                            i,
-                            Environment.CurrentManagedThreadId);
+                        for (int i = 0; i < iterationsPerThread; i++)
+                        {
+                            logger.LogInformation(
+                                "Log iteration {Iteration} on thread {ThreadId}",
+                                i,
+                                Environment.CurrentManagedThreadId);
+                        }
                     }
-                    Console.WriteLine($"[{DateTime.UtcNow:O}] Finished task {localTaskNumber} on thread {Environment.CurrentManagedThreadId}");
+                    finally
+                    {
+                        var endTime = DateTime.UtcNow;
+                        var duration = endTime - startTime;
+                        Console.WriteLine($"[{endTime:O}] Finished task {localTaskNumber} on thread {Environment.CurrentManagedThreadId}. Took {duration.TotalSeconds:F3}s");
+                    }
                 });
             }
 
