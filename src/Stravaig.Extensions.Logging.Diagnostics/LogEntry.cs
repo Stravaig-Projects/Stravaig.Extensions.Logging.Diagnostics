@@ -65,7 +65,7 @@ public class LogEntry : IComparable<LogEntry>
     public DateTime TimestampUtc { get; }
 
     /// <summary>
-    /// Ths time the log entry was created in the system's local time
+    /// The time the log entry was created in the system's local time
     /// </summary>
     public DateTimeOffset TimestampLocal
     {
@@ -125,12 +125,7 @@ public class LogEntry : IComparable<LogEntry>
         lock (SequenceSyncLock)
         {
             Sequence = _sequence++;
-            // Ensure monotonicity of the timestamp between log entries, even
-            // in high-frequency logging scenarios.
-            var now = MonotonicClock.MonotonicClock.UtcTicks;
-            //_lastTimestampUtc = Math.Max(_lastTimestampUtc + 1, now);
-            //TimestampUtc = new DateTime(_lastTimestampUtc, DateTimeKind.Utc);
-            TimestampUtc = new DateTime(now, DateTimeKind.Utc);
+            TimestampUtc = MonotonicClock.MonotonicClock.UtcNow;
         }
     }
 
